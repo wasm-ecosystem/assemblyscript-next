@@ -27,7 +27,9 @@ jobs:
           else
             printf "\nOK: Distributions files have not been modified.\n";
           fi
-      - name: Check
+      - name: Build
+        run: npm run build
+      - name: Check repo
         run: npm run check
   compiler:
     name: "Compiler (${{ matrix.os }}, node ${{ matrix.node_version }})"
