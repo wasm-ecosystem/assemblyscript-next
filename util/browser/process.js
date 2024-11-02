@@ -41,7 +41,11 @@ export function exit(code = 0) {
 // POSSIBILITY OF SUCH DAMAGE.
 
 var performance = globalThis.performance || {};
-var performanceNow = performance.now || function() { return new Date().getTime(); };
+var performanceNow =
+  performance.now ||
+  function () {
+    return new Date().getTime();
+  };
 
 export function hrtime(previousTimestamp) {
   var clocktime = performanceNow.call(performance);
@@ -55,5 +59,5 @@ export function hrtime(previousTimestamp) {
       nanoseconds += 1e9;
     }
   }
-  return [ seconds, nanoseconds ];
+  return [seconds, nanoseconds];
 }

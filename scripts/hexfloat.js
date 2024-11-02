@@ -24,7 +24,7 @@
 // see: https://github.com/maurobringolf/webassembly-floating-point-hex-parser
 function parse(input) {
   input = input.toUpperCase();
-  const splitIndex = input.indexOf('P');
+  const splitIndex = input.indexOf("P");
   let mantissa, exponent;
 
   if (splitIndex !== -1) {
@@ -35,7 +35,7 @@ function parse(input) {
     exponent = 0;
   }
 
-  const dotIndex = mantissa.indexOf('.');
+  const dotIndex = mantissa.indexOf(".");
 
   if (dotIndex !== -1) {
     let integerPart = parseInt(mantissa.substring(0, dotIndex), 16);
@@ -49,7 +49,7 @@ function parse(input) {
         mantissa = sign;
       } else {
         if (Object.is(sign, -0)) {
-          mantissa = - fraction;
+          mantissa = -fraction;
         } else {
           mantissa = fraction;
         }

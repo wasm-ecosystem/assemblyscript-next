@@ -6,7 +6,7 @@ import { globSync } from "glob";
 import { createRequire } from "module";
 import { stdoutColors } from "../util/terminal.js";
 
-import {buildWeb} from "./build-web.js";
+import { buildWeb } from "./build-web.js";
 import * as dts from "./build-dts.js";
 
 const require = createRequire(import.meta.url);
@@ -17,10 +17,14 @@ function prelude(name) {
   return [
     "/**\n",
     " * @license\n",
-    " * ", name, "\n",
-    " * Copyright ", new Date().getFullYear().toString(), " Daniel Wirtz / The AssemblyScript Authors\n",
+    " * ",
+    name,
+    "\n",
+    " * Copyright ",
+    new Date().getFullYear().toString(),
+    " Daniel Wirtz / The AssemblyScript Authors\n",
     " * SPDX-License-Identifier: Apache-2.0\n",
-    " */"
+    " */",
   ].join("");
 }
 
@@ -47,7 +51,7 @@ function reportPlugin(name) {
           console.log(`${time()} - ${name} - ${stdoutColors.green("SUCCESS")} (${warnings.length} warnings, ${duration} ms)`);
         }
       });
-    }
+    },
   };
 }
 
@@ -60,55 +64,45 @@ function bundleFile(filename) {
 const stdlibPlugin = {
   name: "stdlib",
   setup(build) {
-    build.onResolve({ filter: /\bindex\.generated\.js$/ }, args => {
+    build.onResolve({ filter: /\bindex\.generated\.js$/ }, (args) => {
       return {
         path: path.join(args.resolveDir, args.path),
-        watchFiles: globSync(path.join(dirname, "..", "std", "assembly") + "/**/*.ts")
-          .concat([
-            path.join(dirname, "..", "package.json"),
-            path.join(dirname, "..", "cli", "options.json"),
-            path.join(dirname, "..", "std", "portable", "index.d.ts")
-          ])
+        watchFiles: globSync(path.join(dirname, "..", "std", "assembly") + "/**/*.ts").concat([
+          path.join(dirname, "..", "package.json"),
+          path.join(dirname, "..", "cli", "options.json"),
+          path.join(dirname, "..", "std", "portable", "index.d.ts"),
+        ]),
       };
     });
-    build.onLoad({ filter: /\bindex\.generated\.js$/ }, args => {
-      const out = [
-        `// GENERATED FILE. DO NOT EDIT.\n\n`
-      ];
+    build.onLoad({ filter: /\bindex\.generated\.js$/ }, (args) => {
+      const out = [`// GENERATED FILE. DO NOT EDIT.\n\n`];
       const version = require("../package.json").version;
-      out.push(
-        `export const version = ${JSON.stringify(version)};\n`
-      );
+      out.push(`export const version = ${JSON.stringify(version)};\n`);
       const options = require("../cli/options.json");
-      out.push(
-        `export const options = ${JSON.stringify(options, null, 2)};\n`
-      );
-      out.push(
-        `export const libraryPrefix = "~lib/";\n`
-      );
+      out.push(`export const options = ${JSON.stringify(options, null, 2)};\n`);
+      out.push(`export const libraryPrefix = "~lib/";\n`);
       const libraryDir = path.join(dirname, "..", "std", "assembly");
       const libraryFiles = {};
-      for (const file of globSync("**/!(*.d).ts", { cwd: libraryDir, posix: true }).sort()) {
+      for (const file of globSync("**/!(*.d).ts", {
+        cwd: libraryDir,
+        posix: true,
+      }).sort()) {
         libraryFiles[file.replace(/\.ts$/, "")] = bundleFile(path.join(libraryDir, file));
       }
-      out.push(
-        `export const libraryFiles = ${JSON.stringify(libraryFiles, null, 2)};\n`
-      );
+      out.push(`export const libraryFiles = ${JSON.stringify(libraryFiles, null, 2)};\n`);
       const definitionFiles = {
         assembly: bundleFile(path.join(dirname, "..", "std", "assembly", "index.d.ts")),
-        portable: bundleFile(path.join(dirname, "..", "std", "portable", "index.d.ts"))
+        portable: bundleFile(path.join(dirname, "..", "std", "portable", "index.d.ts")),
       };
-      out.push(
-        `export const definitionFiles = ${JSON.stringify(definitionFiles, null, 2)};\n`
-      );
+      out.push(`export const definitionFiles = ${JSON.stringify(definitionFiles, null, 2)};\n`);
       const generated = out.join("");
       fs.writeFileSync(path.join(dirname, "..", "cli", "index.generated.js"), generated);
       return {
         contents: generated,
-        loader: "js"
+        loader: "js",
       };
     });
-  }
+  },
 };
 
 // Diagnostic messages integration
@@ -116,18 +110,14 @@ const stdlibPlugin = {
 const diagnosticsPlugin = {
   name: "diagnostics",
   setup(build) {
-    build.onResolve({ filter: /\bdiagnosticMessages\.generated$/ }, args => {
+    build.onResolve({ filter: /\bdiagnosticMessages\.generated$/ }, (args) => {
       return {
         path: path.join(args.resolveDir, args.path),
-        watchFiles: [
-          path.join(dirname, "..", "src", "diagnosticMessages.json")
-        ]
+        watchFiles: [path.join(dirname, "..", "src", "diagnosticMessages.json")],
       };
     });
-    build.onLoad({ filter: /\bdiagnosticMessages\.generated$/ }, args => {
-      const out = [
-        `// GENERATED FILE. DO NOT EDIT.\n\n`
-      ];
+    build.onLoad({ filter: /\bdiagnosticMessages\.generated$/ }, (args) => {
+      const out = [`// GENERATED FILE. DO NOT EDIT.\n\n`];
 
       function makeKey(text) {
         return text.replace(/[^\w]+/g, "_").replace(/_+$/, "");
@@ -138,10 +128,9 @@ const diagnosticsPlugin = {
 
       let first = true;
       const messages = JSON.parse(fs.readFileSync(path.join(dirname, "..", "src", "diagnosticMessages.json")));
-      Object.keys(messages).forEach(text => {
+      Object.keys(messages).forEach((text) => {
         let key = makeKey(text);
-        if (first)
-          first = false;
+        if (first) first = false;
         else {
           out.push(",\n");
         }
@@ -152,20 +141,20 @@ const diagnosticsPlugin = {
       out.push("/** Translates a diagnostic code to its respective string. */\n");
       out.push("export function diagnosticCodeToString(code: DiagnosticCode): string {\n  switch (code) {\n");
 
-      Object.keys(messages).forEach(text => {
+      Object.keys(messages).forEach((text) => {
         out.push("    case " + messages[text] + ": return " + JSON.stringify(text) + ";\n");
       });
 
-      out.push("    default: return \"\";\n  }\n}\n");
+      out.push('    default: return "";\n  }\n}\n');
 
       const generated = out.join("");
       fs.writeFileSync(path.join(dirname, "..", "src", "diagnosticMessages.generated.ts"), generated);
       return {
         contents: generated,
-        loader: "ts"
+        loader: "ts",
       };
     });
-  }
+  },
 };
 
 // Web template integration
@@ -192,7 +181,7 @@ const webPlugin = {
         buildingDefinitions = false;
       }
     });
-  }
+  },
 };
 
 // Build compiler and CLI
@@ -201,16 +190,12 @@ const common = {
   target: "esnext",
   platform: "node",
   format: "esm",
-  external: [
-    "assemblyscript",
-    "binaryen",
-    "long"
-  ],
+  external: ["assemblyscript", "binaryen", "long"],
   legalComments: "none",
   bundle: true,
   sourcemap: true,
   treeShaking: true,
-  minify: true
+  minify: true,
 };
 
 async function invokeBuild(options) {
@@ -224,21 +209,21 @@ async function invokeBuild(options) {
 }
 
 const srcBuild = invokeBuild({
-  entryPoints: [ "./src/index.ts" ],
+  entryPoints: ["./src/index.ts"],
   tsconfig: "./src/tsconfig.json",
   outfile: "./dist/assemblyscript.js",
   banner: { js: prelude("The AssemblyScript compiler") },
-  plugins: [ diagnosticsPlugin, reportPlugin("src") ],
-  ...common
+  plugins: [diagnosticsPlugin, reportPlugin("src")],
+  ...common,
 });
 
 const cliBuild = invokeBuild({
-  entryPoints: [ "./cli/index.js" ],
+  entryPoints: ["./cli/index.js"],
   tsconfig: "./cli/tsconfig.json",
   outfile: "./dist/asc.js",
   banner: { js: prelude("The AssemblyScript frontend") },
-  plugins: [ stdlibPlugin, webPlugin, reportPlugin("cli") ],
-  ...common
+  plugins: [stdlibPlugin, webPlugin, reportPlugin("cli")],
+  ...common,
 });
 
 // Optionally build definitions (takes a while)
@@ -269,7 +254,7 @@ function buildDefinitions() {
 
 if (watch) {
   console.log("Watching for changes. Press RETURN to rebuild definitions.\n");
-  process.stdin.on("data", data => {
+  process.stdin.on("data", (data) => {
     if (data == "\r\n" || data == "\n") {
       process.stdout.write("\u001b[1A");
       if (!buildingDefinitions) buildDefinitions();
@@ -282,5 +267,5 @@ cli : Compiler frontend asc
 dts : TS definition bundles
 web : Example web template\n`);
 
-await Promise.all([ srcBuild, cliBuild ]);
+await Promise.all([srcBuild, cliBuild]);
 buildDefinitions();

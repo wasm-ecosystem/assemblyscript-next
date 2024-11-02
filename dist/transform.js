@@ -1,1 +1,3 @@
-export class Transform { /* stub */ };
+export class Transform {
+  /* stub */
+}

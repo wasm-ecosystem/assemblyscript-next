@@ -58,6 +58,9 @@ function check(transform) {
 function defer() {
   return new Promise((resolve, reject) => {
     console.log("  defer");
-    setTimeout(() => { console.log("  resolve"); resolve(); }, 100);
+    setTimeout(() => {
+      console.log("  resolve");
+      resolve();
+    }, 100);
   });
 }

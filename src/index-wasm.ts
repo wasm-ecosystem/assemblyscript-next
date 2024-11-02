@@ -14,30 +14,13 @@
  * When compiling to WebAssembly `glue/wasm/index.ts` must be included.
  */
 
-import {
-  Target,
-  Runtime,
-  Feature
-} from "./common";
+import { Target, Runtime, Feature } from "./common";
 
-import {
-  Compiler,
-  Options,
-  UncheckedBehavior,
-  defaultFeatures
-} from "./compiler";
+import { Compiler, Options, UncheckedBehavior, defaultFeatures } from "./compiler";
 
-import {
-  TSDBuilder,
-  JSBuilder
-} from "./bindings";
+import { TSDBuilder, JSBuilder } from "./bindings";
 
-import {
-  Range,
-  DiagnosticMessage,
-  DiagnosticCategory,
-  formatDiagnosticMessage
-} from "./diagnostics";
+import { Range, DiagnosticMessage, DiagnosticCategory, formatDiagnosticMessage } from "./diagnostics";
 
 import { Module } from "./module";
 import { Program } from "./program";
@@ -161,12 +144,7 @@ export function setStackSize(options: Options, stackSize: i32): void {
 }
 
 /** Sets the bundle semantic version. */
-export function setBundleVersion(
-  options: Options,
-  bundleMajorVersion: i32,
-  bundleMinorVersion: i32,
-  bundlePatchVersion: i32,
-): void {
+export function setBundleVersion(options: Options, bundleMajorVersion: i32, bundleMinorVersion: i32, bundlePatchVersion: i32): void {
   options.bundleMajorVersion = bundleMajorVersion;
   options.bundleMinorVersion = bundleMinorVersion;
   options.bundlePatchVersion = bundlePatchVersion;
@@ -246,9 +224,7 @@ export function newProgram(options: Options): Program {
 
 /** Obtains the next diagnostic message. Returns `null` once complete. */
 export function nextDiagnostic(program: Program): DiagnosticMessage | null {
-  return program.diagnosticsOffset < program.diagnostics.length
-    ? program.diagnostics[program.diagnosticsOffset++]
-    : null;
+  return program.diagnosticsOffset < program.diagnostics.length ? program.diagnostics[program.diagnosticsOffset++] : null;
 }
 
 /** Obtains the source of the given file. */
@@ -330,7 +306,7 @@ export function parse(
   /** Normalized path of the file. */
   path: string,
   /** Whether this is an entry file. */
-  isEntry: bool = false
+  isEntry: bool = false,
 ): void {
   program.parser.parseFile(text, path, isEntry);
 }
@@ -379,12 +355,6 @@ export function validate(module: Module): bool {
 }
 
 /** Optimizes a module. */
-export function optimize(
-  module: Module,
-  optimizeLevel: i32,
-  shrinkLevel: i32,
-  debugInfo: bool = false,
-  zeroFilledMemory: bool = false
-): void {
+export function optimize(module: Module, optimizeLevel: i32, shrinkLevel: i32, debugInfo: bool = false, zeroFilledMemory: bool = false): void {
   module.optimize(optimizeLevel, shrinkLevel, debugInfo, zeroFilledMemory);
 }

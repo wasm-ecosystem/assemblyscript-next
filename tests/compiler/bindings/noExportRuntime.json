@@ -1,6 +1,3 @@
 {
-  "asc_flags": [
-    "--exportStart _start",
-    "--bindings esm"
-  ]
+  "asc_flags": ["--exportStart _start", "--bindings esm"]
 }

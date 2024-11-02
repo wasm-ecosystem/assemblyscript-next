@@ -1,5 +1,5 @@
 // @ts-ignore
 @global
-  const ONE = 1;
+const ONE = 1;
 
 assert(ONE);

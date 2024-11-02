@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--converge"
-  ]
+  "asc_flags": ["--converge"]
 }

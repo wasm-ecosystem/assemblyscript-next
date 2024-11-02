@@ -92,10 +92,7 @@
 
   "sourceMap": {
     "category": "Debugging",
-    "description": [
-      "Enables source map generation. Optionally takes the URL",
-      "used to reference the source map from the binary file."
-    ],
+    "description": ["Enables source map generation. Optionally takes the URL", "used to reference the source map from the binary file."],
     "type": "s"
   },
   "uncheckedBehavior": {
@@ -194,10 +191,7 @@
   },
   "exportRuntime": {
     "category": "Features",
-    "description": [
-      "Always exports the runtime helpers (__new, __collect, __pin etc.).",
-      "Automatically determined when generation of --bindings is enabled."
-    ],
+    "description": ["Always exports the runtime helpers (__new, __collect, __pin etc.).", "Automatically determined when generation of --bindings is enabled."],
     "type": "b",
     "default": false
   },
@@ -301,10 +295,7 @@
   },
   "runPasses": {
     "category": "Binaryen",
-    "description": [
-      "Specifies additional Binaryen passes to run after other",
-      "optimizations, if any. See: Binaryen/src/passes/pass.cpp"
-    ],
+    "description": ["Specifies additional Binaryen passes to run after other", "optimizations, if any. See: Binaryen/src/passes/pass.cpp"],
     "type": "s"
   },
   "noValidate": {
@@ -325,18 +316,12 @@
     "default": false
   },
   "noUnsafe": {
-    "description": [
-      "Disallows the use of unsafe features in user code.",
-      "Does not affect library files and external modules."
-    ],
+    "description": ["Disallows the use of unsafe features in user code.", "Does not affect library files and external modules."],
     "type": "b",
     "default": false
   },
   "disableWarning": {
-    "description": [
-      "Disables warnings matching the given diagnostic code.",
-      "If no diagnostic code is given, all warnings are disabled."
-    ],
+    "description": ["Disables warnings matching the given diagnostic code.", "If no diagnostic code is given, all warnings are disabled."],
     "type": "I"
   },
   "noEmit": {
@@ -360,10 +345,7 @@
     "default": false
   },
   "lib": {
-    "description": [
-      "Adds one or multiple paths to custom library components and",
-      "uses exports of all top-level files at this path as globals."
-    ],
+    "description": ["Adds one or multiple paths to custom library components and", "uses exports of all top-level files at this path as globals."],
     "type": "S",
     "isPath": true
   },
@@ -398,6 +380,8 @@
   "-O2z": { "value": { "optimizeLevel": 2, "shrinkLevel": 2 } },
   "-O3z": { "value": { "optimizeLevel": 3, "shrinkLevel": 2 } },
   "-Ospeed": { "value": { "optimizeLevel": 3, "shrinkLevel": 0 } },
-  "-Osize": { "value": { "optimizeLevel": 0, "shrinkLevel": 2, "converge": true } },
+  "-Osize": {
+    "value": { "optimizeLevel": 0, "shrinkLevel": 2, "converge": true }
+  },
   "--measure": { "value": { "stats": true } }
 }

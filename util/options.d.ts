@@ -5,19 +5,19 @@
 
 /** A set of options. */
 export interface OptionSet {
-  [key: string]: number | string
+  [key: string]: number | string;
 }
 
 /** Command line option description. */
 export interface OptionDescription {
   /** Textual description. */
-  description?: string | string[],
+  description?: string | string[];
   /** Data type. One of (b)oolean [default], (i)nteger, (f)loat or (s)tring. Uppercase means multiple values. */
-  type?: "b" | "i" | "f" | "s" | "I" | "F" | "S",
+  type?: "b" | "i" | "f" | "s" | "I" | "F" | "S";
   /** Substituted options, if any. */
-  value?: OptionSet,
+  value?: OptionSet;
   /** Short alias, if any. */
-  alias?: string
+  alias?: string;
   /** The default value, if any. */
   default?: string | number | boolean | string[] | number[];
   /** The category this option belongs in. */
@@ -32,13 +32,13 @@ export interface Config {
 /** Parsing result. */
 export interface Result {
   /** Parsed options. */
-  options: OptionSet,
+  options: OptionSet;
   /** Unknown options. */
-  unknown: string[],
+  unknown: string[];
   /** Normal arguments. */
-  arguments: string[],
+  arguments: string[];
   /** Trailing arguments. */
-  trailing: string[]
+  trailing: string[];
 }
 
 /** Parses the specified command line arguments according to the given configuration. */
@@ -47,11 +47,11 @@ export function parse(argv: string[], config: Config, propagateDefaults?: boolea
 /** Help formatting options. */
 export interface HelpOptions {
   /** Leading indent. Defaults to 2. */
-  indent?: number,
+  indent?: number;
   /** Table padding. Defaults to 24. */
-  padding?: number,
+  padding?: number;
   /** End of line character. Defaults to "\n". */
-  eol?: string
+  eol?: string;
 }
 
 /** Generates the help text for the specified configuration. */

@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--runtime", "incremental"
-  ]
+  "asc_flags": ["--runtime", "incremental"]
 }

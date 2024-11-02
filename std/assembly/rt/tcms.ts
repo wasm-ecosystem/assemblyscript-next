@@ -135,7 +135,8 @@ export function __new(size: usize, id: i32): usize {
 @global @unsafe
 export function __renew(oldPtr: usize, size: usize): usize {
   let oldObj = changetype<Object>(oldPtr - TOTAL_OVERHEAD);
-  if (oldPtr < __heap_base) { // move to heap for simplicity
+  if (oldPtr < __heap_base) {
+    // move to heap for simplicity
     let newPtr = __new(size, oldObj.rtId);
     memory.copy(newPtr, oldPtr, min(size, oldObj.rtSize));
     return newPtr;

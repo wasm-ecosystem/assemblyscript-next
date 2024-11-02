@@ -27,12 +27,12 @@ export function parse(argv, config, propagateDefaults = true) {
 
   // make an alias map and initialize defaults
   var aliases = {};
-  Object.keys(config).forEach(key => {
+  Object.keys(config).forEach((key) => {
     if (key.startsWith(" ")) return;
     var option = config[key];
     if (option.alias != null) {
       if (typeof option.alias === "string") aliases[option.alias] = key;
-      else if (Array.isArray(option.alias)) option.alias.forEach(alias => aliases[alias] = key);
+      else if (Array.isArray(option.alias)) option.alias.forEach((alias) => (aliases[alias] = key));
     }
     if (propagateDefaults && option.default != null) options[key] = option.default;
   });
@@ -40,25 +40,37 @@ export function parse(argv, config, propagateDefaults = true) {
   // iterate over argv
   for (var i = 0, k = (argv = argv.slice()).length; i < k; ++i) {
     let arg = argv[i];
-    if (arg == "--") { ++i; break; }
-    let match = /^(?:(-\w)(?:=(.*))?|(--\w{2,})(?:=(.*))?)$/.exec(arg), option, key;
+    if (arg == "--") {
+      ++i;
+      break;
+    }
+    let match = /^(?:(-\w)(?:=(.*))?|(--\w{2,})(?:=(.*))?)$/.exec(arg),
+      option,
+      key;
     if (match) {
-      if (config[arg]) option = config[key = arg]; // exact
-      else if (match[1] != null) { // alias
-        option = config[key = aliases[match[1].substring(1)]];
+      if (config[arg])
+        option = config[(key = arg)]; // exact
+      else if (match[1] != null) {
+        // alias
+        option = config[(key = aliases[match[1].substring(1)])];
         if (option && match[2] != null) argv[i--] = match[2];
-      } else if (match[3] != null) { // full
-        option = config[key = match[3].substring(2)];
+      } else if (match[3] != null) {
+        // full
+        option = config[(key = match[3].substring(2))];
         if (option && match[4] != null) argv[i--] = match[4];
       }
     } else {
-      if (arg.charCodeAt(0) == 45) option = config[key = arg]; // exact
-      else { args.push(arg); continue; } // argument
+      if (arg.charCodeAt(0) == 45)
+        option = config[(key = arg)]; // exact
+      else {
+        args.push(arg);
+        continue;
+      } // argument
     }
     if (option) {
       if (option.value) {
         // alias setting fixed values
-        Object.keys(option.value).forEach(k => options[k] = option.value[k]);
+        Object.keys(option.value).forEach((k) => (options[k] = option.value[k]));
       } else if (option.type == null || option.type === "b") {
         // boolean flag not taking a value
         options[key] = true;
@@ -66,24 +78,45 @@ export function parse(argv, config, propagateDefaults = true) {
         if (i + 1 < argv.length && argv[i + 1].charCodeAt(0) != 45) {
           // non-boolean with given value
           switch (option.type) {
-            case "i": options[key] = parseInt(argv[++i], 10); break;
-            case "I": options[key] = (options[key] || []).concat(parseInt(argv[++i], 10)); break;
-            case "f": options[key] = parseFloat(argv[++i]); break;
-            case "F": options[key] = (options[key] || []).concat(parseFloat(argv[++i])); break;
-            case "s": options[key] = String(argv[++i]); break;
-            case "S": options[key] = (options[key] || []).concat(argv[++i].split(",")); break;
-            default: unknown.push(arg); --i;
+            case "i":
+              options[key] = parseInt(argv[++i], 10);
+              break;
+            case "I":
+              options[key] = (options[key] || []).concat(parseInt(argv[++i], 10));
+              break;
+            case "f":
+              options[key] = parseFloat(argv[++i]);
+              break;
+            case "F":
+              options[key] = (options[key] || []).concat(parseFloat(argv[++i]));
+              break;
+            case "s":
+              options[key] = String(argv[++i]);
+              break;
+            case "S":
+              options[key] = (options[key] || []).concat(argv[++i].split(","));
+              break;
+            default:
+              unknown.push(arg);
+              --i;
           }
         } else {
           // non-boolean with omitted value
           switch (option.type) {
             case "i":
-            case "f": options[key] = option.default || 0; break;
-            case "s": options[key] = option.default || ""; break;
+            case "f":
+              options[key] = option.default || 0;
+              break;
+            case "s":
+              options[key] = option.default || "";
+              break;
             case "I":
             case "F":
-            case "S": options[key] = option.default || []; break;
-            default: unknown.push(arg);
+            case "S":
+              options[key] = option.default || [];
+              break;
+            default:
+              unknown.push(arg);
           }
         }
       }
@@ -103,7 +136,7 @@ export function help(config, options) {
   var eol = options.eol || "\n";
   var sbCategories = {};
   var sbOther = [];
-  Object.keys(config).forEach(key => {
+  Object.keys(config).forEach((key) => {
     var option = config[key];
     if (option.description == null) return;
     var text = "";
@@ -120,15 +153,22 @@ export function help(config, options) {
       sb = sbOther;
     }
     if (Array.isArray(option.description)) {
-      sb.push(text + option.description[0] + option.description.slice(1).map(line => {
-        for (let i = 0; i < padding; ++i) line = " " + line;
-        return eol + line;
-      }).join(""));
+      sb.push(
+        text +
+          option.description[0] +
+          option.description
+            .slice(1)
+            .map((line) => {
+              for (let i = 0; i < padding; ++i) line = " " + line;
+              return eol + line;
+            })
+            .join(""),
+      );
     } else sb.push(text + option.description);
   });
   var sb = [];
   var hasCategories = false;
-  Object.keys(sbCategories).forEach(category => {
+  Object.keys(sbCategories).forEach((category) => {
     hasCategories = true;
     sb.push(eol + " " + stdoutColors.gray(category) + eol);
     sb.push(sbCategories[category].join(eol));
@@ -145,24 +185,27 @@ function sanitizeValue(value, type) {
   if (value != null) {
     switch (type) {
       case undefined:
-      case "b": return Boolean(value);
-      case "i": return Math.trunc(value) || 0;
-      case "f": return Number(value) || 0;
+      case "b":
+        return Boolean(value);
+      case "i":
+        return Math.trunc(value) || 0;
+      case "f":
+        return Number(value) || 0;
       case "s": {
         if (value === true) return "";
         if (value === false) return null;
         return String(value);
       }
       case "I": {
-        if (!Array.isArray(value)) value = [ value ];
-        return value.map(v => Math.trunc(v) || 0);
+        if (!Array.isArray(value)) value = [value];
+        return value.map((v) => Math.trunc(v) || 0);
       }
       case "F": {
-        if (!Array.isArray(value)) value = [ value ];
-        return value.map(v => Number(v) || 0);
+        if (!Array.isArray(value)) value = [value];
+        return value.map((v) => Number(v) || 0);
       }
       case "S": {
-        if (!Array.isArray(value)) value = [ value ];
+        if (!Array.isArray(value)) value = [value];
         return value.map(String);
       }
     }
@@ -183,10 +226,10 @@ export function merge(config, currentOptions, parentOptions, parentBaseDir) {
         if (Array.isArray(parentValue)) {
           let exclude;
           if (isPath) {
-            parentValue = parentValue.map(value => resolvePath(value, parentBaseDir, useNodeResolution));
+            parentValue = parentValue.map((value) => resolvePath(value, parentBaseDir, useNodeResolution));
           }
           if (mutuallyExclusive != null && (exclude = currentOptions[mutuallyExclusive])) {
-            mergedOptions[key] = parentValue.filter(value => !exclude.includes(value));
+            mergedOptions[key] = parentValue.filter((value) => !exclude.includes(value));
           } else {
             mergedOptions[key] = parentValue.slice();
           }
@@ -213,17 +256,14 @@ export function merge(config, currentOptions, parentOptions, parentBaseDir) {
         }
         let exclude;
         if (isPath) {
-          parentValue = parentValue.map(value => resolvePath(value, parentBaseDir, useNodeResolution));
+          parentValue = parentValue.map((value) => resolvePath(value, parentBaseDir, useNodeResolution));
         }
         if (mutuallyExclusive != null && (exclude = currentOptions[mutuallyExclusive])) {
-          mergedOptions[key] = [
-            ...currentValue,
-            ...parentValue.filter(value => !currentValue.includes(value) && !exclude.includes(value))
-          ];
+          mergedOptions[key] = [...currentValue, ...parentValue.filter((value) => !currentValue.includes(value) && !exclude.includes(value))];
         } else {
           mergedOptions[key] = [
             ...currentValue,
-            ...parentValue.filter(value => !currentValue.includes(value)) // dedup
+            ...parentValue.filter((value) => !currentValue.includes(value)), // dedup
           ];
         }
       } else {
@@ -247,7 +287,7 @@ export function normalizePath(p) {
 export function resolvePath(p, baseDir, useNodeResolution = false) {
   if (path.isAbsolute(p)) return p;
   if (useNodeResolution && !p.startsWith(".") && require.resolve) {
-    return require.resolve(p, { paths: [ baseDir ] });
+    return require.resolve(p, { paths: [baseDir] });
   }
   return normalizePath(path.join(baseDir, p));
 }

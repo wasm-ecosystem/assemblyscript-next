@@ -20,22 +20,26 @@ export class Int8Array extends ArrayBufferView {
     return this.byteLength;
   }
 
+
   @operator("[]")
   private __get(index: i32): i8 {
     if (<u32>index >= <u32>this.byteLength) throw new RangeError(E_INDEXOUTOFRANGE);
     return load<i8>(this.dataStart + <usize>index);
   }
 
+
   @unsafe @operator("{}")
   private __uget(index: i32): i8 {
     return load<i8>(this.dataStart + <usize>index);
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: native<i8>): void {
     if (<u32>index >= <u32>this.byteLength) throw new RangeError(E_INDEXOUTOFRANGE);
     store<i8>(this.dataStart + <usize>index, value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: native<i8>): void {
@@ -83,17 +87,11 @@ export class Int8Array extends ArrayBufferView {
     return COPY_WITHIN<Int8Array, i8>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: i8, index: i32, array: Int8Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: i8, index: i32, array: Int8Array) => T, initialValue: T): T {
     return REDUCE<Int8Array, i8, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: i8, index: i32, array: Int8Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: i8, index: i32, array: Int8Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Int8Array, i8, T>(this, fn, initialValue);
   }
 
@@ -162,22 +160,26 @@ export class Uint8Array extends ArrayBufferView {
     return this.byteLength;
   }
 
+
   @operator("[]")
   private __get(index: i32): u8 {
     if (<u32>index >= <u32>this.byteLength) throw new RangeError(E_INDEXOUTOFRANGE);
     return load<u8>(this.dataStart + <usize>index);
   }
 
+
   @unsafe @operator("{}")
   private __uget(index: i32): u8 {
     return load<u8>(this.dataStart + <usize>index);
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: native<u8>): void {
     if (<u32>index >= <u32>this.byteLength) throw new RangeError(E_INDEXOUTOFRANGE);
     store<u8>(this.dataStart + <usize>index, value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: native<u8>): void {
@@ -225,17 +227,11 @@ export class Uint8Array extends ArrayBufferView {
     return COPY_WITHIN<Uint8Array, u8>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: u8, index: i32, array: Uint8Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: u8, index: i32, array: Uint8Array) => T, initialValue: T): T {
     return REDUCE<Uint8Array, u8, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: u8, index: i32, array: Uint8Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: u8, index: i32, array: Uint8Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Uint8Array, u8, T>(this, fn, initialValue);
   }
 
@@ -304,26 +300,30 @@ export class Uint8ClampedArray extends ArrayBufferView {
     return this.byteLength;
   }
 
+
   @operator("[]")
   private __get(index: i32): u8 {
     if (<u32>index >= <u32>this.byteLength) throw new RangeError(E_INDEXOUTOFRANGE);
     return load<u8>(this.dataStart + <usize>index);
   }
 
+
   @unsafe @operator("{}")
   private __uget(index: i32): u8 {
     return load<u8>(this.dataStart + <usize>index);
   }
 
+
   @operator("[]=")
   private __set(index: i32, value: native<u8>): void {
     if (<u32>index >= <u32>this.byteLength) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<u8>(this.dataStart + <usize>index, ~(<i32>value >> 31) & (((255 - value) >> 31) | value));
+    store<u8>(this.dataStart + <usize>index, ~((<i32>value) >> 31) & (((255 - value) >> 31) | value));
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: native<u8>): void {
-    store<u8>(this.dataStart + <usize>index, ~(<i32>value >> 31) & (((255 - value) >> 31) | value));
+    store<u8>(this.dataStart + <usize>index, ~((<i32>value) >> 31) & (((255 - value) >> 31) | value));
   }
 
   at(index: i32): u8 {
@@ -368,17 +368,11 @@ export class Uint8ClampedArray extends ArrayBufferView {
     return COPY_WITHIN<Uint8ClampedArray, u8>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: u8, index: i32, array: Uint8ClampedArray) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: u8, index: i32, array: Uint8ClampedArray) => T, initialValue: T): T {
     return REDUCE<Uint8ClampedArray, u8, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: u8, index: i32, array: Uint8ClampedArray) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: u8, index: i32, array: Uint8ClampedArray) => T, initialValue: T): T {
     return REDUCE_RIGHT<Uint8ClampedArray, u8, T>(this, fn, initialValue);
   }
 
@@ -447,33 +441,37 @@ export class Int16Array extends ArrayBufferView {
     return this.byteLength >>> alignof<i16>();
   }
 
+
   @operator("[]")
   private __get(index: i32): i16 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<i16>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<i16>(this.dataStart + (<usize>index << alignof<i16>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<i16>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<i16>(this.dataStart + ((<usize>index) << alignof<i16>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): i16 {
-    return load<i16>(this.dataStart + (<usize>index << alignof<i16>()));
+    return load<i16>(this.dataStart + ((<usize>index) << alignof<i16>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: native<i16>): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<i16>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<i16>(this.dataStart + (<usize>index << alignof<i16>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<i16>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<i16>(this.dataStart + ((<usize>index) << alignof<i16>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: native<i16>): void {
-    store<i16>(this.dataStart + (<usize>index << alignof<i16>()), value);
+    store<i16>(this.dataStart + ((<usize>index) << alignof<i16>()), value);
   }
 
   at(index: i32): i16 {
     let len = this.byteLength >>> alignof<i16>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<i16>(this.dataStart + (<usize>index << alignof<i16>()));
+    return load<i16>(this.dataStart + ((<usize>index) << alignof<i16>()));
   }
 
   includes(searchElement: i16, fromIndex: i32 = 0): bool {
@@ -510,17 +508,11 @@ export class Int16Array extends ArrayBufferView {
     return COPY_WITHIN<Int16Array, i16>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: i16, index: i32, array: Int16Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: i16, index: i32, array: Int16Array) => T, initialValue: T): T {
     return REDUCE<Int16Array, i16, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: i16, index: i32, array: Int16Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: i16, index: i32, array: Int16Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Int16Array, i16, T>(this, fn, initialValue);
   }
 
@@ -589,33 +581,37 @@ export class Uint16Array extends ArrayBufferView {
     return this.byteLength >>> alignof<u16>();
   }
 
+
   @operator("[]")
   private __get(index: i32): u16 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<u16>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<u16>(this.dataStart + (<usize>index << alignof<u16>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<u16>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<u16>(this.dataStart + ((<usize>index) << alignof<u16>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): u16 {
-    return load<u16>(this.dataStart + (<usize>index << alignof<u16>()));
+    return load<u16>(this.dataStart + ((<usize>index) << alignof<u16>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: native<u16>): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<u16>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<u16>(this.dataStart + (<usize>index << alignof<u16>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<u16>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<u16>(this.dataStart + ((<usize>index) << alignof<u16>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: native<u16>): void {
-    store<u16>(this.dataStart + (<usize>index << alignof<u16>()), value);
+    store<u16>(this.dataStart + ((<usize>index) << alignof<u16>()), value);
   }
 
   at(index: i32): u16 {
     let len = this.byteLength >>> alignof<u16>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<u16>(this.dataStart + (<usize>index << alignof<u16>()));
+    return load<u16>(this.dataStart + ((<usize>index) << alignof<u16>()));
   }
 
   includes(searchElement: u16, fromIndex: i32 = 0): bool {
@@ -652,17 +648,11 @@ export class Uint16Array extends ArrayBufferView {
     return COPY_WITHIN<Uint16Array, u16>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: u16, index: i32, array: Uint16Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: u16, index: i32, array: Uint16Array) => T, initialValue: T): T {
     return REDUCE<Uint16Array, u16, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: u16, index: i32, array: Uint16Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: u16, index: i32, array: Uint16Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Uint16Array, u16, T>(this, fn, initialValue);
   }
 
@@ -731,33 +721,37 @@ export class Int32Array extends ArrayBufferView {
     return this.byteLength >>> alignof<i32>();
   }
 
+
   @operator("[]")
   private __get(index: i32): i32 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<i32>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<i32>(this.dataStart + (<usize>index << alignof<i32>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<i32>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<i32>(this.dataStart + ((<usize>index) << alignof<i32>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): i32 {
-    return load<i32>(this.dataStart + (<usize>index << alignof<i32>()));
+    return load<i32>(this.dataStart + ((<usize>index) << alignof<i32>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: i32): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<i32>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<i32>(this.dataStart + (<usize>index << alignof<i32>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<i32>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<i32>(this.dataStart + ((<usize>index) << alignof<i32>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: i32): void {
-    store<i32>(this.dataStart + (<usize>index << alignof<i32>()), value);
+    store<i32>(this.dataStart + ((<usize>index) << alignof<i32>()), value);
   }
 
   at(index: i32): i32 {
     let len = this.byteLength >>> alignof<i32>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<i32>(this.dataStart + (<usize>index << alignof<i32>()));
+    return load<i32>(this.dataStart + ((<usize>index) << alignof<i32>()));
   }
 
   includes(searchElement: i32, fromIndex: i32 = 0): bool {
@@ -794,17 +788,11 @@ export class Int32Array extends ArrayBufferView {
     return COPY_WITHIN<Int32Array, i32>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: i32, index: i32, array: Int32Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: i32, index: i32, array: Int32Array) => T, initialValue: T): T {
     return REDUCE<Int32Array, i32, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: i32, index: i32, array: Int32Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: i32, index: i32, array: Int32Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Int32Array, i32, T>(this, fn, initialValue);
   }
 
@@ -873,33 +861,37 @@ export class Uint32Array extends ArrayBufferView {
     return this.byteLength >>> alignof<u32>();
   }
 
+
   @operator("[]")
   private __get(index: i32): u32 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<u32>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<u32>(this.dataStart + (<usize>index << alignof<u32>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<u32>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<u32>(this.dataStart + ((<usize>index) << alignof<u32>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): u32 {
-    return load<u32>(this.dataStart + (<usize>index << alignof<u32>()));
+    return load<u32>(this.dataStart + ((<usize>index) << alignof<u32>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: u32): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<u32>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<u32>(this.dataStart + (<usize>index << alignof<u32>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<u32>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<u32>(this.dataStart + ((<usize>index) << alignof<u32>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: u32): void {
-    store<u32>(this.dataStart + (<usize>index << alignof<u32>()), value);
+    store<u32>(this.dataStart + ((<usize>index) << alignof<u32>()), value);
   }
 
   at(index: i32): u32 {
     let len = this.byteLength >>> alignof<u32>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<u32>(this.dataStart + (<usize>index << alignof<u32>()));
+    return load<u32>(this.dataStart + ((<usize>index) << alignof<u32>()));
   }
 
   includes(searchElement: u32, fromIndex: i32 = 0): bool {
@@ -936,17 +928,11 @@ export class Uint32Array extends ArrayBufferView {
     return COPY_WITHIN<Uint32Array, u32>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: u32, index: i32, array: Uint32Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: u32, index: i32, array: Uint32Array) => T, initialValue: T): T {
     return REDUCE<Uint32Array, u32, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: u32, index: i32, array: Uint32Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: u32, index: i32, array: Uint32Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Uint32Array, u32, T>(this, fn, initialValue);
   }
 
@@ -1015,33 +1001,37 @@ export class Int64Array extends ArrayBufferView {
     return this.byteLength >>> alignof<i64>();
   }
 
+
   @operator("[]")
   private __get(index: i32): i64 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<i64>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<i64>(this.dataStart + (<usize>index << alignof<i64>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<i64>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<i64>(this.dataStart + ((<usize>index) << alignof<i64>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): i64 {
-    return load<i64>(this.dataStart + (<usize>index << alignof<i64>()));
+    return load<i64>(this.dataStart + ((<usize>index) << alignof<i64>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: i64): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<i64>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<i64>(this.dataStart + (<usize>index << alignof<i64>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<i64>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<i64>(this.dataStart + ((<usize>index) << alignof<i64>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: i64): void {
-    store<i64>(this.dataStart + (<usize>index << alignof<i64>()), value);
+    store<i64>(this.dataStart + ((<usize>index) << alignof<i64>()), value);
   }
 
   at(index: i32): i64 {
     let len = this.byteLength >>> alignof<i64>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<i64>(this.dataStart + (<usize>index << alignof<i64>()));
+    return load<i64>(this.dataStart + ((<usize>index) << alignof<i64>()));
   }
 
   includes(searchElement: i64, fromIndex: i32 = 0): bool {
@@ -1078,17 +1068,11 @@ export class Int64Array extends ArrayBufferView {
     return COPY_WITHIN<Int64Array, i64>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: i64, index: i32, array: Int64Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: i64, index: i32, array: Int64Array) => T, initialValue: T): T {
     return REDUCE<Int64Array, i64, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: i64, index: i32, array: Int64Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: i64, index: i32, array: Int64Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Int64Array, i64, T>(this, fn, initialValue);
   }
 
@@ -1157,33 +1141,37 @@ export class Uint64Array extends ArrayBufferView {
     return this.byteLength >>> alignof<u64>();
   }
 
+
   @operator("[]")
   private __get(index: i32): u64 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<u64>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<u64>(this.dataStart + (<usize>index << alignof<u64>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<u64>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<u64>(this.dataStart + ((<usize>index) << alignof<u64>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): u64 {
-    return load<u64>(this.dataStart + (<usize>index << alignof<u64>()));
+    return load<u64>(this.dataStart + ((<usize>index) << alignof<u64>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: u64): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<u64>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<u64>(this.dataStart + (<usize>index << alignof<u64>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<u64>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<u64>(this.dataStart + ((<usize>index) << alignof<u64>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: u64): void {
-    store<u64>(this.dataStart + (<usize>index << alignof<u64>()), value);
+    store<u64>(this.dataStart + ((<usize>index) << alignof<u64>()), value);
   }
 
   at(index: i32): u64 {
     let len = this.byteLength >>> alignof<u64>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<u64>(this.dataStart + (<usize>index << alignof<u64>()));
+    return load<u64>(this.dataStart + ((<usize>index) << alignof<u64>()));
   }
 
   includes(searchElement: u64, fromIndex: i32 = 0): bool {
@@ -1220,17 +1208,11 @@ export class Uint64Array extends ArrayBufferView {
     return COPY_WITHIN<Uint64Array, u64>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: u64, index: i32, array: Uint64Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: u64, index: i32, array: Uint64Array) => T, initialValue: T): T {
     return REDUCE<Uint64Array, u64, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: u64, index: i32, array: Uint64Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: u64, index: i32, array: Uint64Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Uint64Array, u64, T>(this, fn, initialValue);
   }
 
@@ -1299,33 +1281,37 @@ export class Float32Array extends ArrayBufferView {
     return this.byteLength >>> alignof<f32>();
   }
 
+
   @operator("[]")
   private __get(index: i32): f32 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<f32>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<f32>(this.dataStart + (<usize>index << alignof<f32>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<f32>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<f32>(this.dataStart + ((<usize>index) << alignof<f32>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): f32 {
-    return load<f32>(this.dataStart + (<usize>index << alignof<f32>()));
+    return load<f32>(this.dataStart + ((<usize>index) << alignof<f32>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: f32): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<f32>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<f32>(this.dataStart + (<usize>index << alignof<f32>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<f32>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<f32>(this.dataStart + ((<usize>index) << alignof<f32>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: f32): void {
-    store<f32>(this.dataStart + (<usize>index << alignof<f32>()), value);
+    store<f32>(this.dataStart + ((<usize>index) << alignof<f32>()), value);
   }
 
   at(index: i32): f32 {
     let len = this.byteLength >>> alignof<f32>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<f32>(this.dataStart + (<usize>index << alignof<f32>()));
+    return load<f32>(this.dataStart + ((<usize>index) << alignof<f32>()));
   }
 
   includes(searchElement: f32, fromIndex: i32 = 0): bool {
@@ -1362,17 +1348,11 @@ export class Float32Array extends ArrayBufferView {
     return COPY_WITHIN<Float32Array, f32>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: f32, index: i32, array: Float32Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: f32, index: i32, array: Float32Array) => T, initialValue: T): T {
     return REDUCE<Float32Array, f32, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: f32, index: i32, array: Float32Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: f32, index: i32, array: Float32Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Float32Array, f32, T>(this, fn, initialValue);
   }
 
@@ -1441,33 +1421,37 @@ export class Float64Array extends ArrayBufferView {
     return this.byteLength >>> alignof<f64>();
   }
 
+
   @operator("[]")
   private __get(index: i32): f64 {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<f64>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<f64>(this.dataStart + (<usize>index << alignof<f64>()));
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<f64>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    return load<f64>(this.dataStart + ((<usize>index) << alignof<f64>()));
   }
+
 
   @unsafe @operator("{}")
   private __uget(index: i32): f64 {
-    return load<f64>(this.dataStart + (<usize>index << alignof<f64>()));
+    return load<f64>(this.dataStart + ((<usize>index) << alignof<f64>()));
   }
+
 
   @operator("[]=")
   private __set(index: i32, value: f64): void {
-    if (<u32>index >= <u32>this.byteLength >>> alignof<f64>()) throw new RangeError(E_INDEXOUTOFRANGE);
-    store<f64>(this.dataStart + (<usize>index << alignof<f64>()), value);
+    if (<u32>index >= (<u32>this.byteLength) >>> alignof<f64>()) throw new RangeError(E_INDEXOUTOFRANGE);
+    store<f64>(this.dataStart + ((<usize>index) << alignof<f64>()), value);
   }
+
 
   @unsafe @operator("{}=")
   private __uset(index: i32, value: f64): void {
-    store<f64>(this.dataStart + (<usize>index << alignof<f64>()), value);
+    store<f64>(this.dataStart + ((<usize>index) << alignof<f64>()), value);
   }
 
   at(index: i32): f64 {
     let len = this.byteLength >>> alignof<f64>();
     index += select(0, len, index >= 0);
     if (<u32>index >= <u32>len) throw new RangeError(E_INDEXOUTOFRANGE);
-    return load<f64>(this.dataStart + (<usize>index << alignof<f64>()));
+    return load<f64>(this.dataStart + ((<usize>index) << alignof<f64>()));
   }
 
   includes(searchElement: f64, fromIndex: i32 = 0): bool {
@@ -1504,17 +1488,11 @@ export class Float64Array extends ArrayBufferView {
     return COPY_WITHIN<Float64Array, f64>(this, target, start, end);
   }
 
-  reduce<T extends number>(
-    fn: (accumulator: T, value: f64, index: i32, array: Float64Array) => T,
-    initialValue: T,
-  ): T {
+  reduce<T extends number>(fn: (accumulator: T, value: f64, index: i32, array: Float64Array) => T, initialValue: T): T {
     return REDUCE<Float64Array, f64, T>(this, fn, initialValue);
   }
 
-  reduceRight<T extends number>(
-    fn: (accumulator: T, value: f64, index: i32, array: Float64Array) => T,
-    initialValue: T,
-  ): T {
+  reduceRight<T extends number>(fn: (accumulator: T, value: f64, index: i32, array: Float64Array) => T, initialValue: T): T {
     return REDUCE_RIGHT<Float64Array, f64, T>(this, fn, initialValue);
   }
 
@@ -1570,67 +1548,46 @@ export class Float64Array extends ArrayBufferView {
 
 // @ts-ignore: decorator
 @inline
-function SLICE<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  start: i32,
-  end: i32
-): TArray {
+function SLICE<TArray extends ArrayBufferView, T extends number>(array: TArray, start: i32, end: i32): TArray {
   let len = array.length;
-  start  = start < 0 ? max(start + len, 0) : min(start, len);
-  end    = end   < 0 ? max(end   + len, 0) : min(end  , len);
+  start = start < 0 ? max(start + len, 0) : min(start, len);
+  end = end < 0 ? max(end + len, 0) : min(end, len);
   len = max(end - start, 0);
   let slice = instantiate<TArray>(len);
-  memory.copy(
-    slice.dataStart,
-    array.dataStart + (<usize>start << alignof<T>()),
-    <usize>len << alignof<T>()
-  );
+  memory.copy(slice.dataStart, array.dataStart + ((<usize>start) << alignof<T>()), (<usize>len) << alignof<T>());
   return slice;
 }
 
 // @ts-ignore: decorator
 @inline
-function SUBARRAY<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  begin: i32,
-  end: i32
-): TArray {
+function SUBARRAY<TArray extends ArrayBufferView, T extends number>(array: TArray, begin: i32, end: i32): TArray {
   let len = array.length;
   begin = begin < 0 ? max(len + begin, 0) : min(begin, len);
-  end   = end   < 0 ? max(len + end,   0) : min(end,   len);
-  end   = max(end, begin);
+  end = end < 0 ? max(len + end, 0) : min(end, len);
+  end = max(end, begin);
 
   let out = changetype<TArray>(__new(offsetof<TArray>(), idof<TArray>()));
   let buf = changetype<usize>(array.buffer);
   store<usize>(changetype<usize>(out), buf, offsetof<TArray>("buffer"));
   __link(changetype<usize>(out), buf, false);
-  store<usize>(changetype<usize>(out), array.dataStart + (<usize>begin << alignof<T>()), offsetof<TArray>("dataStart"));
+  store<usize>(changetype<usize>(out), array.dataStart + ((<usize>begin) << alignof<T>()), offsetof<TArray>("dataStart"));
   store<u32>(changetype<usize>(out), (end - begin) << alignof<T>(), offsetof<TArray>("byteLength"));
   return out;
 }
 
 // @ts-ignore: decorator
 @inline
-function COPY_WITHIN<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  target: i32,
-  start: i32,
-  end: i32
-): TArray {
+function COPY_WITHIN<TArray extends ArrayBufferView, T extends number>(array: TArray, target: i32, start: i32, end: i32): TArray {
   let len = array.length;
   let ptr = array.dataStart;
 
-  end   = min<i32>(end, len);
-  let to    = target < 0 ? max(len + target, 0) : min(target, len);
-  let from  = start < 0 ? max(len + start, 0) : min(start, len);
-  let last  = end < 0 ? max(len + end, 0) : min(end, len);
+  end = min<i32>(end, len);
+  let to = target < 0 ? max(len + target, 0) : min(target, len);
+  let from = start < 0 ? max(len + start, 0) : min(start, len);
+  let last = end < 0 ? max(len + end, 0) : min(end, len);
   let count = min(last - from, len - to);
 
-  memory.copy(
-    ptr + (<usize>to << alignof<T>()),
-    ptr + (<usize>from << alignof<T>()),
-    <usize>count << alignof<T>()
-  );
+  memory.copy(ptr + ((<usize>to) << alignof<T>()), ptr + ((<usize>from) << alignof<T>()), (<usize>count) << alignof<T>());
   return array;
 }
 
@@ -1639,11 +1596,11 @@ function COPY_WITHIN<TArray extends ArrayBufferView, T extends number>(
 function REDUCE<TArray extends ArrayBufferView, T extends number, TRet extends number>(
   array: TArray,
   fn: (accumulator: TRet, value: T, index: i32, array: TArray) => TRet,
-  initialValue: TRet
+  initialValue: TRet,
 ): TRet {
   let ptr = array.dataStart;
   for (let i = 0, k = array.length; i < k; i++) {
-    initialValue = fn(initialValue, load<T>(ptr + (<usize>i << alignof<T>())), i, array);
+    initialValue = fn(initialValue, load<T>(ptr + ((<usize>i) << alignof<T>())), i, array);
   }
   return initialValue;
 }
@@ -1653,21 +1610,18 @@ function REDUCE<TArray extends ArrayBufferView, T extends number, TRet extends n
 function REDUCE_RIGHT<TArray extends ArrayBufferView, T extends number, TRet extends number>(
   array: TArray,
   fn: (accumulator: TRet, value: T, index: i32, array: TArray) => TRet,
-  initialValue: TRet
+  initialValue: TRet,
 ): TRet {
   let ptr = array.dataStart;
   for (let i = array.length - 1; i >= 0; i--) {
-    initialValue = fn(initialValue, load<T>(ptr + (<usize>i << alignof<T>())), i, array);
+    initialValue = fn(initialValue, load<T>(ptr + ((<usize>i) << alignof<T>())), i, array);
   }
   return initialValue;
 }
 
 // @ts-ignore: decorator
 @inline
-function MAP<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, self: TArray) => T,
-): TArray {
+function MAP<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, self: TArray) => T): TArray {
   let len = array.length;
   let ptr = array.dataStart;
 
@@ -1675,10 +1629,7 @@ function MAP<TArray extends ArrayBufferView, T extends number>(
   let out = changetype<TArray>(__new(offsetof<TArray>(), idof<TArray>()));
   let buf = changetype<ArrayBuffer>(__new(byteLength, idof<ArrayBuffer>()));
   for (let i = 0; i < len; i++) {
-    store<T>(
-      changetype<usize>(buf) + (<usize>i << alignof<T>()),
-      fn(load<T>(ptr + (<usize>i << alignof<T>())), i, array)
-    );
+    store<T>(changetype<usize>(buf) + ((<usize>i) << alignof<T>()), fn(load<T>(ptr + ((<usize>i) << alignof<T>())), i, array));
   }
   store<usize>(changetype<usize>(out), changetype<usize>(buf), offsetof<TArray>("buffer"));
   __link(changetype<usize>(out), changetype<usize>(buf), false);
@@ -1689,22 +1640,16 @@ function MAP<TArray extends ArrayBufferView, T extends number>(
 
 // @ts-ignore: decorator
 @inline
-function FILTER<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, self: TArray) => bool,
-): TArray {
+function FILTER<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, self: TArray) => bool): TArray {
   let len = array.length;
   let out = changetype<TArray>(__new(offsetof<TArray>(), idof<TArray>()));
   let buf = changetype<ArrayBuffer>(__new(len << alignof<T>(), idof<ArrayBuffer>()));
-  let dataStart  = array.dataStart;
+  let dataStart = array.dataStart;
   let j: usize = 0;
   for (let i = 0; i < len; i++) {
-    let value = load<T>(dataStart + (<usize>i << alignof<T>()));
+    let value = load<T>(dataStart + ((<usize>i) << alignof<T>()));
     if (fn(value, i, array)) {
-      store<T>(
-        changetype<usize>(buf) + (j++ << alignof<T>()),
-        value
-      );
+      store<T>(changetype<usize>(buf) + (j++ << alignof<T>()), value);
     }
   }
   // shrink output buffer
@@ -1719,37 +1664,27 @@ function FILTER<TArray extends ArrayBufferView, T extends number>(
 
 // @ts-ignore: decorator
 @inline
-function FIND_INDEX<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, array: TArray) => bool,
-): i32 {
+function FIND_INDEX<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, array: TArray) => bool): i32 {
   let ptr = array.dataStart;
   for (let i = 0, k = array.length; i < k; i++) {
-    if (fn(load<T>(ptr + (<usize>i << alignof<T>())), i, array)) return i;
+    if (fn(load<T>(ptr + ((<usize>i) << alignof<T>())), i, array)) return i;
   }
   return -1;
 }
 
 // @ts-ignore: decorator
 @inline
-function FIND_LAST_INDEX<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, array: TArray) => bool,
-): i32 {
+function FIND_LAST_INDEX<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, array: TArray) => bool): i32 {
   let ptr = array.dataStart;
   for (let i = array.length - 1; i >= 0; --i) {
-    if (fn(load<T>(ptr + (<usize>i << alignof<T>())), i, array)) return i;
+    if (fn(load<T>(ptr + ((<usize>i) << alignof<T>())), i, array)) return i;
   }
   return -1;
 }
 
 // @ts-ignore: decorator
 @inline
-function INCLUDES<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  searchElement: T,
-  fromIndex: i32,
-): bool {
+function INCLUDES<TArray extends ArrayBufferView, T extends number>(array: TArray, searchElement: T, fromIndex: i32): bool {
   if (isFloat<T>()) {
     let index: isize = fromIndex;
     let len: isize = array.length;
@@ -1770,11 +1705,7 @@ function INCLUDES<TArray extends ArrayBufferView, T extends number>(
 
 // @ts-ignore: decorator
 @inline
-function INDEX_OF<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  searchElement: T,
-  fromIndex: i32,
-): i32 {
+function INDEX_OF<TArray extends ArrayBufferView, T extends number>(array: TArray, searchElement: T, fromIndex: i32): i32 {
   let index: isize = fromIndex;
   let len: isize = array.length;
   if (len == 0 || index >= len) return -1;
@@ -1789,15 +1720,12 @@ function INDEX_OF<TArray extends ArrayBufferView, T extends number>(
 
 // @ts-ignore: decorator
 @inline
-function LAST_INDEX_OF<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  searchElement: T,
-  fromIndex: i32,
-): i32 {
+function LAST_INDEX_OF<TArray extends ArrayBufferView, T extends number>(array: TArray, searchElement: T, fromIndex: i32): i32 {
   let index: isize = fromIndex;
   let len: isize = array.length;
   if (len == 0) return -1;
-  if (index < 0) index = len + index; // no need to clamp
+  if (index < 0)
+    index = len + index; // no need to clamp
   else if (index >= len) index = len - 1;
   let dataStart = array.dataStart;
   while (index >= 0) {
@@ -1809,26 +1737,20 @@ function LAST_INDEX_OF<TArray extends ArrayBufferView, T extends number>(
 
 // @ts-ignore: decorator
 @inline
-function SOME<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, array: TArray) => bool,
-): bool {
+function SOME<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, array: TArray) => bool): bool {
   let ptr = array.dataStart;
   for (let i = 0, k = array.length; i < k; i++) {
-    if (fn(load<T>(ptr + (<usize>i << alignof<T>())), i, array)) return true;
+    if (fn(load<T>(ptr + ((<usize>i) << alignof<T>())), i, array)) return true;
   }
   return false;
 }
 
 // @ts-ignore: decorator
 @inline
-function EVERY<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, array: TArray) => bool,
-): bool {
+function EVERY<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, array: TArray) => bool): bool {
   let ptr = array.dataStart;
   for (let i = 0, k = array.length; i < k; i++) {
-    if (fn(load<T>(ptr + (<usize>i << alignof<T>())), i, array)) continue;
+    if (fn(load<T>(ptr + ((<usize>i) << alignof<T>())), i, array)) continue;
     return false;
   }
   return true;
@@ -1836,23 +1758,16 @@ function EVERY<TArray extends ArrayBufferView, T extends number>(
 
 // @ts-ignore: decorator
 @inline
-function FOREACH<TArray extends ArrayBufferView, T extends number>(
-  array: TArray,
-  fn: (value: T, index: i32, array: TArray) => void,
-): void {
+function FOREACH<TArray extends ArrayBufferView, T extends number>(array: TArray, fn: (value: T, index: i32, array: TArray) => void): void {
   let ptr = array.dataStart;
   for (let i = 0, k = array.length; i < k; i++) {
-    fn(load<T>(ptr + (<usize>i << alignof<T>())), i, array);
+    fn(load<T>(ptr + ((<usize>i) << alignof<T>())), i, array);
   }
 }
 
 // @ts-ignore: decorator
 @inline
-function WRAP<TArray extends ArrayBufferView, T>(
-  buffer: ArrayBuffer,
-  byteOffset: i32 = 0,
-  len: i32 = -1
-): TArray {
+function WRAP<TArray extends ArrayBufferView, T>(buffer: ArrayBuffer, byteOffset: i32 = 0, len: i32 = -1): TArray {
   let byteLength: i32;
   let bufferByteLength = buffer.byteLength;
   const mask: u32 = sizeof<T>() - 1;
@@ -1884,14 +1799,9 @@ function WRAP<TArray extends ArrayBufferView, T>(
 
 // @ts-ignore: decorator
 @inline
-function SET<
-  TArray extends ArrayLike<number>,
-  UArray extends ArrayLike<number>
->(
-  target: TArray,
-  source: UArray,
-  offset: i32 = 0
-): void {
+function SET<TArray extends ArrayLike<number>, UArray extends ArrayLike<number>>(target: TArray, source: UArray, offset: i32 = 0): void {
+  const AlignT = alignof<valueof<TArray>>();
+  const AlignU = alignof<valueof<UArray>>();
   // need to assert at compile time that U is not a reference or a function
   if (isReference<valueof<UArray>>()) {
     ERROR(E_NOTIMPLEMENTED);
@@ -1902,35 +1812,31 @@ function SET<
     throw new RangeError(E_INDEXOUTOFRANGE);
   }
   // @ts-ignore: dataStart
-  let targetStart = target.dataStart + (<usize>offset << (alignof<valueof<TArray>>()));
+  let targetStart = target.dataStart + ((<usize>offset) << AlignT);
   // @ts-ignore: dataStart
   let sourceStart = source.dataStart;
   // if the types align and match, use memory.copy() instead of manual loop
   if (
     isInteger<valueof<TArray>>() == isInteger<valueof<UArray>>() &&
-    alignof<valueof<TArray>>() == alignof<valueof<UArray>>() &&
+    AlignT == AlignU &&
     !(isSigned<valueof<UArray>>() && target instanceof Uint8ClampedArray)
   ) {
-    memory.copy(targetStart, sourceStart, <usize>sourceLen << (alignof<valueof<UArray>>()));
+    memory.copy(targetStart, sourceStart, (<usize>sourceLen) << AlignU);
   } else {
     for (let i = 0; i < sourceLen; i++) {
-      let ptr = targetStart + (<usize>i << (alignof<valueof<TArray>>()));
-      let value = load<valueof<UArray>>(sourceStart + (<usize>i << (alignof<valueof<UArray>>())));
+      let ptr = targetStart + ((<usize>i) << AlignT);
+      let value = load<valueof<UArray>>(sourceStart + ((<usize>i) << AlignU));
       // if TArray is Uint8ClampedArray, then values must be clamped
       if (target instanceof Uint8ClampedArray) {
         if (isFloat<valueof<UArray>>()) {
-          store<valueof<TArray>>(ptr,
-            isFinite<valueof<UArray>>(value)
-              ? <valueof<TArray>>max<valueof<UArray>>(0, min<valueof<UArray>>(255, value))
-              : 0
-          );
+          store<valueof<TArray>>(ptr, isFinite<valueof<UArray>>(value) ? <valueof<TArray>>max<valueof<UArray>>(0, min<valueof<UArray>>(255, value)) : 0);
         } else {
           if (!isSigned<valueof<UArray>>()) {
             store<valueof<TArray>>(ptr, min<valueof<UArray>>(255, value));
           } else if (sizeof<valueof<TArray>>() <= 4) {
-            store<valueof<TArray>>(ptr, ~(<i32>value >> 31) & (((255 - <i32>value) >> 31) | value));
+            store<valueof<TArray>>(ptr, ~((<i32>value) >> 31) & (((255 - <i32>value) >> 31) | value));
           } else {
-            store<valueof<TArray>>(ptr, ~(<i64>value >> 63) & (((255 - <i64>value) >> 63) | value));
+            store<valueof<TArray>>(ptr, ~((<i64>value) >> 63) & (((255 - <i64>value) >> 63) | value));
           }
         }
       } else {

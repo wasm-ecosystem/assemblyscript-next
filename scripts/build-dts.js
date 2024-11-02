@@ -2,7 +2,7 @@ import fs from "fs";
 import { globSync } from "glob";
 import pathUtil from "path";
 import ts from "typescript";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import { debuglog } from "util";
 
 const __dirname = pathUtil.dirname(fileURLToPath(import.meta.url));
@@ -28,9 +28,7 @@ const generate = (() => {
       // cases.
       if (diagnostic.file) {
         const position = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
-        message +=
-          `\n${diagnostic.file.fileName}(${position.line + 1},${position.character + 1}): ` +
-          `error TS${diagnostic.code}: ${diagnostic.messageText}`;
+        message += `\n${diagnostic.file.fileName}(${position.line + 1},${position.character + 1}): ` + `error TS${diagnostic.code}: ${diagnostic.messageText}`;
       } else {
         message += `\nerror TS${diagnostic.code}: ${diagnostic.messageText}`;
       }
@@ -44,9 +42,7 @@ const generate = (() => {
   function getFilenames(baseDir, files) {
     return files.map(function (filename) {
       const resolvedFilename = pathUtil.resolve(filename);
-      return resolvedFilename.indexOf(baseDir) === 0
-        ? resolvedFilename
-        : pathUtil.resolve(baseDir, filename);
+      return resolvedFilename.indexOf(baseDir) === 0 ? resolvedFilename : pathUtil.resolve(baseDir, filename);
     });
   }
 
@@ -93,13 +89,10 @@ const generate = (() => {
     if (configParseResult.errors && configParseResult.errors.length) {
       throw getError(configParseResult.errors);
     }
-    return [
-      configParseResult.fileNames,
-      configParseResult.options
-    ];
+    return [configParseResult.fileNames, configParseResult.options];
   }
 
-  const isNodeKind = kind => value => value?.kind === kind;
+  const isNodeKind = (kind) => (value) => value?.kind === kind;
   const isNodeKindImportDeclaration = isNodeKind(ts.SyntaxKind.ImportDeclaration);
   const isNodeKindStringLiteral = isNodeKind(ts.SyntaxKind.StringLiteral);
   const isNodeKindExportDeclaration = isNodeKind(ts.SyntaxKind.ExportDeclaration);
@@ -109,7 +102,7 @@ const generate = (() => {
     let compilerOptions = {};
     let files = options.files;
     /* following tsc behaviour, if a project is specified, or if no files are specified then
-      * attempt to load tsconfig.json */
+     * attempt to load tsconfig.json */
     if (options.project || !options.files || options.files.length === 0) {
       debug(`project = "${options.project || options.baseDir}"`);
       // if project isn't specified, use baseDir.  If it is and it's a directory,
@@ -186,7 +179,7 @@ const generate = (() => {
 
       debug("processing:");
       for (const sourceFile of program.getSourceFiles()) {
-        processTree(sourceFile, node => {
+        processTree(sourceFile, (node) => {
           if (isNodeKindModuleDeclaration(node)) {
             const name = node.name;
             if (isNodeKindStringLiteral(name)) {
@@ -213,7 +206,7 @@ const generate = (() => {
           const diagnostics = emitOutput.diagnostics.concat(
             program.getSemanticDiagnostics(sourceFile),
             program.getSyntacticDiagnostics(sourceFile),
-            program.getDeclarationDiagnostics(sourceFile)
+            program.getDeclarationDiagnostics(sourceFile),
           );
           throw getError(diagnostics);
         }
@@ -228,12 +221,9 @@ const generate = (() => {
       // However we have to account for .d.ts files in our inputs that this code
       // is also used for.  Also if no outDir is used, the compiled code ends up
       // alongside the source, so use baseDir in that case too.
-      const outputDir = (isOutput && Boolean(outDir)) ? pathUtil.resolve(outDir) : baseDir;
+      const outputDir = isOutput && Boolean(outDir) ? pathUtil.resolve(outDir) : baseDir;
       // I give up; this needs Windows-to-POSIX conversion:
-      const sourceModuleId = pathUtil
-        .relative(outputDir, filename)
-        .slice(0, -DTSLEN)
-        .replaceAll(pathUtil.sep, "/");
+      const sourceModuleId = pathUtil.relative(outputDir, filename).slice(0, -DTSLEN).replaceAll(pathUtil.sep, "/");
       function resolveModuleImport(moduleId) {
         const isDeclaredExternalModule = declaredExternalModules.indexOf(moduleId) !== -1;
         let resolved;
@@ -241,14 +231,12 @@ const generate = (() => {
           resolved = options.resolveModuleImport({
             importedModuleId: moduleId,
             currentModuleId: sourceModuleId,
-            isDeclaredExternalModule
+            isDeclaredExternalModule,
           });
         }
         if (!resolved) {
           // resolve relative imports relative to the current module id.
-          resolved = moduleId.charAt(0) === "."
-            ? pathUtil.posix.join(pathUtil.posix.dirname(sourceModuleId), moduleId)
-            : moduleId;
+          resolved = moduleId.charAt(0) === "." ? pathUtil.posix.join(pathUtil.posix.dirname(sourceModuleId), moduleId) : moduleId;
 
           // prefix the import with options.prefix, so that both non-relative imports
           // and relative imports end up prefixed with options.prefix.  We only
@@ -262,16 +250,13 @@ const generate = (() => {
         return resolved;
       }
       /* For some reason, SourceFile.externalModuleIndicator is missing from 1.6+, so having
-        * to use a sledgehammer on the nut */
+       * to use a sledgehammer on the nut */
       if (declarationFile.externalModuleIndicator) {
         let resolvedModuleId = `${options.prefix}/${sourceModuleId}`;
         output.push(`declare module '${resolvedModuleId}' {\n\t`);
-        const content = processTree(declarationFile, node => {
+        const content = processTree(declarationFile, (node) => {
           if (node.kind === ts.SyntaxKind.DeclareKeyword) return "";
-          if (
-            isNodeKindStringLiteral(node) &&
-            (isNodeKindExportDeclaration(node.parent) || isNodeKindImportDeclaration(node.parent))
-          ) {
+          if (isNodeKindStringLiteral(node) && (isNodeKindExportDeclaration(node.parent) || isNodeKindImportDeclaration(node.parent))) {
             // This block of code is modifying the names of imported modules
             const text = node.text;
             const resolved = resolveModuleImport(text);
@@ -292,24 +277,36 @@ function transformTypes(sourceFile) {
   let numReplaced = 0;
   debug("transforming:");
   let result = ts.transform(sourceFile, [
-    context => {
-      const visit = node => {
+    (context) => {
+      const visit = (node) => {
         node = ts.visitEachChild(node, visit, context);
         if (ts.isTypeNode(node)) {
           const name = node.getText(sourceFile);
           switch (name) {
             // this is wrong, but works
-            case "bool": ++numReplaced; return context.factory.createIdentifier("boolean");
-            default: if (!/^(?:Binaryen|Relooper)/.test(name)) break;
-            case "i8": case "i16": case "i32": case "isize":
-            case "u8": case "u16": case "u32": case "usize":
-            case "f32": case "f64": ++numReplaced; return context.factory.createIdentifier("number");
+            case "bool":
+              ++numReplaced;
+              return context.factory.createIdentifier("boolean");
+            default:
+              if (!/^(?:Binaryen|Relooper)/.test(name)) break;
+            case "i8":
+            case "i16":
+            case "i32":
+            case "isize":
+            case "u8":
+            case "u16":
+            case "u32":
+            case "usize":
+            case "f32":
+            case "f64":
+              ++numReplaced;
+              return context.factory.createIdentifier("number");
           }
         }
         return node;
       };
-      return node => ts.visitNode(node, visit);
-    }
+      return (node) => ts.visitNode(node, visit);
+    },
   ]);
   debug("  replaced " + numReplaced + " AS types with TS types");
   return result;
@@ -323,10 +320,8 @@ export function generateSrc() {
   generate({
     project: pathUtil.resolve(__dirname, "..", "src"),
     prefix,
-    exclude: [
-      "glue/**",
-    ],
-    stdout
+    exclude: ["glue/**"],
+    stdout,
   });
 
   stdout.push("\n");
@@ -335,7 +330,7 @@ export function generateSrc() {
     project: pathUtil.resolve(__dirname, "..", "std", "assembly", "shared"),
     prefix: prefix + "/std/assembly/shared",
     exclude: [],
-    stdout
+    stdout,
   });
 
   stdout.push("\n");
@@ -343,20 +338,14 @@ export function generateSrc() {
   generate({
     project: pathUtil.resolve(__dirname, "..", "src", "glue"),
     prefix: prefix + "/src/glue",
-    exclude: [
-      "js/index.ts",
-      "js/node.d.ts"
-    ],
-    stdout
+    exclude: ["js/index.ts", "js/node.d.ts"],
+    stdout,
   });
 
   const source = stdout.join("").replace(/\/\/\/ <reference[^>]*>\r?\n/g, "");
   const sourceFile = ts.createSourceFile("assemblyscript.d.ts", source, ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
   const result = transformTypes(sourceFile);
-  fs.writeFileSync(
-    pathUtil.resolve(__dirname, "..", "dist", "assemblyscript.generated.d.ts"),
-    ts.createPrinter().printFile(result.transformed[0])
-  );
+  fs.writeFileSync(pathUtil.resolve(__dirname, "..", "dist", "assemblyscript.generated.d.ts"), ts.createPrinter().printFile(result.transformed[0]));
 }
 
 export function generateCli() {
@@ -364,20 +353,14 @@ export function generateCli() {
 
   generate({
     baseDir: pathUtil.resolve(__dirname, ".."),
-    files: [
-      pathUtil.resolve(__dirname, "..", "cli", "index.d.ts")
-    ],
-    externs: [
-      "./assemblyscript.generated.d.ts"
-    ],
+    files: [pathUtil.resolve(__dirname, "..", "cli", "index.d.ts")],
+    externs: ["./assemblyscript.generated.d.ts"],
     prefix,
     stdout,
     resolveModuleImport: ({ importedModuleId, currentModuleId }) => {
-      if (currentModuleId == "cli/index" && importedModuleId == "../src")
-        return prefix + "/src/index";
+      if (currentModuleId == "cli/index" && importedModuleId == "../src") return prefix + "/src/index";
 
-      if (importedModuleId == "binaryen")
-        return "binaryen";
+      if (importedModuleId == "binaryen") return "binaryen";
 
       return null;
     },
@@ -386,8 +369,5 @@ export function generateCli() {
   const source = stdout.join("");
   const sourceFile = ts.createSourceFile("asc.d.ts", source, ts.ScriptTarget.ESNext, false, ts.ScriptKind.TS);
   const result = transformTypes(sourceFile);
-  fs.writeFileSync(
-    pathUtil.resolve(__dirname, "..", "dist", "asc.generated.d.ts"),
-    ts.createPrinter().printFile(result.transformed[0])
-  );
+  fs.writeFileSync(pathUtil.resolve(__dirname, "..", "dist", "asc.generated.d.ts"), ts.createPrinter().printFile(result.transformed[0]));
 }

@@ -19,7 +19,7 @@ export const libraryPrefix: string;
 export const libraryFiles: { [key: string]: string };
 
 /** Bundled definition files. */
-export const definitionFiles: { assembly: string, portable: string };
+export const definitionFiles: { assembly: string; portable: string };
 
 /** Default Binaryen optimization level. */
 export const defaultOptimizeLevel: number;
@@ -190,15 +190,20 @@ export interface APIResult {
 export function main(argv: string[] | CompilerOptions, options?: APIOptions): Promise<APIResult>;
 
 /** Convenience function that parses and compiles source strings directly. */
-export function compileString(sources: { [key: string]: string } | string, options?: CompilerOptions): Promise<APIResult & {
-  /** Emitted binary. */
-  binary: Uint8Array | null,
-  /** Emitted text format. */
-  text: string | null
-}>;
+export function compileString(
+  sources: { [key: string]: string } | string,
+  options?: CompilerOptions,
+): Promise<
+  APIResult & {
+    /** Emitted binary. */
+    binary: Uint8Array | null;
+    /** Emitted text format. */
+    text: string | null;
+  }
+>;
 
 /** Checks diagnostics emitted so far for errors. */
-export function checkDiagnostics(emitter: Record<string,unknown>, stderr?: OutputStream, reportDiagnostic?: DiagnosticReporter, useColors?: boolean): boolean;
+export function checkDiagnostics(emitter: Record<string, unknown>, stderr?: OutputStream, reportDiagnostic?: DiagnosticReporter, useColors?: boolean): boolean;
 
 /** Statistics for the current task. */
 export class Stats {
@@ -238,14 +243,13 @@ export class Stats {
 export function createMemoryStream(fn?: (chunk: Uint8Array | string) => void): MemoryStream;
 
 /** Compatible TypeScript compiler options for syntax highlighting etc. */
-export const tscOptions: Record<string,unknown>;
+export const tscOptions: Record<string, unknown>;
 
 import binaryen from "../lib/binaryen";
 import { Program, Parser } from "../src";
 
 /** Compiler transform base class. */
 export abstract class Transform {
-
   /** Program reference. */
   readonly program: Program;
 

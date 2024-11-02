@@ -1,6 +1,3 @@
 {
-  "asc_flags": [
-    "--runtime", "stub",
-    "--exportRuntime"
-  ]
+  "asc_flags": ["--runtime", "stub", "--exportRuntime"]
 }

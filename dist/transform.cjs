@@ -1,1 +1,3 @@
-module.exports = class Transform { /* stub */ };
+module.exports = class Transform {
+  /* stub */
+};

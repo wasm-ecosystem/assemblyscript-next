@@ -3,15 +3,7 @@
  * @license Apache-2.0
  */
 
-import {
-  Module,
-  ExpressionId,
-  ExpressionRef,
-  FunctionRef,
-  GlobalRef,
-  Index,
-  StringRef
-} from "../module";
+import { Module, ExpressionId, ExpressionRef, FunctionRef, GlobalRef, Index, StringRef } from "../module";
 
 import {
   _BinaryenExpressionGetId,
@@ -283,7 +275,7 @@ import {
   _BinaryenStringSliceWTFSetEnd,
   _BinaryenStringSliceIterSetRef,
   _BinaryenStringSliceIterSetNum,
-  _BinaryenArrayNewFixedSetValueAt
+  _BinaryenArrayNewFixedSetValueAt,
 } from "../glue/binaryen";
 
 /** Base class of custom Binaryen visitors. */
@@ -1289,7 +1281,8 @@ export abstract class Visitor {
         this.visitStringSliceIter(expr);
         break;
       }
-      default: throw new Error("unexpected expression kind");
+      default:
+        throw new Error("unexpected expression kind");
     }
     this._currentExpression = previousExpression;
   }
@@ -1297,7 +1290,6 @@ export abstract class Visitor {
 
 /** Base class of custom Binaryen passes. */
 export abstract class Pass extends Visitor {
-
   /** Gets the current function being walked. */
   get currentFunction(): FunctionRef {
     let currentFunction = this._currentFunction;
@@ -1386,7 +1378,7 @@ export function replaceChild(
   /** Expression to replace. */
   search: ExpressionRef,
   /** Expression to replace `search` with. */
-  replacement: ExpressionRef
+  replacement: ExpressionRef,
 ): ExpressionRef {
   switch (_BinaryenExpressionGetId(parent)) {
     case ExpressionId.Block: {
@@ -2240,7 +2232,8 @@ export function replaceChild(
       }
       break;
     }
-    default: throw new Error("unexpected expression id");
+    default:
+      throw new Error("unexpected expression id");
   }
   return 0;
 }

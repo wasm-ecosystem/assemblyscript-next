@@ -7,7 +7,7 @@ class MyTransform extends Transform {
     super();
     this.log("- constructor");
   }
-  afterParse () {
+  afterParse() {
     this.log("- afterParse");
   }
   afterInitialize() {

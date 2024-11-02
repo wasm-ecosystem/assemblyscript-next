@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--importMemory"
-  ]
+  "asc_flags": ["--importMemory"]
 }

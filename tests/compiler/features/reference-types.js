@@ -1,12 +1,12 @@
 export function preInstantiate(imports, exports) {
   imports.Reflect = Reflect;
   imports.console = {
-    log: function(ref) {
+    log: function (ref) {
       console.log("  log: " + ref);
-    }
+    },
   };
   imports["reference-types"] = {
-    external: function(a) {
+    external: function (a) {
       return a;
     },
     somethingReal() {
@@ -16,8 +16,8 @@ export function preInstantiate(imports, exports) {
       return null;
     },
     someObject: {
-      theKey: "Hello world!"
+      theKey: "Hello world!",
     },
-    someKey: "theKey"
+    someKey: "theKey",
   };
 }

@@ -7,7 +7,7 @@ const files = { "index.ts": `export function test(): void {}` };
 
 console.log("# asc --version");
 {
-  const { stdout, stderr } = await asc.main([ "--version" ]);
+  const { stdout, stderr } = await asc.main(["--version"]);
 
   console.log(">>> STDOUT >>>");
   process.stdout.write(stdout.toString());
@@ -17,7 +17,7 @@ console.log("# asc --version");
 
 console.log("\n# asc --help");
 {
-  const { stdout, stderr } = await asc.main([ "--help" ]);
+  const { stdout, stderr } = await asc.main(["--help"]);
 
   console.log(">>> STDOUT >>>");
   process.stdout.write(stdout.toString());
@@ -27,7 +27,7 @@ console.log("\n# asc --help");
 
 console.log("\n# asc index.ts --textFile");
 {
-  const { error, stdout, stderr } = await asc.main([ "index.ts", "--textFile" ], {
+  const { error, stdout, stderr } = await asc.main(["index.ts", "--textFile"], {
     readFile: (name, baseDir) => {
       console.log("readFile: " + name + ", baseDir=" + baseDir);
       if (Object.prototype.hasOwnProperty.call(files, name)) return files[name];
@@ -39,7 +39,7 @@ console.log("\n# asc index.ts --textFile");
     listFiles: (dirname, baseDir) => {
       console.log("listFiles: " + dirname + ", baseDir=" + baseDir);
       return [];
-    }
+    },
   });
 
   if (error) {

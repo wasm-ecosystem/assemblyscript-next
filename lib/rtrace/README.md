@@ -2,8 +2,7 @@
 
 A tiny utility to sanitize the AssemblyScript runtime. Records allocations and frees performed by the runtime and emits an error if something is off. Also checks for leaks.
 
-Instructions
-------------
+## Instructions
 
 Compile your module that uses the full or half runtime with `-use ASC_RTRACE=1 --exportStart _initialize` and include an instance of this module as the import named `rtrace`.
 

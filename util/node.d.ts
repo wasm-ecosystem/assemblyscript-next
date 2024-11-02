@@ -12,10 +12,4 @@ import url from "url";
 /** Whether the environment is Node.js. */
 export const isNode: boolean;
 
-export {
-  fs,
-  module,
-  path,
-  process,
-  url
-};
+export { fs, module, path, process, url };
