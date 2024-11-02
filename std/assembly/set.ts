@@ -21,8 +21,8 @@ import { HASH } from "./util/hash";
 
 /** Structure of a set entry. */
 @unmanaged class SetEntry<K> {
-  key: K;
-  taggedNext: usize; // LSB=1 indicates EMPTY
+  key!: K;
+  taggedNext!: usize; // LSB=1 indicates EMPTY
 }
 
 /** Empty bit. */
@@ -108,7 +108,8 @@ export class Set<T> {
         );
       }
       // append new entry
-      entry = changetype<SetEntry<T>>(changetype<usize>(this.entries) + <usize>this.entriesOffset++ * ENTRY_SIZE<T>());
+      this.entriesOffset++;
+      entry = changetype<SetEntry<T>>(changetype<usize>(this.entries) + <usize>this.entriesOffset * ENTRY_SIZE<T>());
       entry.key = key;
       if (isManaged<T>()) {
         __link(changetype<usize>(this), changetype<usize>(key), true);

@@ -22,9 +22,9 @@ import { E_KEYNOTFOUND } from "./util/error";
 
 /** Structure of a map entry. */
 @unmanaged class MapEntry<K, V> {
-  key: K;
-  value: V;
-  taggedNext: usize; // LSB=1 indicates EMPTY
+  key!: K;
+  value!: V;
+  taggedNext!: usize; // LSB=1 indicates EMPTY
 }
 
 /** Empty bit. */
@@ -125,7 +125,8 @@ export class Map<K, V> {
       }
       // append new entry
       let entries = this.entries;
-      entry = changetype<MapEntry<K, V>>(changetype<usize>(entries) + <usize>this.entriesOffset++ * ENTRY_SIZE<K, V>());
+      this.entriesOffset++;
+      entry = changetype<MapEntry<K, V>>(changetype<usize>(entries) + <usize>this.entriesOffset * ENTRY_SIZE<K, V>());
       // link with the map
       entry.key = key;
       if (isManaged<K>()) {
