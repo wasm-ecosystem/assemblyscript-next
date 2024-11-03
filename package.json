@@ -75,7 +75,7 @@
     "check:format": "prettier -c . --log-level warn",
     "build": "node scripts/build",
     "watch": "node scripts/build --watch",
-    "coverage": "npx c8 -- npm test",
+    "coverage": "npx c8 -r lcov -r text -- npm test",
     "test": "npm run test:parser && npm run test:compiler -- --parallel && npm run test:browser && npm run test:asconfig && npm run test:transform && npm run test:cli",
     "test:parser": "node --enable-source-maps tests/parser",
     "test:compiler": "node --enable-source-maps --no-warnings tests/compiler",
