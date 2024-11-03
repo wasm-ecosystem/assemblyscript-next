@@ -30,12 +30,11 @@
   },
   "devDependencies": {
     "@types/node": "^18.13.0",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
+    "assemblyscript-prettier": "^3.0.1",
     "diff": "^5.1.0",
     "esbuild": "^0.19.4",
-    "eslint": "^8.33.0",
     "glob": "^10.3.0",
+    "prettier": "^3.3.3",
     "typescript": "^5.5.4"
   },
   "type": "module",
@@ -70,10 +69,10 @@
     "asinit": "./bin/asinit.js"
   },
   "scripts": {
-    "check": "npm run check:config && npm run check:import && npm run lint",
+    "check": "npm run check:config && npm run check:import && npm run check:format",
     "check:config": "tsc --noEmit -p src --diagnostics --listFiles",
     "check:import": "tsc --noEmit --target ESNEXT --module nodenext --moduleResolution nodenext --experimentalDecorators tests/import/index",
-    "lint": "eslint --max-warnings 0 --ext js . && eslint --max-warnings 0 --ext ts .",
+    "check:format": "prettier -c . --log-level warn",
     "build": "node scripts/build",
     "watch": "node scripts/build --watch",
     "coverage": "npx c8 -- npm test",

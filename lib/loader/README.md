@@ -46,7 +46,7 @@ One task the loader does not perform is to implicitly translate between WebAssem
 ```ts
 // AssemblyScript
 export function concat(a: string, b: string): string {
-  return a + b
+  return a + b;
 }
 ```
 
@@ -54,18 +54,18 @@ and then wants to call `concat` externally, the string arguments cannot just be 
 
 ```js
 // JavaScript
-const { concat } = myModule.exports
-const { __newString, __getString } = myModule.exports
+const { concat } = myModule.exports;
+const { __newString, __getString } = myModule.exports;
 
 function doConcat(aStr, bStr) {
-  let aPtr = __newString(aStr)
-  let bPtr = __newString(bStr)
-  let cPtr = concat(aPtr, bPtr)
-  let cStr = __getString(cPtr)
-  return cStr
+  let aPtr = __newString(aStr);
+  let bPtr = __newString(bStr);
+  let cPtr = concat(aPtr, bPtr);
+  let cStr = __getString(cPtr);
+  return cStr;
 }
 
-console.log(doConcat("Hello ", "world!"))
+console.log(doConcat("Hello ", "world!"));
 ```
 
 ### Creating arrays
@@ -75,26 +75,26 @@ Arrays (or more advanced classes for that matter) require a bit more cooperation
 ```ts
 // AssemblyScript
 export function sum(arr: Int32Array): i32 {
-  let sum = 0
+  let sum = 0;
   for (let i = 0, k = arr.length; i < k; ++i) {
-    sum += unchecked(arr[i])
+    sum += unchecked(arr[i]);
   }
-  return sum
+  return sum;
 }
-export const Int32Array_ID = idof<Int32Array>()
+export const Int32Array_ID = idof<Int32Array>();
 ```
 
 ```js
 // JavaScript
-const { sum, Int32Array_ID } = myModule.exports
-const { __newArray } = myModule.exports
+const { sum, Int32Array_ID } = myModule.exports;
+const { __newArray } = myModule.exports;
 
 function doSum(values) {
-  const arrPtr = __newArray(Int32Array_ID, values)
-  return sum(arrPtr)
+  const arrPtr = __newArray(Int32Array_ID, values);
+  return sum(arrPtr);
 }
 
-console.log(doSum([1, 2, 3]))
+console.log(doSum([1, 2, 3]));
 ```
 
 This works with all kinds of arrays, except that ids are different and values are interpreted differently, of course.
@@ -106,9 +106,9 @@ If one is instead interested in the values of an array being returned by the mod
 ```ts
 // AssemblyScript
 export function getRandomArray(len: i32): Int32Array {
-  const arr = new Int32Array(len)
+  const arr = new Int32Array(len);
   // fill with random values
-  return arr
+  return arr;
 }
 ```
 
@@ -116,34 +116,34 @@ The first is, obviously, to read the array's values from the module's memory by 
 
 ```js
 // JavaScript
-const { getRandomArray } = myModule.exports
-const { __getArray } = myModule.exports
+const { getRandomArray } = myModule.exports;
+const { __getArray } = myModule.exports;
 
 function doGetRandomArray(len) {
-  const arrPtr = getRandomArray(len)
-  const values = __getArray(arrPtr)
-  return values
+  const arrPtr = getRandomArray(len);
+  const values = __getArray(arrPtr);
+  return values;
 }
 
-console.log(doGetRandomArray(10))
+console.log(doGetRandomArray(10));
 ```
 
 which is always safe, while the second is to create a live view on the array, enabling two-way modification of its values:
 
 ```js
 // JavaScript
-const { getRandomArray } = myModule.exports
-const { __getArrayView, __pin, __unpin } = myModule.exports
+const { getRandomArray } = myModule.exports;
+const { __getArrayView, __pin, __unpin } = myModule.exports;
 
 function doGetRandomArrayView(len) {
-  const arrPtr = __pin(getRandomArray(len)) // pin if necessary
-  const view = __getArrayView(arrPtr)
-  return { ptr, view }
+  const arrPtr = __pin(getRandomArray(len)); // pin if necessary
+  const view = __getArrayView(arrPtr);
+  return { ptr, view };
 }
 
-const randomArray = doGetRandomArrayView(10)
-console.log(randomArray.view)
-__unpin(randomArray.ptr) // unpin if necessary
+const randomArray = doGetRandomArrayView(10);
+console.log(randomArray.view);
+__unpin(randomArray.ptr); // unpin if necessary
 ```
 
 The latter variant can be more efficient (and useful) but is a little dangerous because the view may become detached from the module's memory when memory automatically grows. Also, the viewed array can grow automatically when pushed to, with the view then referencing random memory. Pushing to an array can be avoided quite easily, yet it is notoriously hard to predict when module memory grows - but one can try to set a sufficiently large size of `--initialMemory` or defensively trigger a sufficiently large dynamic allocation being freed immediately before dealing with potentially problematic views.
@@ -157,12 +157,13 @@ As mentioned earlier, the loader understands how to make a nice object structure
 export class Foo {
   constructor(public str: string) {}
   getString(): string {
-    return this.str
+    return this.str;
   }
 }
 
-export function getFoo(): Foo { // this one
-  return new Foo("Hello world!")
+export function getFoo(): Foo {
+  // this one
+  return new Foo("Hello world!");
 }
 ```
 
@@ -170,14 +171,14 @@ one can wrap the received pointer in a `myModule.exports.Foo` instance:
 
 ```js
 // JavaScript
-const { Foo, getFoo } = myModule.exports
-const { __getString, __pin, __unpin } = myModule.exports
+const { Foo, getFoo } = myModule.exports;
+const { __getString, __pin, __unpin } = myModule.exports;
 
-const fooPtr = __pin(getFoo()) // pin if necessary
-const foo = Foo.wrap(fooPtr)
-const strPtr = foo.getString()
-console.log(__getString(strPtr))
-__unpin(fooPtr) // unpin if necessary
+const fooPtr = __pin(getFoo()); // pin if necessary
+const foo = Foo.wrap(fooPtr);
+const strPtr = foo.getString();
+console.log(__getString(strPtr));
+__unpin(fooPtr); // unpin if necessary
 ```
 
 ## API
@@ -190,35 +191,26 @@ Copying from and extending the examples above is typically sufficient.
 
 ### Static members
 
-* ```ts
-  function instantiate<T>(
-    moduleOrBuffer: WasmInstantiable,
-    imports?: WasmImports
-  ): Promise<ASUtil & T>
+- ```ts
+  function instantiate<T>(moduleOrBuffer: WasmInstantiable, imports?: WasmImports): Promise<ASUtil & T>;
   ```
+
   Asynchronously instantiates an AssemblyScript module from anything that can be instantiated.
 
-* ```ts
-  function instantiateSync<T>(
-    moduleOrBuffer: WasmInstantiable,
-    imports?: WasmImports
-  ): ASUtil & T
+- ```ts
+  function instantiateSync<T>(moduleOrBuffer: WasmInstantiable, imports?: WasmImports): ASUtil & T;
   ```
+
   Synchronously instantiates an AssemblyScript module from a WebAssembly.Module or binary buffer. Not recommended.
 
-* ```ts
-  function instantiateStreaming<T>(
-    response: Response | PromiseLike<Response>,
-    imports?: WasmImports
-  ): Promise<ASUtil & T>
+- ```ts
+  function instantiateStreaming<T>(response: Response | PromiseLike<Response>, imports?: WasmImports): Promise<ASUtil & T>;
   ```
+
   Asynchronously instantiates an AssemblyScript module from a response, i.e. as obtained by fetch.
 
-* ```ts
-  function demangle<T>(
-    exports: WasmExports,
-    baseModule?: Object
-  ): T
+- ```ts
+  function demangle<T>(exports: WasmExports, baseModule?: Object): T;
   ```
   Demangles an AssemblyScript module's exports to a friendly object structure. You usually don't have to call this manually as instantiation does this implicitly.
 
@@ -228,58 +220,65 @@ Note that `T` above can either be omitted if the shape of the module is unknown,
 
 The following utility functions are mixed into the module's exports.
 
-* ```ts
-  function __newString(str: string): number
+- ```ts
+  function __newString(str: string): number;
   ```
+
   Allocates a new string in the module's memory and returns a pointer to it. Requires `--exportRuntime` for access to `__new`.
 
-* ```ts
+- ```ts
   function __newArray(
     id: number,
     values: valuesOrCapacity?: number[] | ArrayBufferView | number
   ): number
   ```
-  Allocates a new array in the module's memory and returns a pointer to it. The `id` is the unique runtime id of the respective array class. If you are using `Int32Array` for example, the best way to know the id is an `export const Int32Array_ID = idof<Int32Array>()`. Requires `--exportRuntime` for access to `__new`. The `values` parameter сan also be used to pre-allocate an otherwise empty array of a certain capacity. 
 
-* ```ts
-  function __getString(ptr: number): string
+  Allocates a new array in the module's memory and returns a pointer to it. The `id` is the unique runtime id of the respective array class. If you are using `Int32Array` for example, the best way to know the id is an `export const Int32Array_ID = idof<Int32Array>()`. Requires `--exportRuntime` for access to `__new`. The `values` parameter сan also be used to pre-allocate an otherwise empty array of a certain capacity.
+
+- ```ts
+  function __getString(ptr: number): string;
   ```
+
   Copies a string's value from the module's memory to a JavaScript string. `ptr` must not be zero.
 
-* ```ts
-  function __getFunction(ptr: number): ((...args: unknown[]) => unknown) | null
+- ```ts
+  function __getFunction(ptr: number): ((...args: unknown[]) => unknown) | null;
   ```
+
   Gets a callable function object from the module's memory containing its table index. `ptr` must not be zero.
 
-* ```ts
-  function __getArrayBuffer(ptr: number): ArrayBuffer
+- ```ts
+  function __getArrayBuffer(ptr: number): ArrayBuffer;
   ```
+
   Copies an ArrayBuffer's value from the module's memory to a JavaScript buffer. `ptr` must not be zero.
 
-* ```ts
-  function __getArray(ptr: number): number[]
+- ```ts
+  function __getArray(ptr: number): number[];
   ```
+
   Copies an array's values from the module's memory to a JavaScript array. Infers the array type from RTTI. `ptr` must not be zero.
 
-* ```ts
-  function __getArrayView(ptr: number): TypedArray
+- ```ts
+  function __getArrayView(ptr: number): TypedArray;
   ```
+
   Gets a live view on the values of an array in the module's memory. Infers the array type from RTTI. `ptr` must not be zero.
 
   This differs from `__getArray` in that the data isn't copied but remains live in both directions. That's faster but also unsafe because if the array grows or becomes garbage collected, the view will no longer represent the correct memory region and modifying its values in this state will most likely corrupt memory or otherwise explode. Use, but use with care.
 
-* ```ts
-  function __getInt8ArrayView(ptr: number): Int8Array
-  function __getUint8ArrayView(ptr: number): Uint8Array
-  function __getUint8ClampedArrayView(ptr: number): Uint8ClampedArray
-  function __getInt16ArrayView(ptr: number): Int16Array
-  function __getUint16ArrayView(ptr: number): Uint16Array
-  function __getInt32ArrayView(ptr: number): Int32Array
-  function __getUint32ArrayView(ptr: number): Uint32Array
-  function __getInt64ArrayView(ptr: number): BigInt64Array
-  function __getUint64ArrayView(ptr: number): BigUint64Array
-  function __getFloat32ArrayView(ptr: number): Float32Array
-  function __getFloat64ArrayView(ptr: number): Float64Array
+- ```ts
+  function __getInt8ArrayView(ptr: number): Int8Array;
+  function __getUint8ArrayView(ptr: number): Uint8Array;
+  function __getUint8ClampedArrayView(ptr: number): Uint8ClampedArray;
+  function __getInt16ArrayView(ptr: number): Int16Array;
+  function __getUint16ArrayView(ptr: number): Uint16Array;
+  function __getInt32ArrayView(ptr: number): Int32Array;
+  function __getUint32ArrayView(ptr: number): Uint32Array;
+  function __getInt64ArrayView(ptr: number): BigInt64Array;
+  function __getUint64ArrayView(ptr: number): BigUint64Array;
+  function __getFloat32ArrayView(ptr: number): Float32Array;
+  function __getFloat64ArrayView(ptr: number): Float64Array;
   ```
   Slightly more efficient variants of `__getArrayView` where the type of the array is know beforehand. Doesn't try to infer the type.
 
@@ -293,7 +292,7 @@ Making the loader's API any more convenient has its tradeoffs. One would either 
 
 ### More convenient tools
 
-* [as-bind](https://github.com/torch2424/as-bind) is a library, built on top of the loader, to make passing high-level data structures between AssemblyScript and JavaScript more convenient.
+- [as-bind](https://github.com/torch2424/as-bind) is a library, built on top of the loader, to make passing high-level data structures between AssemblyScript and JavaScript more convenient.
 
 ## Advanced usage
 

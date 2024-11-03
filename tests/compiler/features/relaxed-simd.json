@@ -1,9 +1,4 @@
 {
-  "asc_flags": [
-    "--runtime stub"
-  ],
-  "features": [
-    "simd",
-    "relaxed-simd"
-  ]
+  "asc_flags": ["--runtime stub"],
+  "features": ["simd", "relaxed-simd"]
 }

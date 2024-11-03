@@ -1,0 +1,3 @@
+tests/compiler/**/*.ts
+tests/compiler/**/*.js
+tests/parser/**/*.ts

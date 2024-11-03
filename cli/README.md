@@ -1,8 +1,6 @@
-Frontend for Node.js
-====================
+# Frontend for Node.js
 
-Usage
------
+## Usage
 
 For an up to date list of available command line options, see:
 
@@ -10,21 +8,14 @@ For an up to date list of available command line options, see:
 $> asc --help
 ```
 
-API
----
+## API
 
 The API accepts the same options as the CLI but also lets you override stdout and stderr. Example:
 
 ```js
 import asc from "assemblyscript/asc";
 
-const { error, stdout } = await asc.main([
-  "myModule.ts",
-  "--outFile", "myModule.wasm",
-  "--optimize",
-  "--sourceMap",
-  "--stats"
-]);
+const { error, stdout } = await asc.main(["myModule.ts", "--outFile", "myModule.wasm", "--optimize", "--sourceMap", "--stats"]);
 if (error) {
   console.log("Compilation failed: " + error.message);
 } else {
@@ -34,12 +25,12 @@ if (error) {
 
 The result has the following structure:
 
-| Property | Description
-|----------|-------------
-| error    | Encountered error, if any
-| stdout   | Standard output stream
-| stderr   | Standard error stream
-| stats    | Statistics
+| Property | Description               |
+| -------- | ------------------------- |
+| error    | Encountered error, if any |
+| stdout   | Standard output stream    |
+| stderr   | Standard error stream     |
+| stats    | Statistics                |
 
 You can also compile a single source string directly (note that this API has limited functionality):
 
@@ -48,7 +39,6 @@ import asc from "assemblyscript/asc";
 const { binary, text, stdout, stderr } = await asc.compileString(`...`, { optimize: 2 });
 ...
 ```
-
 
 Available command line options can also be obtained programmatically:
 

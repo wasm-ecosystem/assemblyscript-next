@@ -1,9 +1,4 @@
 {
-  "asc_flags": [
-    "--exportStart _start",
-    "--bindings raw"
-  ],
-  "features": [
-    "reference-types"
-  ]
+  "asc_flags": ["--exportStart _start", "--bindings raw"],
+  "features": ["reference-types"]
 }

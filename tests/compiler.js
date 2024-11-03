@@ -18,46 +18,33 @@ const require = createRequire(import.meta.url);
 const startTime = Date.now();
 
 const config = {
-  "create": {
-    "description": [
-      "Recreates the fixture for the specified test(s)",
-      "or all the fixtures if no specific test is given."
-    ],
-    "type": "b"
+  create: {
+    description: ["Recreates the fixture for the specified test(s)", "or all the fixtures if no specific test is given."],
+    type: "b",
   },
-  "createBinary": {
-    "description": [
-      "Also creates the respective .wasm binaries."
-    ],
-    "type": "b"
+  createBinary: {
+    description: ["Also creates the respective .wasm binaries."],
+    type: "b",
   },
-  "noDiff": {
-    "description": [
-      "Disables output of detailed fixture differences."
-    ],
-    "type": "b"
+  noDiff: {
+    description: ["Disables output of detailed fixture differences."],
+    type: "b",
   },
-  "noColors": {
-    "description": [
-      "Disables terminal colors."
-    ],
-    "type": "b"
+  noColors: {
+    description: ["Disables terminal colors."],
+    type: "b",
   },
-  "rtraceVerbose": {
-    "description": [
-      "Enables verbose rtrace output."
-    ]
+  rtraceVerbose: {
+    description: ["Enables verbose rtrace output."],
   },
-  "parallel": {
-    "description": [
-      "Runs tests in parallel."
-    ]
+  parallel: {
+    description: ["Runs tests in parallel."],
   },
-  "help": {
-    "description": "Prints this message and exits.",
-    "type": "b",
-    "alias": "h"
-  }
+  help: {
+    description: "Prints this message and exits.",
+    type: "b",
+    alias: "h",
+  },
 };
 const opts = optionsUtil.parse(process.argv.slice(2), config);
 const args = opts.options;
@@ -67,13 +54,15 @@ stdoutColors.enabled = process.stdout.isTTY && !args.noColors;
 stderrColors.enabled = process.stderr.isTTY && !args.noColors;
 
 if (args.help) {
-  console.log([
-    stdoutColors.white("SYNTAX"),
-    "  " + stdoutColors.cyan("npm run test:compiler --") + " [test1, test2 ...] [options]",
-    "",
-    stdoutColors.white("OPTIONS"),
-    optionsUtil.help(config)
-  ].join(os.EOL) + os.EOL);
+  console.log(
+    [
+      stdoutColors.white("SYNTAX"),
+      "  " + stdoutColors.cyan("npm run test:compiler --") + " [test1, test2 ...] [options]",
+      "",
+      stdoutColors.white("OPTIONS"),
+      optionsUtil.help(config),
+    ].join(os.EOL) + os.EOL,
+  );
   process.exit(0);
 }
 
@@ -85,10 +74,11 @@ process.chdir(basedir);
 // Gets a list of all relevant tests
 function getTests() {
   let tests = globSync("**/!(_*).ts", { posix: true })
-    .map(name => name.replace(/\.ts$/, ""))
-    .filter(name => !name.endsWith(".d") && !name.includes("node_modules"));
-  if (argv.length) { // run matching tests only
-    tests = tests.filter(filename => argv.indexOf(filename.replace(/\.ts$/, "")) >= 0);
+    .map((name) => name.replace(/\.ts$/, ""))
+    .filter((name) => !name.endsWith(".d") && !name.includes("node_modules"));
+  if (argv.length) {
+    // run matching tests only
+    tests = tests.filter((filename) => argv.indexOf(filename.replace(/\.ts$/, "")) >= 0);
     if (!tests.length) {
       console.log(stdoutColors.red("FAILURE: ") + stdoutColors.white("No matching tests: " + argv.join(" ") + "\n"));
       process.exit(1);
@@ -115,11 +105,17 @@ function section(title) {
     end(code) {
       const time = measureEnd(start);
       switch (code) {
-        case SUCCESS: console.log("  " + stdoutColors.green("SUCCESS") + " (" + time + ")\n"); break;
-        default: console.log("  " + stdoutColors.red("FAILURE") + " (" + time + ")\n"); break;
-        case SKIPPED: console.log("  " + stdoutColors.yellow("SKIPPED") + " (" + time + ")\n"); break;
+        case SUCCESS:
+          console.log("  " + stdoutColors.green("SUCCESS") + " (" + time + ")\n");
+          break;
+        default:
+          console.log("  " + stdoutColors.red("FAILURE") + " (" + time + ")\n");
+          break;
+        case SKIPPED:
+          console.log("  " + stdoutColors.yellow("SKIPPED") + " (" + time + ")\n");
+          break;
       }
-    }
+    },
   };
 }
 const SUCCESS = 0;
@@ -133,7 +129,7 @@ async function runTest(basename) {
   const configPath = path.join(basedir, basename + ".json");
   const config = fs.existsSync(configPath) ? require(configPath) : {};
   const stdout = asc.createMemoryStream();
-  const stderr = asc.createMemoryStream(chunk => process.stderr.write(chunk.toString().replace(/^(?!$)/mg, "  ")));
+  const stderr = asc.createMemoryStream((chunk) => process.stderr.write(chunk.toString().replace(/^(?!$)/gm, "  ")));
   stderr.isTTY = true;
   const dummy = new Map();
   const writeFile = Map.prototype.set.bind(dummy);
@@ -150,8 +146,12 @@ async function runTest(basename) {
     // --createBinary flag, thereby preventing confusion. Also, the .debug.wasm
     // file is used by the bindings/esm test.
     if (!args.createBinary) {
-      fs.unlink(basename + ".debug.wasm", err => { /* nop */ });
-      fs.unlink(basename + ".release.wasm", err => { /* nop */ });
+      fs.unlink(basename + ".debug.wasm", (err) => {
+        /* nop */
+      });
+      fs.unlink(basename + ".release.wasm", (err) => {
+        /* nop */
+      });
     }
     return { code, message };
   }
@@ -172,7 +172,9 @@ async function runTest(basename) {
       for (const extension of fixtureExtensions) {
         const filename = `${basename}.${mode}.${extension}`;
         if (!dummy.has(filename)) {
-          fs.unlink(filename, err => { /* nop */ });
+          fs.unlink(filename, (err) => {
+            /* nop */
+          });
           continue;
         }
         fs.writeFileSync(filename, dummy.get(filename));
@@ -187,14 +189,8 @@ async function runTest(basename) {
     if (args.noDiff || mode === "release") {
       for (const extension of fixtureExtensions) {
         const filename = `${basename}.${mode}.${extension}`;
-        const actual = (
-          dummy.has(filename) &&
-          dummy.get(filename).replace(/\r\n/g, "\n")
-        );
-        const expected = (
-          fs.existsSync(filename) &&
-          fs.readFileSync(filename, { encoding: "utf8" }).replace(/\r\n/g, "\n")
-        );
+        const actual = dummy.has(filename) && dummy.get(filename).replace(/\r\n/g, "\n");
+        const expected = fs.existsSync(filename) && fs.readFileSync(filename, { encoding: "utf8" }).replace(/\r\n/g, "\n");
 
         // If a fixture/generated file is missing, false will be compared to a
         // string. If both are missing, nothing happens below (as it should).
@@ -223,9 +219,7 @@ async function runTest(basename) {
         // Neither exists, which is perfectly fine. Carry on.
         continue;
       } else if (actualExists != expectedExists) {
-        const message = actualExists
-          ? `Fixture ${filename} is missing!`
-          : `File ${filename} was not generated!`;
+        const message = actualExists ? `Fixture ${filename} is missing!` : `File ${filename} was not generated!`;
 
         console.log("  " + stdoutColors.yellow(message));
         failed = true;
@@ -233,10 +227,7 @@ async function runTest(basename) {
       }
 
       const actual = dummy.has(filename) && dummy.get(filename).replace(/\r\n/g, "\n");
-      const expected = (
-        fs.existsSync(filename) &&
-        fs.readFileSync(filename, { encoding: "utf8" }).replace(/\r\n/g, "\n")
-      );
+      const expected = fs.existsSync(filename) && fs.readFileSync(filename, { encoding: "utf8" }).replace(/\r\n/g, "\n");
 
       const diffResult = diff(filename, expected, actual);
       if (diffResult !== null) {
@@ -250,21 +241,21 @@ async function runTest(basename) {
       return prepareResult(FAILURE, "fixture mismatch");
     }
     compareFixture.end(SUCCESS);
-  }  
+  }
 
   if (config.features) {
-    config.features.forEach(feature => {
+    config.features.forEach((feature) => {
       if (!features.includes(feature) && !features.includes("*")) {
         missing_features.push(feature);
       }
       let featureConfig = featuresConfig[feature];
       if (featureConfig.asc_flags) {
-        featureConfig.asc_flags.forEach(flag => {
+        featureConfig.asc_flags.forEach((flag) => {
           Array.prototype.push.apply(asc_flags, flag.split(" "));
         });
       }
       if (featureConfig.v8_flags) {
-        featureConfig.v8_flags.forEach(flag => {
+        featureConfig.v8_flags.forEach((flag) => {
           if (v8_flags) v8_flags += " ";
           v8_flags += flag;
           if (v8_no_flags) v8_no_flags += " ";
@@ -274,17 +265,14 @@ async function runTest(basename) {
     });
   }
   if (config.asc_flags) {
-    config.asc_flags.forEach(flag => { asc_flags.push(...flag.split(" ")); });
+    config.asc_flags.forEach((flag) => {
+      asc_flags.push(...flag.split(" "));
+    });
   }
 
   // Build debug
   {
-    const cmd = [
-      basename + ".ts",
-      "--debug",
-      "--outFile", basename + ".debug.wasm",
-      "--textFile", basename + ".debug.wat"
-    ];
+    const cmd = [basename + ".ts", "--debug", "--outFile", basename + ".debug.wasm", "--textFile", basename + ".debug.wat"];
     if (asc_flags) cmd.push(...asc_flags);
     if (args.noColors) cmd.push("--noColors");
     const compileDebug = section("compile debug");
@@ -308,7 +296,7 @@ async function runTest(basename) {
     if (expectStderr) {
       const compareStderr = section("compare stderr");
       const stderrString = stderr.toString();
-      if (typeof expectStderr === "string") expectStderr = [ expectStderr ];
+      if (typeof expectStderr === "string") expectStderr = [expectStderr];
       let lastIndex = 0;
       let failed = false;
       expectStderr.forEach((substr, i) => {
@@ -344,12 +332,7 @@ async function runTest(basename) {
 
   // Build release
   {
-    const cmd = [
-      basename + ".ts",
-      "--outFile", basename + ".release.wasm",
-      "--textFile", basename + ".release.wat",
-      "-O"
-    ];
+    const cmd = [basename + ".ts", "--outFile", basename + ".release.wasm", "--textFile", basename + ".release.wat", "-O"];
     if (asc_flags) cmd.push(...asc_flags);
     if (args.noColors) cmd.push("--noColors");
     const compileRelease = section("compile release");
@@ -380,14 +363,13 @@ async function runTest(basename) {
     if (config.skipInstantiate) {
       instantiateDebug.end(SKIPPED);
     } else {
-
-      if (!await testInstantiate(debugBuffer, glue, stderr)) {
+      if (!(await testInstantiate(debugBuffer, glue, stderr))) {
         instantiateDebug.end(FAILURE);
         return prepareResult(FAILURE, "instantiate error (debug)");
       }
       instantiateDebug.end(SUCCESS);
       const instantiateRelease = section("instantiate release");
-      if (!await testInstantiate(releaseBuffer, glue, stderr)) {
+      if (!(await testInstantiate(releaseBuffer, glue, stderr))) {
         instantiateRelease.end(FAILURE);
         return prepareResult(FAILURE, "instantiate error (release)");
       }
@@ -404,8 +386,10 @@ async function runTest(basename) {
       basename + ".ts",
       "--outFile", // -> stdout
       "--debug",
-      "--use", "ASC_RTRACE=1",
-      "--exportStart", "_initialize",
+      "--use",
+      "ASC_RTRACE=1",
+      "--exportStart",
+      "_initialize",
       // "--runPasses", "instrument-memory"
     ];
     if (asc_flags) cmd.push(...asc_flags);
@@ -423,7 +407,7 @@ async function runTest(basename) {
 
     const rtracedBuffer = stdout.toBuffer();
     const instantiateRtrace = section("instantiate rtrace");
-    if (!await testInstantiate(rtracedBuffer, glue, stderr)) {
+    if (!(await testInstantiate(rtracedBuffer, glue, stderr))) {
       instantiateRtrace.end(FAILURE);
       return prepareResult(FAILURE, "rtrace error");
     }
@@ -461,7 +445,7 @@ async function testInstantiate(binaryBuffer, glue, stderr) {
       },
       getMemory() {
         return instance.exports.memory;
-      }
+      },
     });
 
     function toEnv(name, ref) {
@@ -482,16 +466,16 @@ async function testInstantiate(binaryBuffer, glue, stderr) {
     const imports = rtrace.install({
       env: Object.assign({}, globalThis, {
         memory,
-        abort: function(msg, file, line, column) {
+        abort: function (msg, file, line, column) {
           console.log(stdoutColors.red("  abort: " + getString(msg) + " in " + getString(file) + "(" + line + ":" + column + ")"));
         },
-        trace: function(msg, n) {
+        trace: function (msg, n) {
           console.log("  trace: " + getString(msg) + (n ? " " : "") + Array.prototype.slice.call(arguments, 2, 2 + n).join(", "));
         },
-        seed: function() {
-          return 0xA5534817; // make tests deterministic
+        seed: function () {
+          return 0xa5534817; // make tests deterministic
         },
-        visit: function() {
+        visit: function () {
           // override in tests
         },
         "Date.getTimezoneOffset"() {
@@ -499,8 +483,8 @@ async function testInstantiate(binaryBuffer, glue, stderr) {
           return new Date().getTimezoneOffset();
         },
         ...toEnv("Date", Date),
-        ...toEnv("Math", Math)
-      })
+        ...toEnv("Math", Math),
+      }),
     });
 
     if (glue.preInstantiate) {
@@ -541,12 +525,7 @@ async function testInstantiate(binaryBuffer, glue, stderr) {
     }
     if (!failed) {
       if (rtrace.active) {
-        console.log("  " +
-          rtrace.allocCount + " allocs, " +
-          rtrace.freeCount + " frees, " +
-          rtrace.resizeCount + " resizes, " +
-          rtrace.moveCount + " moves"
-        );
+        console.log("  " + rtrace.allocCount + " allocs, " + rtrace.freeCount + " frees, " + rtrace.resizeCount + " resizes, " + rtrace.moveCount + " moves");
       }
       return true;
     }
@@ -575,7 +554,7 @@ function evaluateResult(failedTests, skippedTests) {
     }
     console.log();
   }
-  console.log(`Time: ${(Date.now() - startTime)} ms\n`);
+  console.log(`Time: ${Date.now() - startTime} ms\n`);
   if (!process.exitCode) {
     console.log("[ " + stdoutColors.white("SUCCESS") + " ]");
   }
@@ -585,15 +564,18 @@ function evaluateResult(failedTests, skippedTests) {
 const isCoverage = process.env.NODE_V8_COVERAGE != null;
 if (!isCoverage && args.parallel && coreCount > 2) {
   if (cluster.isWorker) {
-    process.on("message", msg => {
+    process.on("message", (msg) => {
       if (msg.cmd != "run") throw Error("invalid command: " + JSON.stringify(msg));
       stdoutColors.enabled = !msg.noColors;
       stderrColors.enabled = !msg.noColors;
-      runTest(msg.test).then(({ code, message }) => {
-        process.send({ code, message });
-      }, err => {
-        process.send({ code: FAILURE, message: err.message });
-      });
+      runTest(msg.test).then(
+        ({ code, message }) => {
+          process.send({ code, message });
+        },
+        (err) => {
+          process.send({ code: FAILURE, message: err.message });
+        },
+      );
     });
     process.send({ code: SUCCESS, message: null });
   } else {
@@ -612,16 +594,26 @@ if (!isCoverage && args.parallel && coreCount > 2) {
       workers[i] = worker;
       current[i] = null;
       outputs[i] = [];
-      worker.process.stdout.on("data", buf => { outputs[i].push(buf); });
-      worker.process.stderr.on("data", buf => { outputs[i].push(buf); });
-      worker.on("message", msg => {
+      worker.process.stdout.on("data", (buf) => {
+        outputs[i].push(buf);
+      });
+      worker.process.stderr.on("data", (buf) => {
+        outputs[i].push(buf);
+      });
+      worker.on("message", (msg) => {
         const { code, message } = msg;
         process.stdout.write(Buffer.concat(outputs[i]).toString());
         switch (code) {
-          case SUCCESS: break;
-          case FAILURE: failedTests.set(current[i], message); break;
-          case SKIPPED: skippedTests.set(current[i], message); break;
-          default: throw Error(`invalid code: ${code}`);
+          case SUCCESS:
+            break;
+          case FAILURE:
+            failedTests.set(current[i], message);
+            break;
+          case SKIPPED:
+            skippedTests.set(current[i], message);
+            break;
+          default:
+            throw Error(`invalid code: ${code}`);
         }
         if (index >= tests.length) {
           workers[i] = null;
@@ -630,7 +622,11 @@ if (!isCoverage && args.parallel && coreCount > 2) {
         }
         current[i] = tests[index++];
         outputs[i] = [];
-        worker.send({ cmd: "run", test: current[i], noColors: !stdoutColors.enabled });
+        worker.send({
+          cmd: "run",
+          test: current[i],
+          noColors: !stdoutColors.enabled,
+        });
       });
       worker.on("disconnect", () => {
         if (workers[i]) throw Error(`worker#${i} died unexpectedly`);
@@ -639,17 +635,23 @@ if (!isCoverage && args.parallel && coreCount > 2) {
     }
   }
 
-// Otherwise run tests sequentially
+  // Otherwise run tests sequentially
 } else {
   let failedTests = new Map();
   let skippedTests = new Map();
   for (const test of getTests()) {
     const { code, message } = await runTest(test);
     switch (code) {
-      case SUCCESS: break;
-      case FAILURE: failedTests.set(test, message); break;
-      case SKIPPED: skippedTests.set(test, message); break;
-      default: new Error(`invalid code: ${code}`);
+      case SUCCESS:
+        break;
+      case FAILURE:
+        failedTests.set(test, message);
+        break;
+      case SKIPPED:
+        skippedTests.set(test, message);
+        break;
+      default:
+        new Error(`invalid code: ${code}`);
     }
   }
   evaluateResult(failedTests, skippedTests);

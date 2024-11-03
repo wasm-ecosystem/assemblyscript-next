@@ -10,9 +10,9 @@ if (process.argv.length < 2) {
 let count = 0;
 while (true) {
   console.log("[ #" + ++count + " ]\n");
-  let res = child_process.spawnSync("node", [ "./index", process.argv[2] ], { stdio: "inherit" });
-  if (res.status !== 0)
-    throw Error("exited with " + res.status);
-  if (res.error)
-    throw res.error;
+  let res = child_process.spawnSync("node", ["./index", process.argv[2]], {
+    stdio: "inherit",
+  });
+  if (res.status !== 0) throw Error("exited with " + res.status);
+  if (res.error) throw res.error;
 }

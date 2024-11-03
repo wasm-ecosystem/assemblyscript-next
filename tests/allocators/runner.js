@@ -1,8 +1,8 @@
 export default function runner(exports, runs, allocs) {
   const alloc = exports["heap_alloc"];
-  const free  = exports["heap_free"];
+  const free = exports["heap_free"];
   const reset = exports["heap_reset"];
-  const fill  = exports["memory_fill"];
+  const fill = exports["memory_fill"];
 
   const ptrs = [];
 
@@ -64,7 +64,6 @@ export default function runner(exports, runs, allocs) {
 
         // immediately free every 4th
         if (!(i % 4)) preciseFree(ptr);
-
         // occasionally free random blocks
         else if (ptrs.length && Math.random() < 0.33) randomFree();
 
@@ -82,7 +81,7 @@ export default function runner(exports, runs, allocs) {
         // should now be possible to reuse the entire memory
         // just try a large portion of the memory here, for example because of
         // SL+1 for allocations in TLSF
-        let size = ((exports.memory.buffer.byteLength - base) * 9 / 10) >>> 0;
+        let size = (((exports.memory.buffer.byteLength - base) * 9) / 10) >>> 0;
         let ptr = alloc(size, 0);
         // if (fill) fill(ptr, 0xac, size);
         if (ptr !== base) throw Error("expected " + base + " but got " + ptr);

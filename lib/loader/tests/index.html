@@ -1,47 +1,49 @@
-<script>var exports = {};</script>
+<script>
+  var exports = {};
+</script>
 <script src="../index.js"></script>
 <script>
-function assert(c) {
-  if (!c) throw Error("assertion failed");
-}
-(async () => {
-  let module;
+  function assert(c) {
+    if (!c) throw Error("assertion failed");
+  }
+  (async () => {
+    let module;
 
-  module = await exports.instantiate(fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiate(fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  module = await exports.instantiate(await fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiate(await fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  module = await exports.instantiate((await fetch("./build/debug.wasm")).arrayBuffer());
-  assert(module.memory);
+    module = await exports.instantiate((await fetch("./build/debug.wasm")).arrayBuffer());
+    assert(module.memory);
 
-  module = await exports.instantiate(await (await fetch("./build/debug.wasm")).arrayBuffer());
-  assert(module.memory);
+    module = await exports.instantiate(await (await fetch("./build/debug.wasm")).arrayBuffer());
+    assert(module.memory);
 
-  module = await exports.instantiateStreaming(fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiateStreaming(fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  module = await exports.instantiateStreaming(await fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiateStreaming(await fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  let instantiateStreaming = WebAssembly.instantiateStreaming;
-  delete WebAssembly.instantiateStreaming;
+    let instantiateStreaming = WebAssembly.instantiateStreaming;
+    delete WebAssembly.instantiateStreaming;
 
-  module = await exports.instantiate(fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiate(fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  module = await exports.instantiate(await fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiate(await fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  module = await exports.instantiateStreaming(fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiateStreaming(fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  module = await exports.instantiateStreaming(await fetch("./build/debug.wasm"));
-  assert(module.memory);
+    module = await exports.instantiateStreaming(await fetch("./build/debug.wasm"));
+    assert(module.memory);
 
-  WebAssembly.instantiateStreaming = instantiateStreaming;
+    WebAssembly.instantiateStreaming = instantiateStreaming;
 
-  console.log("ok");
-})();
+    console.log("ok");
+  })();
 </script>

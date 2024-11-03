@@ -17,7 +17,7 @@ const { error, stderr } = await asc.main(["assembly/index.ts", "--outFile", "out
     } else if (name !== "output.wasm.map") {
       throw Error("Unexpected output file: " + name);
     }
-  }
+  },
 });
 
 if (error) {
@@ -36,7 +36,7 @@ if (fs.existsSync(jsonPath) && stderrString) {
   for (let name of Object.getOwnPropertyNames(expected)) {
     if (actual[name] !== expected[name]) {
       // If object check just first level
-      if (typeof actual[name] === 'object' && typeof expected[name] === 'object') {
+      if (typeof actual[name] === "object" && typeof expected[name] === "object") {
         let error = false;
         for (let field of Object.getOwnPropertyNames(actual[name])) {
           if (actual[name][field] !== expected[name][field]) {
@@ -57,7 +57,6 @@ if (fs.existsSync(jsonPath) && stderrString) {
   }
   process.exit(0);
 }
-
 
 if (!binary) {
   console.error("No binary was generated for the asconfig test in " + process.cwd());

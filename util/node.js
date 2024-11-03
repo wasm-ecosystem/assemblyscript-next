@@ -3,7 +3,7 @@
  * @license Apache-2.0
  */
 
-export const isNode = Object.prototype.toString.call(typeof globalThis.process !== 'undefined' ? globalThis.process : 0) === '[object process]';
+export const isNode = Object.prototype.toString.call(typeof globalThis.process !== "undefined" ? globalThis.process : 0) === "[object process]";
 
 var fs;
 var module;
@@ -25,10 +25,4 @@ if (isNode) {
   url = await import("./browser/url.js");
 }
 
-export {
-  fs,
-  module,
-  path,
-  process,
-  url
-};
+export { fs, module, path, process, url };

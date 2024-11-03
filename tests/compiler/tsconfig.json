@@ -4,11 +4,6 @@
     "module": "ES6",
     "moduleDetection": "force"
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./**/*.d.ts",
-    "./**/_*.ts"
-  ]
+  "include": ["./**/*.ts"],
+  "exclude": ["./**/*.d.ts", "./**/_*.ts"]
 }

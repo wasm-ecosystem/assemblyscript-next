@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--memoryBase 1024"
-  ]
+  "asc_flags": ["--memoryBase 1024"]
 }

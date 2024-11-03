@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--enable", "simd"
-  ]
+  "asc_flags": ["--enable", "simd"]
 }

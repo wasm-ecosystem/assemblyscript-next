@@ -192,7 +192,8 @@ function step(): usize {
       obj = iter.next;
       while (obj != toSpace) {
         iter = obj;
-        if (obj.color != black) { // skip already-blacks (pointerfree)
+        if (obj.color != black) {
+          // skip already-blacks (pointerfree)
           obj.color = black;
           visitCount = 0;
           __visit_members(changetype<usize>(obj) + TOTAL_OVERHEAD, VISIT_SCAN);
@@ -373,7 +374,7 @@ export function __collect(): void {
   // perform a full cycle
   step();
   while (state != STATE_IDLE) step();
-  threshold = <usize>(<u64>total * IDLEFACTOR / 100) + GRANULARITY;
+  threshold = <usize>((<u64>total * IDLEFACTOR) / 100) + GRANULARITY;
   if (TRACE) trace("GC (full) done at cur/max", 2, total, memory.size() << 16);
   if (RTRACE || PROFILE) oncollect(total);
 }
@@ -392,18 +393,18 @@ export function __collect(): void {
 
 /** Threshold of memory used by objects to exceed before interrupting again. */
 // @ts-ignore: decorator
-@lazy let threshold: usize = ((<usize>memory.size() << 16) - __heap_base) >> 1;
+@lazy let threshold: usize = (((<usize>memory.size()) << 16) - __heap_base) >> 1;
 
 /** Performs a reasonable amount of incremental GC steps. */
 function interrupt(): void {
   if (PROFILE) oninterrupt(total);
   if (TRACE) trace("GC (auto) at", 1, total);
-  let budget: isize = GRANULARITY * STEPFACTOR / 100;
+  let budget: isize = (GRANULARITY * STEPFACTOR) / 100;
   do {
     budget -= step();
     if (state == STATE_IDLE) {
       if (TRACE) trace("└ GC (auto) done at cur/max", 2, total, memory.size() << 16);
-      threshold = <usize>(<u64>total * IDLEFACTOR / 100) + GRANULARITY;
+      threshold = <usize>((<u64>total * IDLEFACTOR) / 100) + GRANULARITY;
       if (PROFILE) onyield(total);
       return;
     }

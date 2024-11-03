@@ -11,31 +11,30 @@ import { Program, Options, ASTBuilder } from "../dist/assemblyscript.js";
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config = {
-  "create": {
-    "description": [
-      "Recreates the fixture for the specified test(s)",
-      "or all the fixtures if no specific test is given."
-    ],
-    "type": "b"
+  create: {
+    description: ["Recreates the fixture for the specified test(s)", "or all the fixtures if no specific test is given."],
+    type: "b",
   },
-  "help": {
-    "description": "Prints this message and exits.",
-    "type": "b",
-    "alias": "h"
-  }
+  help: {
+    description: "Prints this message and exits.",
+    type: "b",
+    alias: "h",
+  },
 };
 const opts = optionsUtil.parse(process.argv.slice(2), config);
 const args = opts.options;
 const argv = opts.arguments;
 
 if (args.help) {
-  console.log([
-    stdoutColors.white("SYNTAX"),
-    "  " + stdoutColors.cyan("npm run test:parser --") + " [test1, test2 ...] [options]",
-    "",
-    stdoutColors.white("OPTIONS"),
-    optionsUtil.help(config)
-  ].join(os.EOL) + os.EOL);
+  console.log(
+    [
+      stdoutColors.white("SYNTAX"),
+      "  " + stdoutColors.cyan("npm run test:parser --") + " [test1, test2 ...] [options]",
+      "",
+      stdoutColors.white("OPTIONS"),
+      optionsUtil.help(config),
+    ].join(os.EOL) + os.EOL,
+  );
   process.exit(0);
 }
 
@@ -46,7 +45,7 @@ let tests = globSync("**/!(_*).ts", { cwd: basedir, posix: true });
 
 // Run specific tests only if arguments are provided
 if (argv.length) {
-  tests = tests.filter(filename => argv.indexOf(filename.replace(/\.ts$/, "")) >= 0);
+  tests = tests.filter((filename) => argv.indexOf(filename.replace(/\.ts$/, "")) >= 0);
   if (!tests.length) {
     console.error("No matching tests: " + argv.join(" "));
     process.exit(1);
@@ -66,7 +65,7 @@ for (const filename of tests) {
   const sourceText = fs.readFileSync(basedir + "/" + filename, { encoding: "utf8" }).replace(/\r?\n/g, "\n");
   parser.parseFile(sourceText, filename, true);
   const serializedSourceText = ASTBuilder.build(program.sources[0]);
-  const actual = serializedSourceText + parser.diagnostics.map(diagnostic => "// " + diagnostic +"\n").join("");
+  const actual = serializedSourceText + parser.diagnostics.map((diagnostic) => "// " + diagnostic + "\n").join("");
   const fixture = filename + ".fixture.ts";
 
   if (args.create) {

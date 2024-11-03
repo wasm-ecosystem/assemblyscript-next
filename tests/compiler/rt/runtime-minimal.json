@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--runtime", "minimal"
-  ]
+  "asc_flags": ["--runtime", "minimal"]
 }

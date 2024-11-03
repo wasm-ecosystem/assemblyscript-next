@@ -1,5 +1,3 @@
 {
-  "asc_flags": [
-    "--tableBase 32"
-  ]
+  "asc_flags": ["--tableBase 32"]
 }

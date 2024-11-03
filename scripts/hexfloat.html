@@ -1,8 +1,18 @@
 <style>
-  html, body { margin: 0; }
-  body { font-family: sans-serif; border-top: 5px solid #0074C1; }
-  form { margin: 10px; }
-  label { cursor: pointer; }
+  html,
+  body {
+    margin: 0;
+  }
+  body {
+    font-family: sans-serif;
+    border-top: 5px solid #0074c1;
+  }
+  form {
+    margin: 10px;
+  }
+  label {
+    cursor: pointer;
+  }
 </style>
 
 <form onsubmit="convert(this); return false">
@@ -20,21 +30,21 @@
 
 <script src="hexfloat.js"></script>
 <script>
-function convert(form) {
-  let isF64 = document.getElementById("f64").checked;
-  let pre = document.getElementById("pre").value;
-  let post = document.getElementById("post").value;
-  let input = document.getElementById("input").value;
-  document.getElementById("output").value = input
-    .replace(/\b(\-?0x[0-9a-fA-F]*(?:\.[0-9a-fA-F]+)?[pP][+-]?[0-9]+\b)/g, ($0, $1) => {
-      let val = parse($1);
-      return val.toPrecision(isF64 ? 18 : 10);
-    })
-    .replace(/(\d\.[0-9])0+\b/g, "$1")
-    .replace(/\bnan\b/g, "NaN")
-    .replace(/\binf\b/g, "Infinity")
-    .replace(/^T\(R\w, */mg, pre)
-    .replace(/\);?$/mg, post)
-    .replace(/ +/g, " ");
-}
+  function convert(form) {
+    let isF64 = document.getElementById("f64").checked;
+    let pre = document.getElementById("pre").value;
+    let post = document.getElementById("post").value;
+    let input = document.getElementById("input").value;
+    document.getElementById("output").value = input
+      .replace(/\b(\-?0x[0-9a-fA-F]*(?:\.[0-9a-fA-F]+)?[pP][+-]?[0-9]+\b)/g, ($0, $1) => {
+        let val = parse($1);
+        return val.toPrecision(isF64 ? 18 : 10);
+      })
+      .replace(/(\d\.[0-9])0+\b/g, "$1")
+      .replace(/\bnan\b/g, "NaN")
+      .replace(/\binf\b/g, "Infinity")
+      .replace(/^T\(R\w, */gm, pre)
+      .replace(/\);?$/gm, post)
+      .replace(/ +/g, " ");
+  }
 </script>

@@ -10,15 +10,23 @@ const COMMON_MAX = 1 << 30;
 async function test(file) {
   console.log("Testing '" + file + "' ...\n");
 
-  const { instance: { exports } } = await WebAssembly.instantiate(fs.readFileSync(dirname + "/" + file), {
+  const {
+    instance: { exports },
+  } = await WebAssembly.instantiate(fs.readFileSync(dirname + "/" + file), {
     env: {
       abort(msg, file, line, column) {
         throw Error("Assertion failed: " + (msg ? "'" + getString(msg) + "' " : "") + "at " + getString(file) + ":" + line + ":" + column);
       },
-      log(ptr) { console.log(getString(ptr)); },
-      logi(i) { console.log(i); },
-      trace(...args) { console.log("trace", args); }
-    }
+      log(ptr) {
+        console.log(getString(ptr));
+      },
+      logi(i) {
+        console.log(i);
+      },
+      trace(...args) {
+        console.log("trace", args);
+      },
+    },
   });
 
   function getString(ptr) {
@@ -40,12 +48,16 @@ async function test(file) {
   try {
     alloc(COMMON_MAX + 1, 0); // unreachable
     overflow = true;
-  } catch (e) { /* nop */ }
+  } catch (e) {
+    /* nop */
+  }
   if (overflow) throw Error("allocation can overflow COMMON_MAX + 1");
   try {
     alloc(0xffffffff, 0); // unreachable
     overflow = true;
-  } catch (e) { /* nop */ }
+  } catch (e) {
+    /* nop */
+  }
   if (overflow) throw Error("allocation can overflow 0xffffffff");
 }
 

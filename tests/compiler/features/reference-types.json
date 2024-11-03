@@ -1,7 +1,4 @@
 {
-  "features": [
-    "reference-types"
-  ],
-  "asc_flags": [
-  ]
+  "features": ["reference-types"],
+  "asc_flags": []
 }

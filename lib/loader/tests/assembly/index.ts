@@ -19,8 +19,12 @@ export class Car {
   numDoors: i32;
   private doorsOpen: bool = false;
 
-  get isDoorsOpen(): bool { return this.doorsOpen; }
-  set isDoorsOpen(value: bool) { this.doorsOpen = value; }
+  get isDoorsOpen(): bool {
+    return this.doorsOpen;
+  }
+  set isDoorsOpen(value: bool) {
+    this.doorsOpen = value;
+  }
 
   constructor(numDoors: i32) {
     this.numDoors = numDoors;
