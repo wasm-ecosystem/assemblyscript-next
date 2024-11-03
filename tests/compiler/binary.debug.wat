@@ -1541,14 +1541,16 @@
   (local $iy i32)
   (local $ny i32)
   (local $ux i32)
-  (local $ux|9 i32)
+  (local $iy_1 i32)
+  (local $ix_1 i32)
+  (local $ux|11 i32)
   (local $x2 f32)
-  (local $iy|11 i32)
-  (local $e i32)
   (local $iy|13 i32)
-  (local $e|14 i32)
+  (local $e i32)
+  (local $iy|15 i32)
+  (local $e|16 i32)
   (local $yint i32)
-  (local $ux|16 i32)
+  (local $ux|18 i32)
   (local $tmp i32)
   (local $i i32)
   (local $top i32)
@@ -1559,25 +1561,25 @@
   (local $z f64)
   (local $r f64)
   (local $y0 f64)
-  (local $y|27 f64)
+  (local $y|29 f64)
   (local $p f64)
   (local $q f64)
   (local $logx f64)
   (local $ylogx f64)
   (local $sign i32)
-  (local $sign|33 i32)
-  (local $y|34 f32)
   (local $sign|35 i32)
-  (local $sign|36 i32)
-  (local $y|37 f32)
+  (local $y|36 f32)
+  (local $sign|37 i32)
+  (local $sign|38 i32)
+  (local $y|39 f32)
   (local $xd f64)
-  (local $signBias|39 i32)
+  (local $signBias|41 i32)
   (local $kd f64)
   (local $ki i64)
-  (local $r|42 f64)
+  (local $r|44 f64)
   (local $t i64)
-  (local $z|44 f64)
-  (local $y|45 f64)
+  (local $z|46 f64)
+  (local $y|47 f64)
   (local $s f64)
   local.get $y
   f32.abs
@@ -1684,6 +1686,8 @@
      local.get $iy
      i32.const 1
      i32.shl
+     local.set $iy_1
+     local.get $iy_1
      i32.const 0
      i32.eq
      if
@@ -1700,6 +1704,8 @@
      local.get $ix
      i32.const 1
      i32.shl
+     local.set $ix_1
+     local.get $ix_1
      i32.const 2139095040
      i32.const 1
      i32.shl
@@ -1707,9 +1713,7 @@
      if (result i32)
       i32.const 1
      else
-      local.get $iy
-      i32.const 1
-      i32.shl
+      local.get $iy_1
       i32.const 2139095040
       i32.const 1
       i32.shl
@@ -1755,8 +1759,8 @@
     end
     block $~lib/util/math/zeroinfnanf|inlined.1 (result i32)
      local.get $ix
-     local.set $ux|9
-     local.get $ux|9
+     local.set $ux|11
+     local.get $ux|11
      i32.const 1
      i32.shl
      i32.const 1
@@ -1780,8 +1784,8 @@
      if (result i32)
       block $~lib/util/math/checkintf|inlined.0 (result i32)
        local.get $iy
-       local.set $iy|11
-       local.get $iy|11
+       local.set $iy|13
+       local.get $iy|13
        i32.const 23
        i32.shr_u
        i32.const 255
@@ -1811,7 +1815,7 @@
        i32.sub
        i32.shl
        local.set $e
-       local.get $iy|11
+       local.get $iy|13
        local.get $e
        i32.const 1
        i32.sub
@@ -1820,7 +1824,7 @@
         i32.const 0
         br $~lib/util/math/checkintf|inlined.0
        end
-       local.get $iy|11
+       local.get $iy|13
        local.get $e
        i32.and
        if
@@ -1858,21 +1862,21 @@
     if
      block $~lib/util/math/checkintf|inlined.1 (result i32)
       local.get $iy
-      local.set $iy|13
-      local.get $iy|13
+      local.set $iy|15
+      local.get $iy|15
       i32.const 23
       i32.shr_u
       i32.const 255
       i32.and
-      local.set $e|14
-      local.get $e|14
+      local.set $e|16
+      local.get $e|16
       i32.const 127
       i32.lt_u
       if
        i32.const 0
        br $~lib/util/math/checkintf|inlined.1
       end
-      local.get $e|14
+      local.get $e|16
       i32.const 127
       i32.const 23
       i32.add
@@ -1885,12 +1889,12 @@
       i32.const 127
       i32.const 23
       i32.add
-      local.get $e|14
+      local.get $e|16
       i32.sub
       i32.shl
-      local.set $e|14
-      local.get $iy|13
-      local.get $e|14
+      local.set $e|16
+      local.get $iy|15
+      local.get $e|16
       i32.const 1
       i32.sub
       i32.and
@@ -1898,8 +1902,8 @@
        i32.const 0
        br $~lib/util/math/checkintf|inlined.1
       end
-      local.get $iy|13
-      local.get $e|14
+      local.get $iy|15
+      local.get $e|16
       i32.and
       if
        i32.const 1
@@ -1957,8 +1961,8 @@
    end
    block $~lib/util/math/log2f_inline|inlined.0 (result f64)
     local.get $ix
-    local.set $ux|16
-    local.get $ux|16
+    local.set $ux|18
+    local.get $ux|18
     i32.const 1060306944
     i32.sub
     local.set $tmp
@@ -1974,7 +1978,7 @@
     i32.const -8388608
     i32.and
     local.set $top
-    local.get $ux|16
+    local.get $ux|18
     local.get $top
     i32.sub
     local.set $uz
@@ -2020,7 +2024,7 @@
     f64.mul
     f64.const -0.36092606229713164
     f64.add
-    local.set $y|27
+    local.set $y|29
     f64.const 0.480898481472577
     local.get $r
     f64.mul
@@ -2043,15 +2047,15 @@
     f64.mul
     f64.add
     local.set $q
-    local.get $y|27
+    local.get $y|29
     local.get $r
     local.get $r
     f64.mul
     f64.mul
     local.get $q
     f64.add
-    local.set $y|27
-    local.get $y|27
+    local.set $y|29
+    local.get $y|29
     br $~lib/util/math/log2f_inline|inlined.0
    end
    local.set $logx
@@ -2078,16 +2082,16 @@
       local.set $sign
       block $~lib/util/math/xflowf|inlined.0 (result f32)
        local.get $sign
-       local.set $sign|33
+       local.set $sign|35
        i32.const 1879048192
        f32.reinterpret_i32
-       local.set $y|34
-       local.get $y|34
+       local.set $y|36
+       local.get $y|36
        f32.neg
-       local.get $y|34
-       local.get $sign|33
+       local.get $y|36
+       local.get $sign|35
        select
-       local.get $y|34
+       local.get $y|36
        f32.mul
        br $~lib/util/math/xflowf|inlined.0
       end
@@ -2101,19 +2105,19 @@
     if
      block $~lib/util/math/uflowf|inlined.0 (result f32)
       local.get $signBias
-      local.set $sign|35
+      local.set $sign|37
       block $~lib/util/math/xflowf|inlined.1 (result f32)
-       local.get $sign|35
-       local.set $sign|36
+       local.get $sign|37
+       local.set $sign|38
        i32.const 268435456
        f32.reinterpret_i32
-       local.set $y|37
-       local.get $y|37
+       local.set $y|39
+       local.get $y|39
        f32.neg
-       local.get $y|37
-       local.get $sign|36
+       local.get $y|39
+       local.get $sign|38
        select
-       local.get $y|37
+       local.get $y|39
        f32.mul
        br $~lib/util/math/xflowf|inlined.1
       end
@@ -2126,7 +2130,7 @@
     local.get $ylogx
     local.set $xd
     local.get $signBias
-    local.set $signBias|39
+    local.set $signBias|41
     local.get $xd
     f64.const 211106232532992
     f64.add
@@ -2139,7 +2143,7 @@
     f64.const 211106232532992
     f64.sub
     f64.sub
-    local.set $r|42
+    local.set $r|44
     i32.const 6408
     local.get $ki
     i32.wrap_i64
@@ -2152,7 +2156,7 @@
     local.set $t
     local.get $t
     local.get $ki
-    local.get $signBias|39
+    local.get $signBias|41
     i64.extend_i32_u
     i64.add
     i64.const 52
@@ -2166,30 +2170,30 @@
     f64.reinterpret_i64
     local.set $s
     f64.const 0.05550361559341535
-    local.get $r|42
+    local.get $r|44
     f64.mul
     f64.const 0.2402284522445722
     f64.add
-    local.set $z|44
+    local.set $z|46
     f64.const 0.6931471806916203
-    local.get $r|42
+    local.get $r|44
     f64.mul
     f64.const 1
     f64.add
-    local.set $y|45
-    local.get $y|45
-    local.get $z|44
-    local.get $r|42
-    local.get $r|42
+    local.set $y|47
+    local.get $y|47
+    local.get $z|46
+    local.get $r|44
+    local.get $r|44
     f64.mul
     f64.mul
     f64.add
-    local.set $y|45
-    local.get $y|45
+    local.set $y|47
+    local.get $y|47
     local.get $s
     f64.mul
-    local.set $y|45
-    local.get $y|45
+    local.set $y|47
+    local.get $y|47
     f32.demote_f64
     br $~lib/util/math/exp2f_inline|inlined.0
    end

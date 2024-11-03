@@ -108,8 +108,8 @@ export class Set<T> {
         );
       }
       // append new entry
-      this.entriesOffset++;
-      entry = changetype<SetEntry<T>>(changetype<usize>(this.entries) + <usize>this.entriesOffset * ENTRY_SIZE<T>());
+      let oldEntriesOffset = this.entriesOffset++;
+      entry = changetype<SetEntry<T>>(changetype<usize>(this.entries) + <usize>oldEntriesOffset * ENTRY_SIZE<T>());
       entry.key = key;
       if (isManaged<T>()) {
         __link(changetype<usize>(this), changetype<usize>(key), true);

@@ -476,7 +476,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 268
+   i32.const 246
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -496,7 +496,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 270
+   i32.const 248
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -559,7 +559,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 284
+   i32.const 262
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -712,7 +712,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 201
+   i32.const 179
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -729,7 +729,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 203
+   i32.const 181
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -818,7 +818,7 @@
    if
     i32.const 0
     i32.const 368
-    i32.const 221
+    i32.const 199
     i32.const 16
     call $~lib/builtins/abort
     unreachable
@@ -861,7 +861,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 233
+   i32.const 211
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -879,7 +879,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 234
+   i32.const 212
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -947,7 +947,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 251
+   i32.const 229
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1064,7 +1064,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 382
+   i32.const 358
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1110,7 +1110,7 @@
    if
     i32.const 0
     i32.const 368
-    i32.const 389
+    i32.const 366
     i32.const 16
     call $~lib/builtins/abort
     unreachable
@@ -1142,7 +1142,7 @@
    if
     i32.const 0
     i32.const 368
-    i32.const 402
+    i32.const 379
     i32.const 5
     call $~lib/builtins/abort
     unreachable
@@ -1386,7 +1386,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 562
+   i32.const 537
    i32.const 3
    call $~lib/builtins/abort
    unreachable
@@ -1606,7 +1606,7 @@
     if
      i32.const 0
      i32.const 96
-     i32.const 229
+     i32.const 230
      i32.const 20
      call $~lib/builtins/abort
      unreachable
@@ -1715,7 +1715,7 @@
   if
    i32.const 32
    i32.const 368
-   i32.const 461
+   i32.const 436
    i32.const 29
    call $~lib/builtins/abort
    unreachable
@@ -1817,7 +1817,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 334
+   i32.const 310
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1888,7 +1888,7 @@
     if
      i32.const 0
      i32.const 368
-     i32.const 347
+     i32.const 323
      i32.const 18
      call $~lib/builtins/abort
      unreachable
@@ -2045,7 +2045,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 361
+   i32.const 337
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -2160,7 +2160,7 @@
    if
     i32.const 0
     i32.const 368
-    i32.const 499
+    i32.const 474
     i32.const 16
     call $~lib/builtins/abort
     unreachable
@@ -2180,7 +2180,7 @@
   if
    i32.const 0
    i32.const 368
-   i32.const 501
+   i32.const 476
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -2229,7 +2229,7 @@
   if
    i32.const 32
    i32.const 96
-   i32.const 261
+   i32.const 262
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -2289,7 +2289,7 @@
   if
    i32.const 0
    i32.const 96
-   i32.const 295
+   i32.const 296
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -6162,8 +6162,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -6179,11 +6180,11 @@
   call $~lib/util/hash/HASH<i8>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i8,i32>#find"
@@ -6197,40 +6198,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i8,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i8,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -6239,19 +6240,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i8,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i8,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -6262,33 +6263,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i8,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i8,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<i8,i32>|inlined.5"
@@ -6307,35 +6310,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i8,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -6351,12 +6354,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i8,i32>#get" (param $this i32) (param $key i32) (result i32)
@@ -6386,7 +6389,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -6493,8 +6496,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -6709,7 +6712,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -6950,8 +6953,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -7047,7 +7050,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -7473,7 +7476,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -7525,7 +7528,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -7841,8 +7844,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -7858,11 +7862,11 @@
   call $~lib/util/hash/HASH<i8>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i8,i8>#find"
@@ -7876,40 +7880,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i8,i8>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i8,i8>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -7918,19 +7922,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i8,i8>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i8,i8>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -7941,33 +7945,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i8,i8>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i8,i8>|inlined.5" (result i32)
     i32.const 8
     br $"~lib/map/ENTRY_SIZE<i8,i8>|inlined.5"
@@ -7986,35 +7992,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i8,i8>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i8,i8>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -8030,12 +8036,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i32,i32>#find" (param $this i32) (param $key i32) (param $hashCode i32) (result i32)
@@ -8323,8 +8329,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -8340,11 +8347,11 @@
   call $~lib/util/hash/HASH<i32>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i32,i32>#find"
@@ -8358,40 +8365,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i32,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i32,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -8400,19 +8407,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i32,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i32,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -8423,33 +8430,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i32,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i32,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<i32,i32>|inlined.5"
@@ -8468,35 +8477,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i32,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i32,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -8512,12 +8521,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i8,i8>#get:size" (param $this i32) (result i32)
@@ -9851,8 +9860,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -9868,11 +9878,11 @@
   call $~lib/util/hash/HASH<u8>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u8,i32>#find"
@@ -9886,40 +9896,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u8,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u8,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -9928,19 +9938,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u8,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u8,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -9951,33 +9961,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u8,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u8,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<u8,i32>|inlined.5"
@@ -9996,35 +10008,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u8,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -10040,12 +10052,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u8,i32>#get" (param $this i32) (param $key i32) (result i32)
@@ -10075,7 +10087,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -10182,8 +10194,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -10279,7 +10291,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -10706,7 +10718,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -11024,8 +11036,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -11041,11 +11054,11 @@
   call $~lib/util/hash/HASH<u8>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u8,u8>#find"
@@ -11059,40 +11072,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u8,u8>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u8,u8>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -11101,19 +11114,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u8,u8>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u8,u8>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -11124,33 +11137,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u8,u8>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u8,u8>|inlined.5" (result i32)
     i32.const 8
     br $"~lib/map/ENTRY_SIZE<u8,u8>|inlined.5"
@@ -11169,35 +11184,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u8,u8>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u8,u8>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -11213,12 +11228,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u8,u8>#get:size" (param $this i32) (result i32)
@@ -12525,8 +12540,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -12542,11 +12558,11 @@
   call $~lib/util/hash/HASH<i16>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i16,i32>#find"
@@ -12560,40 +12576,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i16,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i16,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -12602,19 +12618,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i16,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i16,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -12625,33 +12641,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i16,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i16,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<i16,i32>|inlined.5"
@@ -12670,35 +12688,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i16,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -12714,12 +12732,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i16,i32>#get" (param $this i32) (param $key i32) (result i32)
@@ -12749,7 +12767,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -12856,8 +12874,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -12953,7 +12971,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -13380,7 +13398,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -13696,8 +13714,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -13713,11 +13732,11 @@
   call $~lib/util/hash/HASH<i16>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i16,i16>#find"
@@ -13731,40 +13750,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i16,i16>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i16,i16>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -13773,19 +13792,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i16,i16>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i16,i16>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -13796,33 +13815,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i16,i16>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i16,i16>|inlined.5" (result i32)
     i32.const 8
     br $"~lib/map/ENTRY_SIZE<i16,i16>|inlined.5"
@@ -13841,35 +13862,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i16,i16>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i16,i16>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -13885,12 +13906,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i16,i16>#get:size" (param $this i32) (result i32)
@@ -15199,8 +15220,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -15216,11 +15238,11 @@
   call $~lib/util/hash/HASH<u16>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u16,i32>#find"
@@ -15234,40 +15256,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u16,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u16,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -15276,19 +15298,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u16,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u16,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -15299,33 +15321,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u16,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u16,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<u16,i32>|inlined.5"
@@ -15344,35 +15368,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u16,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -15388,12 +15412,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u16,i32>#get" (param $this i32) (param $key i32) (result i32)
@@ -15423,7 +15447,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -15530,8 +15554,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -15627,7 +15651,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -16054,7 +16078,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -16372,8 +16396,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -16389,11 +16414,11 @@
   call $~lib/util/hash/HASH<u16>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u16,u16>#find"
@@ -16407,40 +16432,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u16,u16>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u16,u16>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -16449,19 +16474,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u16,u16>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u16,u16>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -16472,33 +16497,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u16,u16>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u16,u16>|inlined.5" (result i32)
     i32.const 8
     br $"~lib/map/ENTRY_SIZE<u16,u16>|inlined.5"
@@ -16517,35 +16544,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u16,u16>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u16,u16>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -16561,12 +16588,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u16,u16>#get:size" (param $this i32) (result i32)
@@ -17511,7 +17538,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -19034,8 +19061,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -19051,11 +19079,11 @@
   call $~lib/util/hash/HASH<u32>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u32,i32>#find"
@@ -19069,40 +19097,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u32,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u32,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -19111,19 +19139,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u32,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u32,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -19134,33 +19162,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u32,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u32,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<u32,i32>|inlined.5"
@@ -19179,35 +19209,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u32,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -19223,12 +19253,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u32,i32>#get" (param $this i32) (param $key i32) (result i32)
@@ -19258,7 +19288,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -19365,8 +19395,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -19462,7 +19492,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -19889,7 +19919,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -20203,8 +20233,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -20220,11 +20251,11 @@
   call $~lib/util/hash/HASH<u32>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u32,u32>#find"
@@ -20238,40 +20269,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u32,u32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u32,u32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -20280,19 +20311,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u32,u32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u32,u32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -20303,33 +20334,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u32,u32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u32,u32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<u32,u32>|inlined.5"
@@ -20348,35 +20381,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u32,u32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u32,u32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -20392,12 +20425,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u32,u32>#get:size" (param $this i32) (result i32)
@@ -21702,8 +21735,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -21719,11 +21753,11 @@
   call $~lib/util/hash/HASH<i64>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i64,i32>#find"
@@ -21737,40 +21771,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i64,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i64,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -21779,19 +21813,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i64,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i64,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -21802,33 +21836,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i64,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i64,i32>|inlined.5" (result i32)
     i32.const 16
     br $"~lib/map/ENTRY_SIZE<i64,i32>|inlined.5"
@@ -21847,35 +21883,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i64,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -21891,12 +21927,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i64,i32>#get" (param $this i32) (param $key i64) (result i32)
@@ -21926,7 +21962,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -22033,8 +22069,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -22130,7 +22166,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -22558,7 +22594,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -22872,8 +22908,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -22889,11 +22926,11 @@
   call $~lib/util/hash/HASH<i64>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<i64,i64>#find"
@@ -22907,40 +22944,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i64,i64>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<i64,i64>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -22949,19 +22986,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i64,i64>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<i64,i64>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -22972,33 +23009,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<i64,i64>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<i64,i64>|inlined.5" (result i32)
     i32.const 24
     br $"~lib/map/ENTRY_SIZE<i64,i64>|inlined.5"
@@ -23017,35 +23056,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<i64,i64>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<i64,i64>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -23061,12 +23100,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<i64,i64>#get:size" (param $this i32) (result i32)
@@ -24379,8 +24418,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -24396,11 +24436,11 @@
   call $~lib/util/hash/HASH<u64>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u64,i32>#find"
@@ -24414,40 +24454,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u64,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u64,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -24456,19 +24496,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u64,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u64,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -24479,33 +24519,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u64,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u64,i32>|inlined.5" (result i32)
     i32.const 16
     br $"~lib/map/ENTRY_SIZE<u64,i32>|inlined.5"
@@ -24524,35 +24566,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u64,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -24568,12 +24610,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u64,i32>#get" (param $this i32) (param $key i64) (result i32)
@@ -24603,7 +24645,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -24710,8 +24752,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -24807,7 +24849,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -25235,7 +25277,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -25549,8 +25591,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -25566,11 +25609,11 @@
   call $~lib/util/hash/HASH<u64>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<u64,u64>#find"
@@ -25584,40 +25627,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u64,u64>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<u64,u64>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -25626,19 +25669,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u64,u64>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<u64,u64>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -25649,33 +25692,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<u64,u64>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<u64,u64>|inlined.5" (result i32)
     i32.const 24
     br $"~lib/map/ENTRY_SIZE<u64,u64>|inlined.5"
@@ -25694,35 +25739,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<u64,u64>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<u64,u64>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -25738,12 +25783,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<u64,u64>#get:size" (param $this i32) (result i32)
@@ -27056,8 +27101,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -27073,11 +27119,11 @@
   call $~lib/util/hash/HASH<f32>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<f32,i32>#find"
@@ -27091,40 +27137,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f32,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f32,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -27133,19 +27179,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f32,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f32,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -27156,33 +27202,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<f32,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<f32,i32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<f32,i32>|inlined.5"
@@ -27201,35 +27249,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<f32,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -27245,12 +27293,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<f32,i32>#get" (param $this i32) (param $key f32) (result i32)
@@ -27280,7 +27328,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -27387,8 +27435,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -27484,7 +27532,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -27912,7 +27960,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -28226,8 +28274,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -28243,11 +28292,11 @@
   call $~lib/util/hash/HASH<f32>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<f32,f32>#find"
@@ -28261,40 +28310,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f32,f32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f32,f32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -28303,19 +28352,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f32,f32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f32,f32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -28326,33 +28375,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<f32,f32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<f32,f32>|inlined.5" (result i32)
     i32.const 12
     br $"~lib/map/ENTRY_SIZE<f32,f32>|inlined.5"
@@ -28371,35 +28422,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<f32,f32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f32,f32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -28415,12 +28466,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<f32,f32>#get:size" (param $this i32) (result i32)
@@ -29733,8 +29784,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -29750,11 +29802,11 @@
   call $~lib/util/hash/HASH<f64>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<f64,i32>#find"
@@ -29768,40 +29820,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f64,i32>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f64,i32>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -29810,19 +29862,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f64,i32>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f64,i32>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -29833,33 +29885,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<f64,i32>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<f64,i32>|inlined.5" (result i32)
     i32.const 16
     br $"~lib/map/ENTRY_SIZE<f64,i32>|inlined.5"
@@ -29878,35 +29932,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<f64,i32>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,i32>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -29922,12 +29976,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<f64,i32>#get" (param $this i32) (param $key f64) (result i32)
@@ -29957,7 +30011,7 @@
   if
    i32.const 592
    i32.const 656
-   i32.const 105
+   i32.const 103
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -30064,8 +30118,8 @@
   if
    i32.const 432
    i32.const 704
-   i32.const 70
-   i32.const 60
+   i32.const 73
+   i32.const 62
    call $~lib/builtins/abort
    unreachable
   end
@@ -30161,7 +30215,7 @@
    if
     i32.const 224
     i32.const 704
-    i32.const 130
+    i32.const 136
     i32.const 22
     call $~lib/builtins/abort
     unreachable
@@ -30589,7 +30643,7 @@
   if
    i32.const 224
    i32.const 704
-   i32.const 114
+   i32.const 118
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -30903,8 +30957,9 @@
   (local $entry i32)
   (local $entries i32)
   (local $6 i32)
+  (local $oldEntriesOffset i32)
   (local $bucketPtrBase i32)
-  (local $8 i32)
+  (local $9 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.sub
@@ -30920,11 +30975,11 @@
   call $~lib/util/hash/HASH<f64>
   local.set $hashCode
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   i32.store
-  local.get $8
+  local.get $9
   local.get $key
   local.get $hashCode
   call $"~lib/map/Map<f64,f64>#find"
@@ -30938,40 +30993,40 @@
    drop
   else
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:entriesOffset"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:entriesCapacity"
    i32.eq
    if
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store
-    local.get $8
+    local.get $9
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f64,f64>#get:entriesCount"
     local.get $this
-    local.set $8
+    local.set $9
     global.get $~lib/memory/__stack_pointer
-    local.get $8
+    local.get $9
     i32.store offset=4
-    local.get $8
+    local.get $9
     call $"~lib/map/Map<f64,f64>#get:entriesCapacity"
     i32.const 3
     i32.mul
@@ -30980,19 +31035,19 @@
     i32.lt_s
     if (result i32)
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f64,f64>#get:bucketsMask"
     else
      local.get $this
-     local.set $8
+     local.set $9
      global.get $~lib/memory/__stack_pointer
-     local.get $8
+     local.get $9
      i32.store offset=4
-     local.get $8
+     local.get $9
      call $"~lib/map/Map<f64,f64>#get:bucketsMask"
      i32.const 1
      i32.shl
@@ -31003,33 +31058,35 @@
    end
    global.get $~lib/memory/__stack_pointer
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:entries"
    local.tee $entries
    i32.store offset=8
-   local.get $entries
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:entriesOffset"
    local.tee $6
    i32.const 1
    i32.add
    call $"~lib/map/Map<f64,f64>#set:entriesOffset"
    local.get $6
+   local.set $oldEntriesOffset
+   local.get $entries
+   local.get $oldEntriesOffset
    block $"~lib/map/ENTRY_SIZE<f64,f64>|inlined.5" (result i32)
     i32.const 24
     br $"~lib/map/ENTRY_SIZE<f64,f64>|inlined.5"
@@ -31048,35 +31105,35 @@
    i32.const 0
    drop
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store offset=4
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:entriesCount"
    i32.const 1
    i32.add
    call $"~lib/map/Map<f64,f64>#set:entriesCount"
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:buckets"
    local.get $hashCode
    local.get $this
-   local.set $8
+   local.set $9
    global.get $~lib/memory/__stack_pointer
-   local.get $8
+   local.get $9
    i32.store
-   local.get $8
+   local.get $9
    call $"~lib/map/Map<f64,f64>#get:bucketsMask"
    i32.and
    i32.const 4
@@ -31092,12 +31149,12 @@
    i32.store
   end
   local.get $this
-  local.set $8
+  local.set $9
   global.get $~lib/memory/__stack_pointer
   i32.const 12
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $8
+  local.get $9
   return
  )
  (func $"~lib/map/Map<f64,f64>#get:size" (param $this i32) (result i32)
@@ -32992,7 +33049,7 @@
   if
    i32.const 432
    i32.const 480
-   i32.const 52
+   i32.const 53
    i32.const 43
    call $~lib/builtins/abort
    unreachable

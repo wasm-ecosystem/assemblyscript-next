@@ -125,8 +125,8 @@ export class Map<K, V> {
       }
       // append new entry
       let entries = this.entries;
-      this.entriesOffset++;
-      entry = changetype<MapEntry<K, V>>(changetype<usize>(entries) + <usize>this.entriesOffset * ENTRY_SIZE<K, V>());
+      let oldEntriesOffset = this.entriesOffset++;
+      entry = changetype<MapEntry<K, V>>(changetype<usize>(entries) + <usize>oldEntriesOffset * ENTRY_SIZE<K, V>());
       // link with the map
       entry.key = key;
       if (isManaged<K>()) {
