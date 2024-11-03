@@ -14,16 +14,18 @@ export async function instantiate(module, imports = {}) {
         text = __liftString(text >>> 0);
         console.log(text);
       },
-      "Math.E":
+      "Math.E": (
         // ~lib/bindings/dom/Math.E: f64
-        Math.E,
+        Math.E
+      ),
       "Math.log"(x) {
         // ~lib/bindings/dom/Math.log(f64) => f64
         return Math.log(x);
       },
-      "globalThis.globalThis":
+      "globalThis.globalThis": (
         // bindings/esm/immutableGlobalNested: ref_extern | null
-        globalThis.globalThis,
+        globalThis.globalThis
+      ),
       "Date.getTimezoneOffset"() {
         // bindings/esm/Date_getTimezoneOffset() => i32
         return (() => {
@@ -46,195 +48,170 @@ export async function instantiate(module, imports = {}) {
   };
   const { exports } = await WebAssembly.instantiate(module, adaptedImports);
   const memory = exports.memory || imports.env.memory;
-  const adaptedExports = Object.setPrototypeOf(
-    {
-      stringGlobal: {
-        // bindings/esm/stringGlobal: ~lib/string/String
-        valueOf() {
-          return this.value;
-        },
-        get value() {
-          return __liftString(exports.stringGlobal.value >>> 0);
-        },
-      },
-      mutableStringGlobal: {
-        // bindings/esm/mutableStringGlobal: ~lib/string/String
-        valueOf() {
-          return this.value;
-        },
-        get value() {
-          return __liftString(exports.mutableStringGlobal.value >>> 0);
-        },
-        set value(value) {
-          exports.mutableStringGlobal.value = __lowerString(value) || __notnull();
-        },
-      },
-      Enum: ((values) =>
-        (
-          // bindings/esm/Enum
-          (values[(values.ONE = exports["Enum.ONE"].valueOf())] = "ONE"),
-          (values[(values.TWO = exports["Enum.TWO"].valueOf())] = "TWO"),
-          (values[(values.THREE = exports["Enum.THREE"].valueOf())] = "THREE"),
-          values
-        ))({}),
-      ConstEnum: ((values) =>
-        (
-          // bindings/esm/ConstEnum
-          (values[(values.ONE = 1)] = "ONE"), (values[(values.TWO = 2)] = "TWO"), (values[(values.THREE = 3)] = "THREE"), values
-        ))({}),
-      plainFunction64(a, b) {
-        // bindings/esm/plainFunction64(i64, i64) => i64
-        a = a || 0n;
-        b = b || 0n;
-        return exports.plainFunction64(a, b);
-      },
-      getMaxUnsigned32() {
-        // bindings/esm/getMaxUnsigned32() => u32
-        return exports.getMaxUnsigned32() >>> 0;
-      },
-      getMaxUnsigned64() {
-        // bindings/esm/getMaxUnsigned64() => u64
-        return BigInt.asUintN(64, exports.getMaxUnsigned64());
-      },
-      bufferFunction(a, b) {
-        // bindings/esm/bufferFunction(~lib/arraybuffer/ArrayBuffer, ~lib/arraybuffer/ArrayBuffer) => ~lib/arraybuffer/ArrayBuffer
-        a = __retain(__lowerBuffer(a) || __notnull());
-        b = __lowerBuffer(b) || __notnull();
-        try {
-          return __liftBuffer(exports.bufferFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      stringFunction(a, b) {
-        // bindings/esm/stringFunction(~lib/string/String, ~lib/string/String) => ~lib/string/String
-        a = __retain(__lowerString(a) || __notnull());
-        b = __lowerString(b) || __notnull();
-        try {
-          return __liftString(exports.stringFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      stringFunctionOptional(a, b) {
-        // bindings/esm/stringFunctionOptional(~lib/string/String, ~lib/string/String?) => ~lib/string/String
-        a = __retain(__lowerString(a) || __notnull());
-        b = __lowerString(b) || __notnull();
-        try {
-          exports.__setArgumentsLength(arguments.length);
-          return __liftString(exports.stringFunctionOptional(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      typedarrayFunction(a, b) {
-        // bindings/esm/typedarrayFunction(~lib/typedarray/Int16Array, ~lib/typedarray/Float32Array) => ~lib/typedarray/Uint64Array
-        a = __retain(__lowerTypedArray(Int16Array, 5, 1, a) || __notnull());
-        b = __lowerTypedArray(Float32Array, 6, 2, b) || __notnull();
-        try {
-          return __liftTypedArray(BigUint64Array, exports.typedarrayFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      staticarrayFunction(a, b) {
-        // bindings/esm/staticarrayFunction(~lib/staticarray/StaticArray<i32>, ~lib/staticarray/StaticArray<i32>) => ~lib/staticarray/StaticArray<i32>
-        a = __retain(__lowerStaticArray(__setU32, 8, 2, a, Int32Array) || __notnull());
-        b = __lowerStaticArray(__setU32, 8, 2, b, Int32Array) || __notnull();
-        try {
-          return __liftStaticArray(__getI32, 2, exports.staticarrayFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      staticarrayU16(a) {
-        // bindings/esm/staticarrayU16(~lib/staticarray/StaticArray<u16>) => ~lib/staticarray/StaticArray<u16>
-        a = __lowerStaticArray(__setU16, 9, 1, a, Uint16Array) || __notnull();
-        return __liftStaticArray(__getU16, 1, exports.staticarrayU16(a) >>> 0);
-      },
-      staticarrayI64(a) {
-        // bindings/esm/staticarrayI64(~lib/staticarray/StaticArray<i64>) => ~lib/staticarray/StaticArray<i64>
-        a = __lowerStaticArray(__setU64, 10, 3, a, BigInt64Array) || __notnull();
-        return __liftStaticArray(__getI64, 3, exports.staticarrayI64(a) >>> 0);
-      },
-      arrayFunction(a, b) {
-        // bindings/esm/arrayFunction(~lib/array/Array<i32>, ~lib/array/Array<i32>) => ~lib/array/Array<i32>
-        a = __retain(__lowerArray(__setU32, 11, 2, a) || __notnull());
-        b = __lowerArray(__setU32, 11, 2, b) || __notnull();
-        try {
-          return __liftArray(__getI32, 2, exports.arrayFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      arrayOfStringsFunction(a, b) {
-        // bindings/esm/arrayOfStringsFunction(~lib/array/Array<~lib/string/String>, ~lib/array/Array<~lib/string/String>) => ~lib/array/Array<~lib/string/String>
-        a = __retain(
-          __lowerArray(
-            (pointer, value) => {
-              __setU32(pointer, __lowerString(value) || __notnull());
-            },
-            12,
-            2,
-            a,
-          ) || __notnull(),
-        );
-        b =
-          __lowerArray(
-            (pointer, value) => {
-              __setU32(pointer, __lowerString(value) || __notnull());
-            },
-            12,
-            2,
-            b,
-          ) || __notnull();
-        try {
-          return __liftArray((pointer) => __liftString(__getU32(pointer)), 2, exports.arrayOfStringsFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      objectFunction(a, b) {
-        // bindings/esm/objectFunction(bindings/esm/PlainObject, bindings/esm/PlainObject) => bindings/esm/PlainObject
-        a = __retain(__lowerRecord13(a) || __notnull());
-        b = __lowerRecord13(b) || __notnull();
-        try {
-          return __liftRecord13(exports.objectFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      newInternref() {
-        // bindings/esm/newInternref() => bindings/esm/NonPlainObject
-        return __liftInternref(exports.newInternref() >>> 0);
-      },
-      internrefFunction(a, b) {
-        // bindings/esm/internrefFunction(bindings/esm/NonPlainObject, bindings/esm/NonPlainObject) => bindings/esm/NonPlainObject
-        a = __retain(__lowerInternref(a) || __notnull());
-        b = __lowerInternref(b) || __notnull();
-        try {
-          return __liftInternref(exports.internrefFunction(a, b) >>> 0);
-        } finally {
-          __release(a);
-        }
-      },
-      functionFunction(fn) {
-        // bindings/esm/functionFunction(() => void) => () => void
-        fn = __lowerInternref(fn) || __notnull();
-        return __liftInternref(exports.functionFunction(fn) >>> 0);
-      },
-      fn: {
-        // bindings/esm/fn: () => void
-        valueOf() {
-          return this.value;
-        },
-        get value() {
-          return __liftInternref(exports.fn.value >>> 0);
-        },
-      },
+  const adaptedExports = Object.setPrototypeOf({
+    stringGlobal: {
+      // bindings/esm/stringGlobal: ~lib/string/String
+      valueOf() { return this.value; },
+      get value() {
+        return __liftString(exports.stringGlobal.value >>> 0);
+      }
     },
-    exports,
-  );
+    mutableStringGlobal: {
+      // bindings/esm/mutableStringGlobal: ~lib/string/String
+      valueOf() { return this.value; },
+      get value() {
+        return __liftString(exports.mutableStringGlobal.value >>> 0);
+      },
+      set value(value) {
+        exports.mutableStringGlobal.value = __lowerString(value) || __notnull();
+      }
+    },
+    Enum: (values => (
+      // bindings/esm/Enum
+      values[values.ONE = exports["Enum.ONE"].valueOf()] = "ONE",
+      values[values.TWO = exports["Enum.TWO"].valueOf()] = "TWO",
+      values[values.THREE = exports["Enum.THREE"].valueOf()] = "THREE",
+      values
+    ))({}),
+    ConstEnum: (values => (
+      // bindings/esm/ConstEnum
+      values[values.ONE = 1] = "ONE",
+      values[values.TWO = 2] = "TWO",
+      values[values.THREE = 3] = "THREE",
+      values
+    ))({}),
+    plainFunction64(a, b) {
+      // bindings/esm/plainFunction64(i64, i64) => i64
+      a = a || 0n;
+      b = b || 0n;
+      return exports.plainFunction64(a, b);
+    },
+    getMaxUnsigned32() {
+      // bindings/esm/getMaxUnsigned32() => u32
+      return exports.getMaxUnsigned32() >>> 0;
+    },
+    getMaxUnsigned64() {
+      // bindings/esm/getMaxUnsigned64() => u64
+      return BigInt.asUintN(64, exports.getMaxUnsigned64());
+    },
+    bufferFunction(a, b) {
+      // bindings/esm/bufferFunction(~lib/arraybuffer/ArrayBuffer, ~lib/arraybuffer/ArrayBuffer) => ~lib/arraybuffer/ArrayBuffer
+      a = __retain(__lowerBuffer(a) || __notnull());
+      b = __lowerBuffer(b) || __notnull();
+      try {
+        return __liftBuffer(exports.bufferFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    stringFunction(a, b) {
+      // bindings/esm/stringFunction(~lib/string/String, ~lib/string/String) => ~lib/string/String
+      a = __retain(__lowerString(a) || __notnull());
+      b = __lowerString(b) || __notnull();
+      try {
+        return __liftString(exports.stringFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    stringFunctionOptional(a, b) {
+      // bindings/esm/stringFunctionOptional(~lib/string/String, ~lib/string/String?) => ~lib/string/String
+      a = __retain(__lowerString(a) || __notnull());
+      b = __lowerString(b) || __notnull();
+      try {
+        exports.__setArgumentsLength(arguments.length);
+        return __liftString(exports.stringFunctionOptional(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    typedarrayFunction(a, b) {
+      // bindings/esm/typedarrayFunction(~lib/typedarray/Int16Array, ~lib/typedarray/Float32Array) => ~lib/typedarray/Uint64Array
+      a = __retain(__lowerTypedArray(Int16Array, 5, 1, a) || __notnull());
+      b = __lowerTypedArray(Float32Array, 6, 2, b) || __notnull();
+      try {
+        return __liftTypedArray(BigUint64Array, exports.typedarrayFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    staticarrayFunction(a, b) {
+      // bindings/esm/staticarrayFunction(~lib/staticarray/StaticArray<i32>, ~lib/staticarray/StaticArray<i32>) => ~lib/staticarray/StaticArray<i32>
+      a = __retain(__lowerStaticArray(__setU32, 8, 2, a, Int32Array) || __notnull());
+      b = __lowerStaticArray(__setU32, 8, 2, b, Int32Array) || __notnull();
+      try {
+        return __liftStaticArray(__getI32, 2, exports.staticarrayFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    staticarrayU16(a) {
+      // bindings/esm/staticarrayU16(~lib/staticarray/StaticArray<u16>) => ~lib/staticarray/StaticArray<u16>
+      a = __lowerStaticArray(__setU16, 9, 1, a, Uint16Array) || __notnull();
+      return __liftStaticArray(__getU16, 1, exports.staticarrayU16(a) >>> 0);
+    },
+    staticarrayI64(a) {
+      // bindings/esm/staticarrayI64(~lib/staticarray/StaticArray<i64>) => ~lib/staticarray/StaticArray<i64>
+      a = __lowerStaticArray(__setU64, 10, 3, a, BigInt64Array) || __notnull();
+      return __liftStaticArray(__getI64, 3, exports.staticarrayI64(a) >>> 0);
+    },
+    arrayFunction(a, b) {
+      // bindings/esm/arrayFunction(~lib/array/Array<i32>, ~lib/array/Array<i32>) => ~lib/array/Array<i32>
+      a = __retain(__lowerArray(__setU32, 11, 2, a) || __notnull());
+      b = __lowerArray(__setU32, 11, 2, b) || __notnull();
+      try {
+        return __liftArray(__getI32, 2, exports.arrayFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    arrayOfStringsFunction(a, b) {
+      // bindings/esm/arrayOfStringsFunction(~lib/array/Array<~lib/string/String>, ~lib/array/Array<~lib/string/String>) => ~lib/array/Array<~lib/string/String>
+      a = __retain(__lowerArray((pointer, value) => { __setU32(pointer, __lowerString(value) || __notnull()); }, 12, 2, a) || __notnull());
+      b = __lowerArray((pointer, value) => { __setU32(pointer, __lowerString(value) || __notnull()); }, 12, 2, b) || __notnull();
+      try {
+        return __liftArray(pointer => __liftString(__getU32(pointer)), 2, exports.arrayOfStringsFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    objectFunction(a, b) {
+      // bindings/esm/objectFunction(bindings/esm/PlainObject, bindings/esm/PlainObject) => bindings/esm/PlainObject
+      a = __retain(__lowerRecord13(a) || __notnull());
+      b = __lowerRecord13(b) || __notnull();
+      try {
+        return __liftRecord13(exports.objectFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    newInternref() {
+      // bindings/esm/newInternref() => bindings/esm/NonPlainObject
+      return __liftInternref(exports.newInternref() >>> 0);
+    },
+    internrefFunction(a, b) {
+      // bindings/esm/internrefFunction(bindings/esm/NonPlainObject, bindings/esm/NonPlainObject) => bindings/esm/NonPlainObject
+      a = __retain(__lowerInternref(a) || __notnull());
+      b = __lowerInternref(b) || __notnull();
+      try {
+        return __liftInternref(exports.internrefFunction(a, b) >>> 0);
+      } finally {
+        __release(a);
+      }
+    },
+    functionFunction(fn) {
+      // bindings/esm/functionFunction(() => void) => () => void
+      fn = __lowerInternref(fn) || __notnull();
+      return __liftInternref(exports.functionFunction(fn) >>> 0);
+    },
+    fn: {
+      // bindings/esm/fn: () => void
+      valueOf() { return this.value; },
+      get value() {
+        return __liftInternref(exports.fn.value >>> 0);
+      }
+    },
+  }, exports);
   function __lowerRecord13(value) {
     // bindings/esm/PlainObject
     // Hint: Opt-out from lowering as a record by providing an empty constructor
@@ -255,17 +232,7 @@ export async function instantiate(module, imports = {}) {
     __setF64(pointer + 48, value.m);
     __setU32(pointer + 56, __lowerString(value.n));
     __setU32(pointer + 60, __lowerTypedArray(Uint8Array, 14, 0, value.o));
-    __setU32(
-      pointer + 64,
-      __lowerArray(
-        (pointer, value) => {
-          __setU32(pointer, __lowerString(value) || __notnull());
-        },
-        12,
-        2,
-        value.p,
-      ),
-    );
+    __setU32(pointer + 64, __lowerArray((pointer, value) => { __setU32(pointer, __lowerString(value) || __notnull()); }, 12, 2, value.p));
     exports.__unpin(pointer);
     return pointer;
   }
@@ -289,12 +256,12 @@ export async function instantiate(module, imports = {}) {
       m: __getF64(pointer + 48),
       n: __liftString(__getU32(pointer + 56)),
       o: __liftTypedArray(Uint8Array, __getU32(pointer + 60)),
-      p: __liftArray((pointer) => __liftString(__getU32(pointer)), 2, __getU32(pointer + 64)),
+      p: __liftArray(pointer => __liftString(__getU32(pointer)), 2, __getU32(pointer + 64)),
     };
   }
   function __liftBuffer(pointer) {
     if (!pointer) return null;
-    return memory.buffer.slice(pointer, pointer + new Uint32Array(memory.buffer)[(pointer - 4) >>> 2]);
+    return memory.buffer.slice(pointer, pointer + new Uint32Array(memory.buffer)[pointer - 4 >>> 2]);
   }
   function __lowerBuffer(value) {
     if (value == null) return 0;
@@ -304,16 +271,19 @@ export async function instantiate(module, imports = {}) {
   }
   function __liftString(pointer) {
     if (!pointer) return null;
-    const end = (pointer + new Uint32Array(memory.buffer)[(pointer - 4) >>> 2]) >>> 1,
+    const
+      end = pointer + new Uint32Array(memory.buffer)[pointer - 4 >>> 2] >>> 1,
       memoryU16 = new Uint16Array(memory.buffer);
-    let start = pointer >>> 1,
+    let
+      start = pointer >>> 1,
       string = "";
-    while (end - start > 1024) string += String.fromCharCode(...memoryU16.subarray(start, (start += 1024)));
+    while (end - start > 1024) string += String.fromCharCode(...memoryU16.subarray(start, start += 1024));
     return string + String.fromCharCode(...memoryU16.subarray(start, end));
   }
   function __lowerString(value) {
     if (value == null) return 0;
-    const length = value.length,
+    const
+      length = value.length,
       pointer = exports.__new(length << 1, 2) >>> 0,
       memoryU16 = new Uint16Array(memory.buffer);
     for (let i = 0; i < length; ++i) memoryU16[(pointer >>> 1) + i] = value.charCodeAt(i);
@@ -321,33 +291,40 @@ export async function instantiate(module, imports = {}) {
   }
   function __liftArray(liftElement, align, pointer) {
     if (!pointer) return null;
-    const dataStart = __getU32(pointer + 4),
+    const
+      dataStart = __getU32(pointer + 4),
       length = __dataview.getUint32(pointer + 12, true),
       values = new Array(length);
-    for (let i = 0; i < length; ++i) values[i] = liftElement(dataStart + ((i << align) >>> 0));
+    for (let i = 0; i < length; ++i) values[i] = liftElement(dataStart + (i << align >>> 0));
     return values;
   }
   function __lowerArray(lowerElement, id, align, values) {
     if (values == null) return 0;
-    const length = values.length,
+    const
+      length = values.length,
       buffer = exports.__pin(exports.__new(length << align, 1)) >>> 0,
       header = exports.__pin(exports.__new(16, id)) >>> 0;
     __setU32(header + 0, buffer);
     __dataview.setUint32(header + 4, buffer, true);
     __dataview.setUint32(header + 8, length << align, true);
     __dataview.setUint32(header + 12, length, true);
-    for (let i = 0; i < length; ++i) lowerElement(buffer + ((i << align) >>> 0), values[i]);
+    for (let i = 0; i < length; ++i) lowerElement(buffer + (i << align >>> 0), values[i]);
     exports.__unpin(buffer);
     exports.__unpin(header);
     return header;
   }
   function __liftTypedArray(constructor, pointer) {
     if (!pointer) return null;
-    return new constructor(memory.buffer, __getU32(pointer + 4), __dataview.getUint32(pointer + 8, true) / constructor.BYTES_PER_ELEMENT).slice();
+    return new constructor(
+      memory.buffer,
+      __getU32(pointer + 4),
+      __dataview.getUint32(pointer + 8, true) / constructor.BYTES_PER_ELEMENT
+    ).slice();
   }
   function __lowerTypedArray(constructor, id, align, values) {
     if (values == null) return 0;
-    const length = values.length,
+    const
+      length = values.length,
       buffer = exports.__pin(exports.__new(length << align, 1)) >>> 0,
       header = exports.__new(12, id) >>> 0;
     __setU32(header + 0, buffer);
@@ -359,19 +336,21 @@ export async function instantiate(module, imports = {}) {
   }
   function __liftStaticArray(liftElement, align, pointer) {
     if (!pointer) return null;
-    const length = __getU32(pointer - 4) >>> align,
+    const
+      length = __getU32(pointer - 4) >>> align,
       values = new Array(length);
-    for (let i = 0; i < length; ++i) values[i] = liftElement(pointer + ((i << align) >>> 0));
+    for (let i = 0; i < length; ++i) values[i] = liftElement(pointer + (i << align >>> 0));
     return values;
   }
   function __lowerStaticArray(lowerElement, id, align, values, typedConstructor) {
     if (values == null) return 0;
-    const length = values.length,
+    const
+      length = values.length,
       buffer = exports.__pin(exports.__new(length << align, id)) >>> 0;
     if (typedConstructor) {
       new typedConstructor(memory.buffer, buffer, length).set(values);
     } else {
-      for (let i = 0; i < length; i++) lowerElement(buffer + ((i << align) >>> 0), values[i]);
+      for (let i = 0; i < length; i++) lowerElement(buffer + (i << align >>> 0), values[i]);
     }
     exports.__unpin(buffer);
     return buffer;
