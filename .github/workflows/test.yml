@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: latest
       - name: Install dependencies
-        if: github.event_name == 'pull_request'
         run: npm ci --no-audit
       - name: "Check that distribution files are unmodified"
         if: github.event_name == 'pull_request'
