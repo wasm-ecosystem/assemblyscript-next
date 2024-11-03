@@ -96,7 +96,7 @@ import {
   ParameterKind,
   ParameterNode,
   TypeName,
-} from "./ast";
+} from "./ast/ast";
 
 import { Module, ExpressionRef, FunctionRef, MemorySegment, getFunctionName } from "./module";
 

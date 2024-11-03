@@ -24,7 +24,7 @@ import { Range, DiagnosticMessage, DiagnosticCategory, formatDiagnosticMessage }
 
 import { Module } from "./module";
 import { Program } from "./program";
-import { Source } from "./ast";
+import { Source } from "./ast/ast";
 
 // Options
 

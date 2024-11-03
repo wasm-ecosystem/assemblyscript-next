@@ -13,7 +13,7 @@
 
 import { Range, DiagnosticCode, DiagnosticMessage, DiagnosticEmitter } from "./diagnostics";
 
-import { Source, CommentKind } from "./ast";
+import { Source, CommentKind } from "./ast/ast";
 
 import {
   CharCode,

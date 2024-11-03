@@ -14,17 +14,17 @@
 // TODO: Make the AST more easily serializable by refactoring `Node#range` so
 // it doesn't reference the non-serializable `Source` object.
 
-import { CommonFlags, PATH_DELIMITER, LIBRARY_PREFIX, LIBRARY_SUBST } from "./common";
+import { CommonFlags, PATH_DELIMITER, LIBRARY_PREFIX, LIBRARY_SUBST } from "../common";
 
-import { Range } from "./diagnostics";
+import { Range } from "../diagnostics";
 
-import { Token } from "./tokenizer";
+import { Token } from "../tokenizer";
 
-import { normalizePath, resolvePath, CharCode } from "./util";
+import { normalizePath, resolvePath, CharCode } from "../util";
 
-import { ExpressionRef } from "./module";
+import { ExpressionRef } from "../module";
 
-import { Type } from "./types";
+import { Type } from "../types";
 
 /** Indicates the kind of a node. */
 export const enum NodeKind {

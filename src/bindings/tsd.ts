@@ -1,4 +1,4 @@
-import { Source } from "../ast";
+import { Source } from "../ast/ast";
 
 import { CommonFlags } from "../common";
 

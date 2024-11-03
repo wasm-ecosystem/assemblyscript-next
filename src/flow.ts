@@ -76,7 +76,7 @@ import { UncheckedBehavior } from "./compiler";
 
 import { DiagnosticCode } from "./diagnostics";
 
-import { Node } from "./ast";
+import { Node } from "./ast/ast";
 
 import { cloneMap } from "./util";
 

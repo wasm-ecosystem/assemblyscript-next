@@ -2,7 +2,7 @@ import "./glue/js/index";
 export * from "./index-wasm";
 
 // Full API
-export * from "./ast";
+export * from "./ast/ast";
 export * from "./common";
 export * from "./compiler";
 export * from "./bindings";

@@ -1,4 +1,4 @@
-import { NodeKind, DecoratorKind, LiteralKind, LiteralExpression, StringLiteralExpression, TemplateLiteralExpression, findDecorator, Source } from "../ast";
+import { NodeKind, DecoratorKind, LiteralKind, LiteralExpression, StringLiteralExpression, TemplateLiteralExpression, findDecorator, Source } from "../ast/ast";
 
 import { CommonFlags } from "../common";
 

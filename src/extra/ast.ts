@@ -82,7 +82,7 @@ import {
   SwitchCase,
   IndexSignatureNode,
   isTypeOmitted,
-} from "../ast";
+} from "../ast/ast";
 
 import { operatorTokenToString } from "../tokenizer";
 

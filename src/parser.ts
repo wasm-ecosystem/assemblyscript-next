@@ -68,7 +68,7 @@ import {
   WhileStatement,
   ModuleDeclaration,
   mangleInternalPath,
-} from "./ast";
+} from "./ast/ast";
 
 /** Represents a dependee. */
 class Dependee {

@@ -155,7 +155,7 @@ import {
   isTypeOmitted,
   Source,
   TypeDeclaration,
-} from "./ast";
+} from "./ast/ast";
 
 import { Type, TypeKind, TypeFlags, Signature, typesToRefs } from "./types";
 

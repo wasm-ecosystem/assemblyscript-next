@@ -36,7 +36,7 @@ import {
   LiteralExpression,
   ArrayLiteralExpression,
   IdentifierExpression,
-} from "./ast";
+} from "./ast/ast";
 
 import { Type, TypeKind, TypeFlags } from "./types";
 

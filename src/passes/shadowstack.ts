@@ -139,7 +139,7 @@ import { Feature } from "../common";
 
 import { BuiltinNames } from "../builtins";
 
-import { Source } from "../ast";
+import { Source } from "../ast/ast";
 
 type LocalIndex = Index;
 type SlotIndex = Index;

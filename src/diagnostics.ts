@@ -3,7 +3,7 @@
  * @license Apache-2.0
  */
 
-import { Source } from "./ast";
+import { Source } from "./ast/ast";
 
 import { DiagnosticCode, diagnosticCodeToString } from "./diagnosticMessages.generated";
 

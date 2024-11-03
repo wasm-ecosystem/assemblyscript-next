@@ -71,7 +71,7 @@ import {
   ArrayLiteralExpression,
   ArrowKind,
   ExpressionStatement,
-} from "./ast";
+} from "./ast/ast";
 
 import { Type, Signature, typesToString, TypeKind, TypeFlags } from "./types";
 
