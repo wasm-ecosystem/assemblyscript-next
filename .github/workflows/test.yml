@@ -116,7 +116,7 @@ jobs:
     needs: check
     steps:
       - uses: actions/checkout@v3
-      - uses: dcodeIO/setup-node-nvm@master
+      - uses: actions/setup-node@v3
         with:
           node-version: current
       - name: Install dependencies
@@ -124,6 +124,8 @@ jobs:
       - name: Build
         run: npm run build
       - name: Collect coverage
-        run: npx c8 -r none -- npm test
-      - name: Output coverage summary
-        run: npx c8 report -r text-summary
+        run: npm run coverage
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
