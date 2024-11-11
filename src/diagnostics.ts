@@ -311,14 +311,14 @@ function formatDiagnosticContext(range: Range, minLine: i32 = 0): string {
 }
 
 /** Base class of all diagnostic emitters. */
-export abstract class DiagnosticEmitter {
+export class DiagnosticEmitter {
   /** Diagnostic messages emitted so far. */
   diagnostics: DiagnosticMessage[];
   /** Diagnostic messages already seen, by range. */
   private seen: Map<Source, Map<i32, DiagnosticMessage[]>> = new Map();
 
   /** Initializes this diagnostic emitter. */
-  protected constructor(diagnostics: DiagnosticMessage[] | null = null) {
+  constructor(diagnostics: DiagnosticMessage[] | null = null) {
     if (!diagnostics) diagnostics = [];
     this.diagnostics = diagnostics;
   }

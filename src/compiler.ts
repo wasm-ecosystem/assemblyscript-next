@@ -175,12 +175,10 @@ import {
   v128_zero,
   v128_ones,
 } from "./util";
-
 import { RtraceMemory } from "./passes/rtrace";
-
 import { ShadowStackPass } from "./passes/shadowstack";
-
 import { liftRequiresExportRuntime, lowerRequiresExportRuntime } from "./bindings/js";
+import { HIRGenerator } from "./ast/gen_hir";
 
 /** Features enabled by default. */
 export const defaultFeatures = Feature.MutableGlobals | Feature.SignExtension | Feature.NontrappingF2I | Feature.BulkMemory;
@@ -510,6 +508,8 @@ export class Compiler extends DiagnosticEmitter {
     for (let _values = Map_values(files), i = 0, k = _values.length; i < k; ++i) {
       let file = unchecked(_values[i]);
       if (file.source.sourceKind == SourceKind.UserEntry) {
+        // FIXME: debug
+        new HIRGenerator(program.diagnostics).visitSource(file.source);
         this.compileFile(file);
         this.compileModuleExports(file);
       }
