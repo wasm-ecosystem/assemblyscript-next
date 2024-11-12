@@ -5,41 +5,74 @@ export namespace HIR {
     constructor(public range: Range) {}
   }
 
-  export class VarType {}
-
   export class VarDecl extends Base {
     constructor(
       public name: string,
-      public type: VarType | null,
+      public type: RefToType | null,
       range: Range,
     ) {
       super(range);
     }
     toStringImpl(ident: i32): string {
-      return `${"  ".repeat(ident)}VAR DECL: ${this.name}`;
+      return `${"  ".repeat(ident)}VAR DECL ${this.name}:${this.type}`;
     }
   }
 
-  export class FunctionDecl extends Base {}
-  export class FunctionBody extends Base {}
-
-  export class Scope extends Base {
+  export class Block extends Base {
     varDecls: VarDecl[] = [];
-    subScopes: Scope[] = [];
+    subBlocks: Block[] = [];
     stmts: Stmt[] = [];
+    index: i32;
+    static _index: i32 = 0;
+
+    constructor(
+      public parent: Block | null,
+      range: Range,
+    ) {
+      super(range);
+      this.index = Block._index++;
+      if (parent) parent.subBlocks.push(this);
+    }
 
     toStringImpl(ident: i32): string {
       const varDeclsStr = this.varDecls.map((d) => "\n" + d.toStringImpl(ident + 2)).join("");
       const stmts = this.stmts.map((s) => "\n" + s.toStringImpl(ident + 2)).join("");
-      const scopes = this.subScopes.map((s) => "\n" + s.toStringImpl(ident + 2)).join("");
-      return `${"  ".repeat(ident)}SCOPE:${varDeclsStr}${stmts}${scopes}`;
+      const scopes = this.subBlocks.map((s) => "\n" + s.toStringImpl(ident + 2)).join("");
+      return `${"  ".repeat(ident)}BLOCK ${this.index}:${varDeclsStr}${stmts}${scopes}`;
     }
     toString(): string {
       return this.toStringImpl(0);
     }
+
+    static default(): Block {
+      return new Block(null, new Range(-1, -1));
+    }
   }
 
-  export type Stmt = Assign | Drop;
+  // to resolve a.b
+  export class TypeScope {
+    typeDecls: TypeDecl[] = [];
+
+    static default(): TypeScope {
+      let res = new TypeScope();
+      res.typeDecls.push(new TypeDecl("i32", new Range(-1, -1)));
+      res.typeDecls.push(new TypeDecl("i64", new Range(-1, -1)));
+      res.typeDecls.push(new TypeDecl("f32", new Range(-1, -1)));
+      res.typeDecls.push(new TypeDecl("f64", new Range(-1, -1)));
+      return res;
+    }
+
+    find(name: string): TypeDecl | null {
+      for (let decl of this.typeDecls) {
+        if (name == decl.name) {
+          return decl;
+        }
+      }
+      return null;
+    }
+  }
+
+  export type Stmt = Assign | Drop | If | While;
 
   export class Assign extends Base {
     constructor(
@@ -63,6 +96,46 @@ export namespace HIR {
     }
     toStringImpl(ident: i32): string {
       return `${"  ".repeat(ident)}${this.expr}`;
+    }
+  }
+
+  export class If extends Base {
+    constructor(
+      public condition: Expr,
+      public trueBlock: Block,
+      public falseBlock: Block | null,
+      range: Range,
+    ) {
+      super(range);
+    }
+
+    toStringImpl(ident: i32): string {
+      return [
+        `${"  ".repeat(ident)}IF:`,
+        `${"  ".repeat(ident + 1)}COND:${this.condition}`,
+        `${"  ".repeat(ident + 1)}THEN: BLOCK ${this.trueBlock.index}`,
+        this.falseBlock ? `${"  ".repeat(ident + 1)}ELSE: BLOCK ${this.falseBlock.index}` : null,
+      ]
+        .filter((v) => v != null)
+        .join("\n");
+    }
+  }
+
+  export class While extends Base {
+    constructor(
+      public condition: Expr,
+      public block: Block,
+      range: Range,
+    ) {
+      super(range);
+    }
+
+    toStringImpl(ident: i32): string {
+      return [
+        `${"  ".repeat(ident)}WHILE:`,
+        `${"  ".repeat(ident + 1)}COND:${this.condition}`,
+        `${"  ".repeat(ident + 1)}BODY: BLOCK ${this.block.index}`,
+      ].join("\n");
     }
   }
 
@@ -105,10 +178,11 @@ export namespace HIR {
   }
 
   export enum BinaryOp {
-    Add,
-    Dec,
-    Mul,
-    Div,
+    add,
+    dec,
+    mul,
+    div,
+    equal,
   }
   export class BinaryOperator extends Base {
     constructor(
@@ -120,7 +194,29 @@ export namespace HIR {
       super(range);
     }
     toString(): string {
-      return `${this.lhs} ${BinaryOp[this.op]} ${this.rhs}`;
+      return `(${BinaryOp[this.op]} ${this.lhs} ${this.rhs})`;
+    }
+  }
+
+  export class TypeDecl extends Base {
+    constructor(
+      public name: String,
+      range: Range,
+    ) {
+      super(range);
+    }
+  }
+
+  export class RefToType extends Base {
+    constructor(
+      public decl: TypeDecl,
+      range: Range,
+    ) {
+      super(range);
+    }
+
+    toString(): String {
+      return `type(${this.decl.name})`;
     }
   }
 }

@@ -417,6 +417,7 @@ export class DiagnosticEmitter {
 
   /** Emits an error diagnostic message. */
   error(code: DiagnosticCode, range: Range | null, arg0: string | null = null, arg1: string | null = null, arg2: string | null = null): void {
+    console.trace();
     this.emitDiagnostic(code, DiagnosticCategory.Error, range, null, arg0, arg1, arg2);
   }
 
