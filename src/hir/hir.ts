@@ -18,6 +18,16 @@ export namespace HIR {
     }
   }
 
+  export class GlobalFuncDeclRef extends VarDecl {
+    decl: VarDecl | null = null;
+    constructor(name: string, range: Range) {
+      super(name, null, range);
+    }
+    toStringImpl(ident: i32): string {
+      return `${"  ".repeat(ident)}GLOBAL FUNC REF ${this.name}`;
+    }
+  }
+
   export class Block extends Base {
     varDecls: VarDecl[] = [];
     subBlocks: Block[] = [];
@@ -42,6 +52,9 @@ export namespace HIR {
     }
     toString(): string {
       return this.toStringImpl(0);
+    }
+    toSimpleString(): string {
+      return `BLOCK ${this.index}`;
     }
 
     static default(): Block {
@@ -134,12 +147,14 @@ export namespace HIR {
       return [
         `${"  ".repeat(ident)}WHILE:`,
         `${"  ".repeat(ident + 1)}COND:${this.condition}`,
-        `${"  ".repeat(ident + 1)}BODY: BLOCK ${this.block.index}`,
+        `${"  ".repeat(ident + 1)}BODY: ${this.block.toSimpleString()}`,
       ].join("\n");
     }
   }
 
-  export type Expr = RefToDecl | IntegerLiteral | FloatLiteral | BinaryOperator;
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  export type Expr = RefToDecl | IntegerLiteral | FloatLiteral | BinaryOperator | FuncExpr | Call;
 
   export class IntegerLiteral extends Base {
     constructor(
@@ -198,6 +213,34 @@ export namespace HIR {
     }
   }
 
+  export class FuncExpr extends Base {
+    constructor(
+      public body: Block,
+      range: Range,
+    ) {
+      super(range);
+    }
+    toString(): string {
+      return `(FUNC ${this.body.toSimpleString()})`;
+    }
+  }
+
+  export class Call extends Base {
+    constructor(
+      public expr: Expr,
+      public args: Expr[],
+      range: Range,
+    ) {
+      super(range);
+    }
+
+    toString(): string {
+      return `(CALL ${this.expr} (${this.args.map((arg) => arg.toString()).join(",")}))`;
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   export class TypeDecl extends Base {
     constructor(
       public name: String,
@@ -219,4 +262,6 @@ export namespace HIR {
       return `type(${this.decl.name})`;
     }
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

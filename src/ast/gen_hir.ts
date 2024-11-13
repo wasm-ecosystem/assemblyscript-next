@@ -10,6 +10,18 @@ function isArrayEmpty<T>(v: T[] | null): bool {
 
 const nativeRange = AST.Source.native.range;
 
+export class FilePreVisitor extends AstVisitor {
+  constructor(private fileBlock: HIR.Block) {
+    super();
+  }
+  override visitFunctionDeclaration(node: AST.FunctionDeclaration): void {
+    if (this.parent?.kind == AST.NodeKind.Source) {
+      let functionDecl = new HIR.GlobalFuncDeclRef(node.name.text, node.name.range);
+      this.fileBlock.varDecls.push(functionDecl);
+    }
+  }
+}
+
 export class HIRGenerator extends AstVisitor {
   constructor(message: DiagnosticMessage[]) {
     super();
@@ -45,9 +57,39 @@ export class HIRGenerator extends AstVisitor {
   }
 
   override visitSource(node: AST.Source): void {
-    this.enterBlock(new HIR.Block(this.currentBlock, node.range));
-    super.visitSource(node);
+    let fileBlock = new HIR.Block(this.currentBlock, node.range);
+    this.enterBlock(fileBlock);
+    new FilePreVisitor(fileBlock).visitNode(node);
+    {
+      let sourceBlock = new HIR.Block(this.currentBlock, node.range);
+      this.enterBlock(sourceBlock);
+      super.visitSource(node);
+      this.exitBlock();
+    }
     console.log(this.currentBlock.toString());
+    this.exitBlock();
+  }
+
+  override visitFunctionDeclaration(node: AST.FunctionDeclaration): void {
+    let functionDecl = new HIR.VarDecl(node.name.text, null, node.name.range);
+    this.currentBlock.varDecls.push(functionDecl);
+    let functionBlock = new HIR.Block(this.currentBlock, node.range);
+    this.currentBlock.stmts.push(new HIR.Assign(new HIR.RefToDecl(functionDecl, node.name.range), new HIR.FuncExpr(functionBlock, node.range), node.range));
+    this.enterBlock(functionBlock);
+    for (let parameter of node.signature.parameters) {
+      if (parameter.parameterKind != AST.ParameterKind.Default) this.error(DiagnosticCode.Not_implemented_0, parameter.range, "convert to HIR");
+      if (parameter.initializer) this.error(DiagnosticCode.Not_implemented_0, parameter.initializer.range, "convert to HIR");
+      let parameterType: HIR.RefToType | null = null;
+      if (parameter.type != null) parameterType = this.convertTypeNode(parameter.type);
+      this.currentBlock.varDecls.push(new HIR.VarDecl(parameter.name.text, parameterType, parameter.range));
+    }
+    this.visitNode(node.body);
+    this.exitBlock();
+  }
+
+  override visitBlockStatement(node: AST.BlockStatement): void {
+    this.enterBlock(new HIR.Block(this.currentBlock, node.range));
+    super.visitBlockStatement(node);
     this.exitBlock();
   }
 
@@ -114,6 +156,10 @@ export class HIRGenerator extends AstVisitor {
         return this.convertIdentifierExpression(<AST.IdentifierExpression>node);
       case AST.NodeKind.Binary:
         return this.convertBinaryExpression(<AST.BinaryExpression>node);
+      case AST.NodeKind.Call:
+        return this.convertCallExpression(<AST.CallExpression>node);
+      case AST.NodeKind.Function:
+        return this.convertFunctionExpression(<AST.FunctionExpression>node);
       default:
         return this.error(DiagnosticCode.Not_implemented_0, node.range, "convert to HIR");
     }
@@ -185,6 +231,33 @@ export class HIRGenerator extends AstVisitor {
     this.currentBlock.stmts.push(new HIR.Assign(assignee, refToDecl, node.range));
 
     return refToDecl;
+  }
+
+  convertCallExpression(node: AST.CallExpression): HIR.Expr | null {
+    let expr = this.convertExpression(node.expression);
+    if (expr == null) return null;
+    let args: HIR.Expr[] = [];
+    for (let arg of node.args) {
+      let argExpr = this.convertExpression(arg);
+      if (argExpr == null) return null;
+      args.push(argExpr);
+    }
+    return new HIR.Call(expr, args, node.range);
+  }
+
+  convertFunctionExpression(node: AST.FunctionExpression): HIR.Expr | null {
+    let functionBlock = new HIR.Block(this.currentBlock, node.range);
+    this.enterBlock(functionBlock);
+    for (let parameter of node.declaration.signature.parameters) {
+      if (parameter.parameterKind != AST.ParameterKind.Default) this.error(DiagnosticCode.Not_implemented_0, parameter.range, "convert to HIR");
+      if (parameter.initializer) this.error(DiagnosticCode.Not_implemented_0, parameter.initializer.range, "convert to HIR");
+      let parameterType: HIR.RefToType | null = null;
+      if (parameter.type != null) parameterType = this.convertTypeNode(parameter.type);
+      this.currentBlock.varDecls.push(new HIR.VarDecl(parameter.name.text, parameterType, parameter.range));
+    }
+    this.visitNode(node.declaration.body);
+    this.exitBlock();
+    return new HIR.FuncExpr(functionBlock, node.range);
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

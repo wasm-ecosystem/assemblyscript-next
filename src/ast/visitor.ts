@@ -325,10 +325,15 @@ export class AstVisitor {
       this.visitNode(unchecked(nodes[i]));
     }
   }
+  private _parents: Node[] = [];
+  get parent(): Node | null {
+    return this._parents.length < 2 ? null : this._parents[this._parents.length - 2];
+  }
   visitNode(node: Node | null): void {
     if (node == null) {
       return;
     }
+    this._parents.push(node);
     switch (node.kind) {
       case NodeKind.Source:
         this.visitSource(<Source>node);
@@ -541,5 +546,6 @@ export class AstVisitor {
         this.visitCommentNode(<CommentNode>node);
         break;
     }
+    this._parents.pop();
   }
 }
